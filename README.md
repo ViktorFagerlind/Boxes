@@ -6,7 +6,7 @@
 * Install gRPC according to https://grpc.io/docs/quickstart/cpp/. Use MY_INSTALL_DIR=~/.grpc
 * clone this git repo
 
-### Python
+### Python installation
 * Create python 3.7 virtual environment
   > conda create -n python37 python=3.7
 * Activate environment
@@ -25,6 +25,10 @@
   > cmake -DCMAKE_PREFIX_PATH=~/.grpc ../..
 * Build programs
   > make -j
+
+## Prepare Python program
+* Generate Python RPC definitions
+  > python -m grpc_tools.protoc -I../protos --python_out=. --grpc_python_out=. ../protos/helloworld.proto
 
 ## Run C++ together with Python
 * Open up two terminals and go to /cpp/ and /python/ respectively
