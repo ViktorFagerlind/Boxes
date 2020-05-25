@@ -24,29 +24,29 @@
 #include <grpcpp/health_check_service_interface.h>
 #include <grpcpp/ext/proto_server_reflection_plugin.h>
 
-#include "helloworld.grpc.pb.h"
+#include "table.grpc.pb.h"
 
 using grpc::Server;
 using grpc::ServerBuilder;
 using grpc::ServerContext;
 using grpc::Status;
-using helloworld::HelloRequest;
-using helloworld::HelloReply;
-using helloworld::Greeter;
+using tableservices::Query;
+using tableservices::Table;
+using tableservices::TableQuery;
 
 // Logic and data behind the server's behavior.
-class GreeterServiceImpl final : public Greeter::Service {
-  Status SayHello(ServerContext* context, const HelloRequest* request,
-                  HelloReply* reply) override {
-    std::string prefix("Hello ");
+class TableQueryServiceImpl final : public TableQuery::Service {
+  Status GetTable(ServerContext* context, const Query* request,
+                  Table* reply) override {
+    std::string prefix("x^2 + 2x + 3");
     reply->set_message(prefix + request->name());
     return Status::OK;
   }
 };
 
 void RunServer() {
-  std::string server_address("0.0.0.0:50051");
-  GreeterServiceImpl service;
+  std::string server_address("0.0.0.0:50052");
+  TableQueryServiceImpl service;
 
   grpc::EnableDefaultHealthCheckService(true);
   grpc::reflection::InitProtoReflectionServerBuilderPlugin();

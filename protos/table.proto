@@ -1,0 +1,21 @@
+//
+
+syntax = "proto3";
+
+package tableservices;
+
+// 
+service TableQuery {
+  // Sends a greeting
+  rpc GetTable (Query) returns (Table) {}
+}
+
+// 
+message Query {
+  string name = 1;
+}
+
+// 
+message Table {
+  string message = 1;
+}

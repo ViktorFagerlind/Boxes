@@ -28,8 +28,12 @@
 
 ## Prepare Python program
 * Generate Python RPC definitions
-  > python -m grpc_tools.protoc -I../protos --python_out=. --grpc_python_out=. ../protos/helloworld.proto
+  > python -m grpc_tools.protoc -I../protos --python_out=. --grpc_python_out=. ../protos/table.proto
 
 ## Run C++ together with Python
 * Open up two terminals and go to /cpp/ and /python/ respectively
-* run greeter_server on one, greeter_client on the other
+* start the servers; algorithm_server and csv_connector_server.py
+* run data_engine.py 
+
+## Demo Architecure
+See demo_architecture.png
