@@ -31,13 +31,13 @@ using grpc::ServerBuilder;
 using grpc::ServerContext;
 using grpc::Status;
 using tableservices::Query;
-using tableservices::Table;
-using tableservices::TableQuery;
+using tableservices::Answer;
+using tableservices::Algorithms;
 
 // Logic and data behind the server's behavior.
-class TableQueryServiceImpl final : public TableQuery::Service {
-  Status GetTable(ServerContext* context, const Query* request,
-                  Table* reply) override {
+class AlgorithmsServiceImpl final : public Algorithms::Service {
+  Status Average(ServerContext* context, const Query* request,
+                  Answer* reply) override {
     std::string prefix("x^2 + 2x + 3");
     reply->set_message(prefix + request->name());
     return Status::OK;
@@ -46,7 +46,7 @@ class TableQueryServiceImpl final : public TableQuery::Service {
 
 void RunServer() {
   std::string server_address("0.0.0.0:50052");
-  TableQueryServiceImpl service;
+  AlgorithmsServiceImpl service;
 
   grpc::EnableDefaultHealthCheckService(true);
   grpc::reflection::InitProtoReflectionServerBuilderPlugin();
