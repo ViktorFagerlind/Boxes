@@ -13,12 +13,17 @@ service TableQuery {
 // 
 service Algorithms {
   // 
-  rpc Average (Query) returns (Answer) {}
+  rpc Average (DoubleList) returns (DoubleValue) {}
 }
 
 // 
-message Answer {
-  string message = 1;
+message DoubleList {
+  repeated double values = 1;
+}
+
+// 
+message DoubleValue {
+  double value = 1;
 }
 
 // 

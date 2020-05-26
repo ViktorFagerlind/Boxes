@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='tableservices',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x0btable.proto\x12\rtableservices\"\x19\n\x06\x41nswer\x12\x0f\n\x07message\x18\x01 \x01(\t\"\x15\n\x05Query\x12\x0c\n\x04name\x18\x01 \x01(\t\"/\n\x05Table\x12&\n\x07\x63olumns\x18\x01 \x03(\x0b\x32\x15.tableservices.Column\"g\n\x06\x43olumn\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\'\n\x04type\x18\x02 \x01(\x0e\x32\x19.tableservices.ColumnType\x12\x12\n\nstr_values\x18\x03 \x03(\t\x12\x12\n\ndec_values\x18\x04 \x03(\x01*1\n\nColumnType\x12\n\n\x06UNUSED\x10\x00\x12\x0b\n\x07\x44\x45\x43IMAL\x10\x01\x12\n\n\x06STRING\x10\x02\x32\x46\n\nTableQuery\x12\x38\n\x08GetTable\x12\x14.tableservices.Query\x1a\x14.tableservices.Table\"\x00\x32\x46\n\nAlgorithms\x12\x38\n\x07\x41verage\x12\x14.tableservices.Query\x1a\x15.tableservices.Answer\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x0btable.proto\x12\rtableservices\"\x1c\n\nDoubleList\x12\x0e\n\x06values\x18\x01 \x03(\x01\"\x1c\n\x0b\x44oubleValue\x12\r\n\x05value\x18\x01 \x01(\x01\"\x15\n\x05Query\x12\x0c\n\x04name\x18\x01 \x01(\t\"/\n\x05Table\x12&\n\x07\x63olumns\x18\x01 \x03(\x0b\x32\x15.tableservices.Column\"g\n\x06\x43olumn\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\'\n\x04type\x18\x02 \x01(\x0e\x32\x19.tableservices.ColumnType\x12\x12\n\nstr_values\x18\x03 \x03(\t\x12\x12\n\ndec_values\x18\x04 \x03(\x01*1\n\nColumnType\x12\n\n\x06UNUSED\x10\x00\x12\x0b\n\x07\x44\x45\x43IMAL\x10\x01\x12\n\n\x06STRING\x10\x02\x32\x46\n\nTableQuery\x12\x38\n\x08GetTable\x12\x14.tableservices.Query\x1a\x14.tableservices.Table\"\x00\x32P\n\nAlgorithms\x12\x42\n\x07\x41verage\x12\x19.tableservices.DoubleList\x1a\x1a.tableservices.DoubleValue\"\x00\x62\x06proto3'
 )
 
 _COLUMNTYPE = _descriptor.EnumDescriptor(
@@ -43,8 +43,8 @@ _COLUMNTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=234,
-  serialized_end=283,
+  serialized_start=267,
+  serialized_end=316,
 )
 _sym_db.RegisterEnumDescriptor(_COLUMNTYPE)
 
@@ -55,17 +55,17 @@ STRING = 2
 
 
 
-_ANSWER = _descriptor.Descriptor(
-  name='Answer',
-  full_name='tableservices.Answer',
+_DOUBLELIST = _descriptor.Descriptor(
+  name='DoubleList',
+  full_name='tableservices.DoubleList',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='message', full_name='tableservices.Answer.message', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
+      name='values', full_name='tableservices.DoubleList.values', index=0,
+      number=1, type=1, cpp_type=5, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -82,7 +82,38 @@ _ANSWER = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=30,
-  serialized_end=55,
+  serialized_end=58,
+)
+
+
+_DOUBLEVALUE = _descriptor.Descriptor(
+  name='DoubleValue',
+  full_name='tableservices.DoubleValue',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='value', full_name='tableservices.DoubleValue.value', index=0,
+      number=1, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=60,
+  serialized_end=88,
 )
 
 
@@ -112,8 +143,8 @@ _QUERY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=57,
-  serialized_end=78,
+  serialized_start=90,
+  serialized_end=111,
 )
 
 
@@ -143,8 +174,8 @@ _TABLE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=80,
-  serialized_end=127,
+  serialized_start=113,
+  serialized_end=160,
 )
 
 
@@ -195,25 +226,33 @@ _COLUMN = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=129,
-  serialized_end=232,
+  serialized_start=162,
+  serialized_end=265,
 )
 
 _TABLE.fields_by_name['columns'].message_type = _COLUMN
 _COLUMN.fields_by_name['type'].enum_type = _COLUMNTYPE
-DESCRIPTOR.message_types_by_name['Answer'] = _ANSWER
+DESCRIPTOR.message_types_by_name['DoubleList'] = _DOUBLELIST
+DESCRIPTOR.message_types_by_name['DoubleValue'] = _DOUBLEVALUE
 DESCRIPTOR.message_types_by_name['Query'] = _QUERY
 DESCRIPTOR.message_types_by_name['Table'] = _TABLE
 DESCRIPTOR.message_types_by_name['Column'] = _COLUMN
 DESCRIPTOR.enum_types_by_name['ColumnType'] = _COLUMNTYPE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-Answer = _reflection.GeneratedProtocolMessageType('Answer', (_message.Message,), {
-  'DESCRIPTOR' : _ANSWER,
+DoubleList = _reflection.GeneratedProtocolMessageType('DoubleList', (_message.Message,), {
+  'DESCRIPTOR' : _DOUBLELIST,
   '__module__' : 'table_pb2'
-  # @@protoc_insertion_point(class_scope:tableservices.Answer)
+  # @@protoc_insertion_point(class_scope:tableservices.DoubleList)
   })
-_sym_db.RegisterMessage(Answer)
+_sym_db.RegisterMessage(DoubleList)
+
+DoubleValue = _reflection.GeneratedProtocolMessageType('DoubleValue', (_message.Message,), {
+  'DESCRIPTOR' : _DOUBLEVALUE,
+  '__module__' : 'table_pb2'
+  # @@protoc_insertion_point(class_scope:tableservices.DoubleValue)
+  })
+_sym_db.RegisterMessage(DoubleValue)
 
 Query = _reflection.GeneratedProtocolMessageType('Query', (_message.Message,), {
   'DESCRIPTOR' : _QUERY,
@@ -244,8 +283,8 @@ _TABLEQUERY = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=285,
-  serialized_end=355,
+  serialized_start=318,
+  serialized_end=388,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetTable',
@@ -268,16 +307,16 @@ _ALGORITHMS = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=1,
   serialized_options=None,
-  serialized_start=357,
-  serialized_end=427,
+  serialized_start=390,
+  serialized_end=470,
   methods=[
   _descriptor.MethodDescriptor(
     name='Average',
     full_name='tableservices.Algorithms.Average',
     index=0,
     containing_service=None,
-    input_type=_QUERY,
-    output_type=_ANSWER,
+    input_type=_DOUBLELIST,
+    output_type=_DOUBLEVALUE,
     serialized_options=None,
   ),
 ])

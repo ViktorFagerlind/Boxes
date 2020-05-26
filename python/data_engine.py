@@ -7,11 +7,12 @@ import table_pb2_grpc
 
 from prototables import prototable_to_df
 
-def apply_alorithm(name):
+def average(values):
     with grpc.insecure_channel('localhost:50052') as channel:
         stub = table_pb2_grpc.AlgorithmsStub(channel)
-        response = stub.Average(table_pb2.Query(name=name))
-        logging.info('Algorithm received: ' + str(response))
+        response = stub.Average(table_pb2.DoubleList(values=values))
+
+        return response.value
 
 def get_table(name):
     with grpc.insecure_channel('localhost:50051') as channel:
@@ -22,9 +23,10 @@ def get_table(name):
 
 def run():
     df = get_table('swim.csv')
-    logging.debug(df)
+    print(df)
 
-    apply_alorithm('Data engine')
+    avg = average([2,7])
+    print('\n\nAverage: %f' % avg)
 
 if __name__ == '__main__':
     logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)

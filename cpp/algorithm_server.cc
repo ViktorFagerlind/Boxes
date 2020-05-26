@@ -30,21 +30,27 @@ using grpc::Server;
 using grpc::ServerBuilder;
 using grpc::ServerContext;
 using grpc::Status;
-using tableservices::Query;
-using tableservices::Answer;
+using tableservices::DoubleList;
+using tableservices::DoubleValue;
 using tableservices::Algorithms;
 
 // Logic and data behind the server's behavior.
-class AlgorithmsServiceImpl final : public Algorithms::Service {
-  Status Average(ServerContext* context, const Query* request,
-                  Answer* reply) override {
-    std::string prefix("x^2 + 2x + 3");
-    reply->set_message(prefix + request->name());
+class AlgorithmsServiceImpl final : public Algorithms::Service 
+{
+  Status Average(ServerContext* context, const DoubleList* request, DoubleValue* reply) override 
+  {
+    double sum = 0.0;
+    for (int i=0; i<request->values_size(); i++)
+      sum += request->values(i);
+
+    reply->set_value(sum/(double)request->values_size());
+
     return Status::OK;
   }
 };
 
-void RunServer() {
+void RunServer() 
+{
   std::string server_address("0.0.0.0:50052");
   AlgorithmsServiceImpl service;
 
@@ -65,7 +71,8 @@ void RunServer() {
   server->Wait();
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv) 
+{
   RunServer();
 
   return 0;

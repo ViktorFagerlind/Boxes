@@ -80,8 +80,8 @@ class AlgorithmsStub(object):
         """
         self.Average = channel.unary_unary(
                 '/tableservices.Algorithms/Average',
-                request_serializer=table__pb2.Query.SerializeToString,
-                response_deserializer=table__pb2.Answer.FromString,
+                request_serializer=table__pb2.DoubleList.SerializeToString,
+                response_deserializer=table__pb2.DoubleValue.FromString,
                 )
 
 
@@ -101,8 +101,8 @@ def add_AlgorithmsServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'Average': grpc.unary_unary_rpc_method_handler(
                     servicer.Average,
-                    request_deserializer=table__pb2.Query.FromString,
-                    response_serializer=table__pb2.Answer.SerializeToString,
+                    request_deserializer=table__pb2.DoubleList.FromString,
+                    response_serializer=table__pb2.DoubleValue.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -126,7 +126,7 @@ class Algorithms(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/tableservices.Algorithms/Average',
-            table__pb2.Query.SerializeToString,
-            table__pb2.Answer.FromString,
+            table__pb2.DoubleList.SerializeToString,
+            table__pb2.DoubleValue.FromString,
             options, channel_credentials,
             call_credentials, compression, wait_for_ready, timeout, metadata)
