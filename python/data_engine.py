@@ -25,8 +25,9 @@ def run():
     df = get_table('swim.csv')
     print(df)
 
-    avg = average([2,7])
-    print('\n\nAverage: %f' % avg)
+    key = 'Totalt antal simtag'
+    avg = average(df[key])
+    print('\n\nAverage of %s: %f' % (key, avg))
 
 if __name__ == '__main__':
     logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
