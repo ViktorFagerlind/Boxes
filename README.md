@@ -43,8 +43,12 @@
 * Open a terminal and browse to the 'js' folder in this project.
 * Install Node package dependencies:
   > yarn install
+  > brew install yarn (OSX)
+  > yarn (OSX)
 * Build and start the application:
   > yarn start
+* Use Visual Studio
+  > TODO
 
 ## Demo Architecure
 See demo_architecture.png
