@@ -14,6 +14,10 @@
 * Install gRPC
   > python -m pip install grpcio
   > python -m pip install grpcio-tools
+  
+### JavaScript installation
+* Download and install Node.js from https://nodejs.org/en/download/
+* Download and install Yarn package manager from: https://classic.yarnpkg.com/en/docs/install/
 
 ## Build C++ programs
 * Go to /cpp folder
@@ -34,6 +38,13 @@
 * Open up two terminals and go to /cpp/ and /python/ respectively
 * start the servers; algorithm_server and csv_connector_server.py
 * run data_engine.py 
+
+## Build Electron (GUI) program
+* Open a terminal and browse to the 'js' folder in this project.
+* Install Node package dependencies:
+  > yarn install
+* Build and start the application:
+  > yarn start
 
 ## Demo Architecure
 See demo_architecture.png
