@@ -12,7 +12,7 @@
 * Activate environment
   > conda activate python37
 * Install gRPC
-  > python -m pip install grpcio
+  > python -m pip install grpcio<br>
   > python -m pip install grpcio-tools
   
 ### JavaScript installation
