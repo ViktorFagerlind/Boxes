@@ -2,58 +2,74 @@
 
 syntax = "proto3";
 
-package tableservices;
+package boxes;
 
-// 
-service TableQuery {
-  // 
-  rpc GetTable (Query) returns (Table) {}
+// ---------------------------------------------------------------------------------------------------------------------
+
+service Connector {
+  // Hämta tabell
+  rpc GetTable (TableName) returns (Table) {}
+  rpc GetTableNames () returns (TableNames) {}
 }
 
-// 
-service Algorithms {
-  // 
-  rpc Average (DoubleList) returns (DoubleValue) {}
+message TableName {
+  string n = 1;
 }
 
-// 
-service DataEngine {
-  // 
-  rpc GetPlotData (Query) returns (DoubleValue) {}
+message TableNames {
+  repeated string n = 1;
 }
 
-// 
-message DoubleList {
-  repeated double values = 1;
-}
-
-// 
-message DoubleValue {
-  double value = 1;
-}
-
-// 
-message Query {
-  string name = 1;
-}
-
-//
 message Table {
     repeated Column columns = 1;
 }
 
-//
 enum ColumnType {
     UNUSED  = 0;
     DECIMAL = 1;
     STRING  = 2;
 }
 
-//
 message Column {
     string name = 1;
     ColumnType type = 2;
     repeated string str_values = 3;
     repeated double dec_values = 4;
+}
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+service Algorithms {
+  rpc Max (DoubleList) returns (DoubleValue) {}
+  rpc Min (DoubleList) returns (DoubleValue) {}
+  rpc Average (DoubleList) returns (DoubleValue) {}
+  rpc Median (DoubleList) returns (DoubleValue) {}
+}
+
+message DoubleList {
+  repeated double values = 1;
+}
+
+message DoubleValue {
+  double value = 1;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+// 
+service DataEngine {
+  // Data engine känner till alla tabeller i alla connectorer
+  // Den håller en tabell med alla tabeller och huruvida de är laddade eller ej
+  // Den laddar tabeller till en sqlite in memory databas vid behov, mha namnkonvention borde vi kunna hitta tabeller i queries
+
+  // Plot x antal axlar
+  // Axel kategorisk eller numerisk
+  rpc ExecuteQuery (Query) returns (Table) {}
+}
+
+
+message Query {
+  string q = 1;
 }
 
