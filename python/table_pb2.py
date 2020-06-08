@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='tableservices',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x0btable.proto\x12\rtableservices\"\x1c\n\nDoubleList\x12\x0e\n\x06values\x18\x01 \x03(\x01\"\x1c\n\x0b\x44oubleValue\x12\r\n\x05value\x18\x01 \x01(\x01\"\x15\n\x05Query\x12\x0c\n\x04name\x18\x01 \x01(\t\"/\n\x05Table\x12&\n\x07\x63olumns\x18\x01 \x03(\x0b\x32\x15.tableservices.Column\"g\n\x06\x43olumn\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\'\n\x04type\x18\x02 \x01(\x0e\x32\x19.tableservices.ColumnType\x12\x12\n\nstr_values\x18\x03 \x03(\t\x12\x12\n\ndec_values\x18\x04 \x03(\x01*1\n\nColumnType\x12\n\n\x06UNUSED\x10\x00\x12\x0b\n\x07\x44\x45\x43IMAL\x10\x01\x12\n\n\x06STRING\x10\x02\x32\x46\n\nTableQuery\x12\x38\n\x08GetTable\x12\x14.tableservices.Query\x1a\x14.tableservices.Table\"\x00\x32P\n\nAlgorithms\x12\x42\n\x07\x41verage\x12\x19.tableservices.DoubleList\x1a\x1a.tableservices.DoubleValue\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x0btable.proto\x12\rtableservices\"\x1c\n\nDoubleList\x12\x0e\n\x06values\x18\x01 \x03(\x01\"\x1c\n\x0b\x44oubleValue\x12\r\n\x05value\x18\x01 \x01(\x01\"\x15\n\x05Query\x12\x0c\n\x04name\x18\x01 \x01(\t\"/\n\x05Table\x12&\n\x07\x63olumns\x18\x01 \x03(\x0b\x32\x15.tableservices.Column\"g\n\x06\x43olumn\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\'\n\x04type\x18\x02 \x01(\x0e\x32\x19.tableservices.ColumnType\x12\x12\n\nstr_values\x18\x03 \x03(\t\x12\x12\n\ndec_values\x18\x04 \x03(\x01*1\n\nColumnType\x12\n\n\x06UNUSED\x10\x00\x12\x0b\n\x07\x44\x45\x43IMAL\x10\x01\x12\n\n\x06STRING\x10\x02\x32\x46\n\nTableQuery\x12\x38\n\x08GetTable\x12\x14.tableservices.Query\x1a\x14.tableservices.Table\"\x00\x32P\n\nAlgorithms\x12\x42\n\x07\x41verage\x12\x19.tableservices.DoubleList\x1a\x1a.tableservices.DoubleValue\"\x00\x32O\n\nDataEngine\x12\x41\n\x0bGetPlotData\x12\x14.tableservices.Query\x1a\x1a.tableservices.DoubleValue\"\x00\x62\x06proto3'
 )
 
 _COLUMNTYPE = _descriptor.EnumDescriptor(
@@ -323,5 +323,29 @@ _ALGORITHMS = _descriptor.ServiceDescriptor(
 _sym_db.RegisterServiceDescriptor(_ALGORITHMS)
 
 DESCRIPTOR.services_by_name['Algorithms'] = _ALGORITHMS
+
+
+_DATAENGINE = _descriptor.ServiceDescriptor(
+  name='DataEngine',
+  full_name='tableservices.DataEngine',
+  file=DESCRIPTOR,
+  index=2,
+  serialized_options=None,
+  serialized_start=472,
+  serialized_end=551,
+  methods=[
+  _descriptor.MethodDescriptor(
+    name='GetPlotData',
+    full_name='tableservices.DataEngine.GetPlotData',
+    index=0,
+    containing_service=None,
+    input_type=_QUERY,
+    output_type=_DOUBLEVALUE,
+    serialized_options=None,
+  ),
+])
+_sym_db.RegisterServiceDescriptor(_DATAENGINE)
+
+DESCRIPTOR.services_by_name['DataEngine'] = _DATAENGINE
 
 # @@protoc_insertion_point(module_scope)

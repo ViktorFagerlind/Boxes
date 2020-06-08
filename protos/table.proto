@@ -17,6 +17,12 @@ service Algorithms {
 }
 
 // 
+service DataEngine {
+  // 
+  rpc GetPlotData (Query) returns (DoubleValue) {}
+}
+
+// 
 message DoubleList {
   repeated double values = 1;
 }
