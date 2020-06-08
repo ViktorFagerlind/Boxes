@@ -1,5 +1,3 @@
-//
-
 syntax = "proto3";
 
 package boxes;
@@ -9,6 +7,7 @@ package boxes;
 service Connector {
   // Hämta tabell
   rpc GetTable (TableName) returns (Table) {}
+  // Lista tillgängliga tabeller
   rpc GetTableNames () returns (TableNames) {}
 }
 
