@@ -2,6 +2,14 @@
 ## Prerequisites
 * Use OS X
 
+### Consul installation
+* Download consul: https://www.hashicorp.com/products/consul/
+* Install consul
+* run consul
+  > consul agent -dev -ui -datacenter zone1 -node host1
+
+https://thenewstack.io/implementing-service-discovery-of-microservices-with-consul/
+
 ### C++ installation
 * Install gRPC according to https://grpc.io/docs/quickstart/cpp/. Use MY_INSTALL_DIR=~/.grpc
 * clone this git repo
@@ -48,3 +56,6 @@
 
 ## Demo Architecure
 See demo_architecture.png
+
+## Nice links
+* http://flagzeta.org/blog/a-python-microservice-stack/
