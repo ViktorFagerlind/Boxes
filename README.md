@@ -3,6 +3,11 @@
 * Use OS X
 
 ### Consul installation
+* Download consul: https://www.hashicorp.com/products/consul/
+* Install consul
+* run consul
+  > consul agent -dev -ui -datacenter zone1 -node host1
+
 https://thenewstack.io/implementing-service-discovery-of-microservices-with-consul/
 
 ### C++ installation
