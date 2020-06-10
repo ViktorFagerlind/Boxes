@@ -1,12 +1,12 @@
 from concurrent import futures
 import logging
-
 import grpc
 
 import table_pb2
 import table_pb2_grpc
 
 from prototables import prototable_to_df
+from servicediscover import consul_find_service
 
 def average(values):
     with grpc.insecure_channel('localhost:50052') as channel:
@@ -16,7 +16,9 @@ def average(values):
         return response.value
 
 def get_table(name):
-    with grpc.insecure_channel('localhost:50051') as channel:
+    (ip, port) = consul_find_service('Connector')
+
+    with grpc.insecure_channel(ip + ':' + str(port)) as channel:
         stub = table_pb2_grpc.TableQueryStub(channel)
         proto_table = stub.GetTable(table_pb2.Query(name=name))
 
