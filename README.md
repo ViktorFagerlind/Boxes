@@ -7,6 +7,7 @@
 * Install consul
 * run consul
   > consul agent -dev -ui -datacenter zone1 -node host1
+* Monitor consul at http://localhost:8500/ui
 
 https://thenewstack.io/implementing-service-discovery-of-microservices-with-consul/
 
