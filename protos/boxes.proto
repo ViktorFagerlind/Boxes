@@ -4,36 +4,34 @@ package boxes;
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-service DataSource {
-  // List available tables
-  rpc GetTableNames ()            returns (TableNames) {}
-
-  // Get table schema
-  rpc GetTableSchema (TableName)  returns (TableSchema) {}
+service Connector {
+  // Get table schemas
+  rpc GetTableSchemas ()  returns (TableSchemas) {}
 
   // Get table contents
-  rpc GetTable (TableName)        returns (Table) {}
+  rpc GetTable (TableName)  returns (TableSchemas) {}
 }
   
 message TableName {
   string n = 1;
 }
 
-message TableNames {
-  repeated string n = 1;
+message TableSchemas {
+  repeated TableSchema table_schemas = 1;
 }
 
 message TableSchema {
-  repeated ColumnDefinition column_definitions = 1;
+  string                name           = 1
+  repeated ColumnSchema column_schemas = 2;
 }
 
 enum ColumnType {
   UNUSED  = 0;
-  DECIMAL = 1;
+  NUMBER  = 1;
   STRING  = 2;
 }
 
-message ColumnDefinition {
+message ColumnSchema {
   string      name = 1;
   ColumnType  type = 2;
 }
