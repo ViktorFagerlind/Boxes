@@ -7,14 +7,15 @@ def consul_register(service_name, port, address = '127.0.0.1'):
     c = consul.Consul()
     check = consul.Check.tcp(address, port, '30s')
     c.agent.service.register(service_name, service_name + '-' + str(port), address=address, port=port)#, check=check)
-    print('services: ' + str(c.agent.services()))
+    #print('services: ' + str(c.agent.services()))
 
 
 def consul_unregister(service_name, port):
     print('unregister started of ' + service_name)
     c = consul.Consul()
     c.agent.service.deregister(service_name + '-' + str(port))
-    print("services: " + str(c.agent.services()))
+    print('unregistered ' + service_name)
+    #print("services: " + str(c.agent.services()))
 
 
 def consul_find_service(service_name, address = '127.0.0.1'):

@@ -6,14 +6,21 @@ package boxes;
 
 service Connector {
   // Get table schemas
-  rpc GetTableSchemas ()  returns (TableSchemas) {}
+  rpc GetTableNames ()              returns (TableNames) {}
+
+  // Get table schemas
+  rpc GetTableSchemas (TableNames)  returns (TableSchemas) {}
 
   // Get table contents
-  rpc GetTable (TableName)  returns (TableSchemas) {}
+  rpc GetTable (TableName)          returns (TableSchemas) {}
 }
   
 message TableName {
-  string n = 1;
+  string name = 1;
+}
+
+message TableNames {
+  repeated string table_names = 1;
 }
 
 message TableSchemas {
@@ -21,8 +28,7 @@ message TableSchemas {
 }
 
 message TableSchema {
-  string                name           = 1
-  repeated ColumnSchema column_schemas = 2;
+  repeated ColumnSchema column_schemas = 1;
 }
 
 enum ColumnType {

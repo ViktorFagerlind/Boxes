@@ -1,13 +1,13 @@
-import consul
 import random
 import pandas as pd
 import logging
 import grpc
-import table_pb2_grpc
 
 from concurrent import futures
 from prototables import df_to_prototable
 from servicediscover import consul_register, consul_unregister
+
+import table_pb2_grpc
 
 class CsvConnector(table_pb2_grpc.TableQueryServicer):
   def GetTable(self, request, context):
@@ -21,11 +21,14 @@ def serve(port):
     table_pb2_grpc.add_TableQueryServicer_to_server(CsvConnector(), server)
     server.add_insecure_port('[::]:' + str(port))
     server.start()
-    server.wait_for_termination()
+    try:
+        server.wait_for_termination()
+    except:
+        print('User aborted')
 
 
 if __name__ == '__main__':
-    logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
+    logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
     port = random.randint(50000, 59000)
 

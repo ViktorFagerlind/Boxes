@@ -1,12 +1,13 @@
-from concurrent import futures
+import random
 import logging
 import grpc
 
+from concurrent import futures
+from prototables import prototable_to_df
+from servicediscover import consul_register, consul_unregister, consul_find_service
+
 import table_pb2
 import table_pb2_grpc
-
-from prototables import prototable_to_df
-from servicediscover import consul_find_service
 
 services = {}
 
@@ -24,16 +25,9 @@ def get_table(name):
     return prototable_to_df(proto_table)
 
 
-def fix_swimming(df):
-    del df['Unnamed: 0']
-
-
-def get_average(name):
+def get_average_from_column(name, key='Totalt antal simtag'):
     df = get_table(name)
-    fix_swimming(df)
-    #print(df)
 
-    key = 'Totalt antal simtag'
     avg = average(df[key])
     print('\n\nAverage of %s: %f' % (key, avg))
 
@@ -52,19 +46,32 @@ def connect_services(service_name):
 
 class DataEngineService(table_pb2_grpc.DataEngineServicer):
   def GetPlotData(self, request, context):
-    return table_pb2.DoubleValue(value=get_average(request.name))
+    return table_pb2.DoubleValue(value=get_average_from_column(request.name))
 
 
-def serve():
+def serve(port):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     table_pb2_grpc.add_DataEngineServicer_to_server(DataEngineService(), server)
-    server.add_insecure_port('[::]:50053')
+    server.add_insecure_port('[::]:' + str(port))
     server.start()
-    server.wait_for_termination()
-
+    try:
+        server.wait_for_termination()
+    except:
+        print('User aborted')
 
 if __name__ == '__main__':
-    logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
+    logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
     connect_services('Connector')
-    serve()
+
+    port = random.randint(50000, 59000)
+    name = 'DataEngineService'
+
+    # For testing
+    df = get_table('swim.csv')
+    print(df)
+    # -----------
+
+    consul_register(name, port)
+    serve(port)
+    consul_unregister(name, port)
