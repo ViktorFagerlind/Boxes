@@ -41,7 +41,7 @@ https://thenewstack.io/implementing-service-discovery-of-microservices-with-cons
 
 ## Prepare Python program
 * Generate Python RPC definitions
-  > python -m grpc_tools.protoc -I../protos --python_out=. --grpc_python_out=. ../protos/table.proto
+  > python -m grpc_tools.protoc -I../protos --python_out=. --grpc_python_out=. ../protos/boxes.proto
 
 ## Run C++ together with Python
 * Open up two terminals and go to /cpp/ and /python/ respectively
