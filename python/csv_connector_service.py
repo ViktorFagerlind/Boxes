@@ -2,23 +2,47 @@ import random
 import pandas as pd
 import logging
 import grpc
+import os
 
 from concurrent import futures
-from prototables import df_to_prototable
+from prototables import df_to_prototable, df_to_protoschema
 from servicediscover import consul_register, consul_unregister
 
-import table_pb2_grpc
+import boxes_pb2_grpc, boxes_pb2
 
-class CsvConnector(table_pb2_grpc.TableQueryServicer):
-  def GetTable(self, request, context):
-    csv_df = pd.read_csv('../input/' + request.name)#, usecols=['Intervaller', 'Längder', 'Sträcka', 'Tid', 'Total tid', 'Medeltempo', 'Medel-Swolf', 'Totalt antal simtag'])
+class CsvConnector(boxes_pb2_grpc.ConnectorServicer):
+    def __init__(self):
+        self.indir = '../input'
+        self.csv_to_df = {}
+        for file in os.listdir(self.indir):
+            if file.endswith('.csv'):
+                self.csv_to_df[file] = None
+                print(os.path.join(self.indir, file))
 
-    return df_to_prototable(csv_df)
+    def get_df(self, name):
+        if self.csv_to_df[name] is None:
+            self.csv_to_df[name] = pd.read_csv(os.path.join(self.indir, name))
+        return self.csv_to_df[name]
+
+    def GetTableNames(self, request, context):
+        return boxes_pb2.TableNames(table_names = [n for n in self.csv_to_df])
+
+    def GetTableSchemas(self, request, context):
+        names = request.table_names
+        proto_schemas = boxes_pb2.TableSchemas(table_schemas=[])
+        for n in names:
+            df = self.get_df(n)
+            proto_schemas.table_schemas.append(df_to_protoschema(df))
+
+        return proto_schemas
+
+    def GetTable(self, request, context):
+        return df_to_prototable(self.get_df(request.name))
 
 
 def serve(port):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    table_pb2_grpc.add_TableQueryServicer_to_server(CsvConnector(), server)
+    boxes_pb2_grpc.add_ConnectorServicer_to_server(CsvConnector(), server)
     server.add_insecure_port('[::]:' + str(port))
     server.start()
     try:

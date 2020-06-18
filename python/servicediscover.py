@@ -21,7 +21,7 @@ def consul_unregister(service_name, port):
 def consul_find_service(service_name, address = '127.0.0.1'):
     consul_resolver = resolver.Resolver()
     consul_resolver.port = 8600
-    consul_resolver.nameservers = ["127.0.0.1"]
+    consul_resolver.nameservers = [address]
 
     dnsanswer = consul_resolver.query(service_name + '.service.consul', 'A')
     for s in dnsanswer:

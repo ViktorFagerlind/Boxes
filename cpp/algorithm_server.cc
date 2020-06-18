@@ -24,15 +24,15 @@
 #include <grpcpp/health_check_service_interface.h>
 #include <grpcpp/ext/proto_server_reflection_plugin.h>
 
-#include "table.grpc.pb.h"
+#include "boxes.grpc.pb.h"
 
 using grpc::Server;
 using grpc::ServerBuilder;
 using grpc::ServerContext;
 using grpc::Status;
-using tableservices::DoubleList;
-using tableservices::DoubleValue;
-using tableservices::Algorithms;
+using boxes::DoubleList;
+using boxes::DoubleValue;
+using boxes::Algorithms;
 
 // Logic and data behind the server's behavior.
 class AlgorithmsServiceImpl final : public Algorithms::Service 

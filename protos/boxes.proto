@@ -6,15 +6,18 @@ package boxes;
 
 service Connector {
   // Get table schemas
-  rpc GetTableNames ()              returns (TableNames) {}
+  rpc GetTableNames (Empty)         returns (TableNames) {}
 
   // Get table schemas
   rpc GetTableSchemas (TableNames)  returns (TableSchemas) {}
 
   // Get table contents
-  rpc GetTable (TableName)          returns (TableSchemas) {}
+  rpc GetTable (TableName)          returns (Table) {}
 }
   
+message Empty {
+}
+
 message TableName {
   string name = 1;
 }
@@ -48,7 +51,7 @@ message Table {
 
 message ColumnValues {
   repeated string str_values = 1;
-  repeated double dec_values = 2;
+  repeated double num_values = 2;
 }
 
 // ---------------------------------------------------------------------------------------------------------------------

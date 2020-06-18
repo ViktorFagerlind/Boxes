@@ -3,34 +3,42 @@ import pandas as pd
 
 
 
-import table_pb2
-import table_pb2_grpc
+import boxes_pb2
 
 from pandas.api.types import is_numeric_dtype
 
 def df_to_prototable(df):
-    proto_table = table_pb2.Table(columns=[])
+    prototable = boxes_pb2.Table(columns=[])
 
     for col in df.columns:
         if (is_numeric_dtype(df[col])):
-            t = table_pb2.ColumnType.DECIMAL
             dv = df[col].to_list()
             sv =[]
         else:
-            t = table_pb2.ColumnType.STRING
             sv = map(str, df[col].to_list())
             dv =[]
 
-        proto_table.columns.append(table_pb2.Column(name=col, type=t, str_values=sv, dec_values=dv))
+        prototable.columns.append(boxes_pb2.ColumnValues(str_values=sv, num_values=dv))
 
-    return proto_table
+    return prototable
 
-def prototable_to_df(pt):
+
+def df_to_protoschema(df):
+    protoschema = boxes_pb2.TableSchema(column_schemas=[])
+
+    for col in df.columns:
+        t = boxes_pb2.ColumnType.NUMBER if is_numeric_dtype(df[col]) else boxes_pb2.ColumnType.STRING
+        protoschema.column_schemas.append(boxes_pb2.ColumnSchema(name=col, type=t))
+
+    return protoschema
+
+
+def prototable_to_df(schema, table):
     df = pd.DataFrame()
 
-    for c in pt.columns:
-        if (c.type == table_pb2.ColumnType.DECIMAL):
-            df[c.name] = c.dec_values
+    for s, c in zip(schema.column_schemas,table.columns):
+        if (s.type == boxes_pb2.ColumnType.NUMBER):
+            df[s.name] = c.num_values
         else:
-            df[c.name] = c.str_values
+            df[s.name] = c.str_values
     return df

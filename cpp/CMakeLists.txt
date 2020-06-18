@@ -125,14 +125,14 @@ else()
 endif()
 
 # Proto file
-get_filename_component(hw_proto "../protos/table.proto" ABSOLUTE)
+get_filename_component(hw_proto "../protos/boxes.proto" ABSOLUTE)
 get_filename_component(hw_proto_path "${hw_proto}" PATH)
 
 # Generated sources
-set(hw_proto_srcs "${CMAKE_CURRENT_BINARY_DIR}/table.pb.cc")
-set(hw_proto_hdrs "${CMAKE_CURRENT_BINARY_DIR}/table.pb.h")
-set(hw_grpc_srcs "${CMAKE_CURRENT_BINARY_DIR}/table.grpc.pb.cc")
-set(hw_grpc_hdrs "${CMAKE_CURRENT_BINARY_DIR}/table.grpc.pb.h")
+set(hw_proto_srcs "${CMAKE_CURRENT_BINARY_DIR}/boxes.pb.cc")
+set(hw_proto_hdrs "${CMAKE_CURRENT_BINARY_DIR}/boxes.pb.h")
+set(hw_grpc_srcs "${CMAKE_CURRENT_BINARY_DIR}/boxes.grpc.pb.cc")
+set(hw_grpc_hdrs "${CMAKE_CURRENT_BINARY_DIR}/boxes.grpc.pb.h")
 add_custom_command(
       OUTPUT "${hw_proto_srcs}" "${hw_proto_hdrs}" "${hw_grpc_srcs}" "${hw_grpc_hdrs}"
       COMMAND ${_PROTOBUF_PROTOC}
