@@ -19,7 +19,7 @@ logging.basicConfig(level=logging.INFO)
 
 today = date.today()
 
-'''
+
 #try:
 # Initialize Garmin client with credentials
 # Only needed when your program is initialized
@@ -50,8 +50,8 @@ with open(zip_filename, "wb") as fb:
 
 with zipfile.ZipFile(zip_filename, 'r') as zip_ref:
     zip_ref.extractall('.')
-'''
-activity_id = '5094851020'
+
+#activity_id = '5094851020'
 
 fitfile = FitFile(f'./{str(activity_id)}.fit')
 fitfile.parse()
