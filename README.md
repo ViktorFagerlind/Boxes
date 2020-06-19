@@ -6,7 +6,8 @@
 * Download consul: https://www.hashicorp.com/products/consul/
 * Install consul
 * run consul
-  > consul agent -dev -ui -datacenter zone1 -node host1
+  > cd /consul <br>
+  > consul agent -dev -ui -datacenter zone1 -node host1 -config-dir ./consul.d/
 * Monitor consul at http://localhost:8500/ui
 
 https://thenewstack.io/implementing-service-discovery-of-microservices-with-consul/
@@ -21,7 +22,7 @@ https://thenewstack.io/implementing-service-discovery-of-microservices-with-cons
 * Activate environment
   > conda activate python37
 * Install gRPC
-  > python -m pip install grpcio<br>
+  > python -m pip install grpcio <br>
   > python -m pip install grpcio-tools
   
 ### JavaScript installation
