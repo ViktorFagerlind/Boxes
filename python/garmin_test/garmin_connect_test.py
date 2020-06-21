@@ -43,13 +43,13 @@ activity_id = activity["activityId"]
 #xmldoc = minidom.parseString(tcx_data)
 
 zip_data = client.download_activity(activity_id, dl_fmt=client.ActivityDownloadFormat.ORIGINAL)
-zip_filename = f"./{str(activity_id)}.zip"
+zip_filename = f"./tmp/{str(activity_id)}.zip"
 with open(zip_filename, "wb") as fb:
     print('------ ' + zip_filename + ' ------')
     fb.write(zip_data)
 
 with zipfile.ZipFile(zip_filename, 'r') as zip_ref:
-    zip_ref.extractall('.')
+    zip_ref.extractall('./tmp')
 
 #activity_id = '5094851020'
 

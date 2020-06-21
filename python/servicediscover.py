@@ -3,7 +3,7 @@ from dns import resolver
 
 
 def consul_register(service_name, port, address = '127.0.0.1'):
-    print('register started of ' + service_name)
+    print('register started of {}, addr={}, port={}'.format(service_name, address, port))
     c = consul.Consul()
     check = consul.Check.tcp(address, port, '30s')
     c.agent.service.register(service_name, service_name + '-' + str(port), address=address, port=port)#, check=check)

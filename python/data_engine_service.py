@@ -114,8 +114,9 @@ if __name__ == '__main__':
         print(df)
 
         print('')
-        for key in ['Totalt antal simtag', 'Längder']:
-            print('Average of %s: %f' % (key, de.average(df[key])))
+        for key in ['Totalt antal simtag', 'Längder', 'avg_cadence']:
+            if key in df.columns:
+                print('Average of %s: %f' % (key, de.average(df[key])))
         print('\n')
 
 
