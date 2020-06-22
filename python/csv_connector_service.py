@@ -1,14 +1,16 @@
-import random
-import pandas as pd
 import logging
-import grpc
 import os
+import random
+import grpc
+import pandas as pd
 
 from concurrent import futures
-from df_prototables import df_to_prototable, df_to_protoschema
-from consul_services import consul_register, consul_unregister
 
-import boxes_pb2_grpc, boxes_pb2
+from common import boxes_pb2_grpc
+from common import boxes_pb2
+from common.consul_services import consul_register, consul_unregister
+from common.df_prototables import df_to_prototable, df_to_protoschema
+
 
 class CsvConnector(boxes_pb2_grpc.ConnectorServicer):
     def __init__(self):

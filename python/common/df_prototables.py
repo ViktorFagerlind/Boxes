@@ -1,11 +1,8 @@
-import logging
 import pandas as pd
-
-
-
-import boxes_pb2
-
 from pandas.api.types import is_numeric_dtype
+
+from common import boxes_pb2
+
 
 def df_to_prototable(df):
     prototable = boxes_pb2.Table(columns=[])

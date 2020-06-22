@@ -1,17 +1,19 @@
-import random
-import pandas as pd
 import logging
-import grpc
+import random
 import zipfile
-
-from os import path
-from fitparse import FitFile
 from concurrent import futures
-from df_prototables import df_to_prototable, df_to_protoschema
-from consul_services import consul_register, consul_unregister
+from os import path
+
+import grpc
+import pandas as pd
+from fitparse import FitFile
 from garminconnect import Garmin
 
-import boxes_pb2_grpc, boxes_pb2
+from common import boxes_pb2_grpc
+from common import boxes_pb2
+from common.consul_services import consul_register, consul_unregister
+from common.df_prototables import df_to_prototable, df_to_protoschema
+
 
 class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
     def __init__(self):
