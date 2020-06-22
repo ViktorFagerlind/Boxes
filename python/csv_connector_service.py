@@ -5,8 +5,8 @@ import grpc
 import os
 
 from concurrent import futures
-from prototables import df_to_prototable, df_to_protoschema
-from servicediscover import consul_register, consul_unregister
+from df_prototables import df_to_prototable, df_to_protoschema
+from consul_services import consul_register, consul_unregister
 
 import boxes_pb2_grpc, boxes_pb2
 

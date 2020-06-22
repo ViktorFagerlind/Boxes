@@ -3,8 +3,8 @@ import logging
 import grpc
 
 from concurrent import futures
-from prototables import prototable_to_df
-from servicediscover import consul_register, consul_unregister, consul_find_service
+from df_prototables import prototable_to_df
+from consul_services import consul_register, consul_unregister, consul_find_service
 
 import boxes_pb2
 import boxes_pb2_grpc
