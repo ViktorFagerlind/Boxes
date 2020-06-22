@@ -27,3 +27,6 @@ class DataEngine:
                 if key in df.columns:
                     print('Average of %s: %f' % (key, self.algorithms.average(df[key])))
             print('\n')
+
+        self.database.create_table()
+        self.database.execute_query()
