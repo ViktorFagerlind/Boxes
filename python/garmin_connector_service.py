@@ -14,6 +14,7 @@ from common import boxes_pb2
 from common.consul_services import consul_register, consul_unregister
 from common.df_prototables import df_to_prototable, df_to_protoschema
 
+separator = '#'
 
 class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
     def __init__(self):
@@ -47,8 +48,8 @@ class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
 
 
     def __get_table_df(self, activity_id_and_type):
-        activity_id   = activity_id_and_type.split(':')[0]
-        activity_type = activity_id_and_type.split(':')[1]
+        activity_id   = activity_id_and_type.split(separator)[0]
+        activity_type = activity_id_and_type.split(separator)[1]
 
         zip_filename = f'./tmp/{str(activity_id)}.zip'
         if not path.exists(zip_filename):
@@ -88,7 +89,7 @@ class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
             activity_type = row['activityType']
             if activity_type in self.activity_to_table_types:
                 for table_type in self.activity_to_table_types[activity_type]:
-                    table_names.append(str(row['activityId']) + ':' + table_type)
+                    table_names.append(str(row['activityId']) + separator + table_type)
             else:
                 print('Activity type \'' + activity_type + '\' not supported (yet?).')
 
