@@ -32,8 +32,12 @@ class ConnectorManager:
     def get_table_names(self):
         return [n for n in self.table_to_connector]
 
-    # Go through the names and use all names in a row that belong to the same connector in one service call
-    # This is to avoid one call per name while still keeping the name order
+    def is_table_present(self, table_name):
+        return table_name in self.get_table_names()
+
+    def get_table_schema(self, name):
+        return self.get_table_schemas([name]).table_schemas[0]
+
     def get_table_schemas(self, names):
         proto_tableschemas = boxes_pb2.TableSchemas(table_schemas=[])
         i = 0

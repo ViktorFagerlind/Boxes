@@ -1,12 +1,21 @@
 import logging
-import argparse
+import random
+import grpc
 
+from common import boxes_pb2_grpc
+from common import boxes_pb2
+from common.consul_services import consul_register, consul_unregister
 from data_engine.data_engine import DataEngine
+from concurrent import futures
 
-'''
+
 class DataEngineService(boxes_pb2_grpc.DataEngineServicer):
-  def GetPlotData(self, request, context):
-    return table_pb2.DoubleValue(value=get_average_from_column(request.name))
+    def __init__(self):
+        self.de = DataEngine()
+
+    def ExecuteQuery(self, request, context):
+        result = self.de.select_query(request.q)
+        return boxes_pb2.Table(columns=[]) # TODO
 
 def serve(port):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
@@ -17,30 +26,13 @@ def serve(port):
         server.wait_for_termination()
     except:
         print('User aborted')
-'''
 
 if __name__ == '__main__':
     logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-t', '--test',   help="Test mode", action="store_true")
-    parser.add_argument('-s', '--select', help="Select query to execute and print. E.g. \"SELECT avg_cadence, "
-                                               "total_distance, timestamp from \'5129419239#swim_lengths\'\"")
-    args = parser.parse_args()
-
-    de = DataEngine()
-
-    if args.test:
-        de.create_all_tables()
-        if args.select is not None:
-            de.print_select_query(args.select)
-
-    # -----------
-    '''
     port = random.randint(50000, 59000)
     name = 'DataEngineService'
 
     consul_register(name, port)
     serve(port)
     consul_unregister(name, port)
-    '''

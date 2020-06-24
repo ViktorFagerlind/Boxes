@@ -13,17 +13,15 @@ class DataEngine:
     def __read_dbs(self):
         pass
 
-    def create_all_tables(self):
-        names = self.connector_manager.get_table_names()
-        print(names)
+    def __create_table(self, name):
+        ps = self.connector_manager.get_table_schema(name)
+        pt = self.connector_manager.get_table(name)
+        self.database.create_table(name=name, proto_schema=ps, proto_table=pt)
+        print('Created table "{}"'.format(name))
 
-        pts = self.connector_manager.get_table_schemas(names)
-
-        for n, ps in zip(names, pts.table_schemas):
-            pt = self.connector_manager.get_table(n)
-            df = prototable_to_df(ps, pt)
-            self.database.create_table(name=n, proto_schema=ps, proto_table=pt)
-            print('Created table: ' + n)
+    def __create_all_tables(self):
+        for n in self.connector_manager.get_table_names():
+            self.create_table(n)
 
     def print_algorithm_apply(self, query):
         # for key in ['Totalt antal simtag', 'Längder', 'avg_cadence']:
@@ -31,5 +29,13 @@ class DataEngine:
         #    print('Average of %s: %f' % (key, self.algorithms.average(df[key])))
         pass    # TODO
 
-    def print_select_query(self, query):
-        self.database.print_select_query(query)
+    def select_query(self, query):
+        result = self.database.select_query(query)
+        if result[0] == Database.Result.TableMissing:
+            name = result[1]
+            if not self.connector_manager.is_table_present(name):
+                raise Exception('Table "{}" is not available in any connector!'.format(nam))
+            self.__create_table(name)
+            self.select_query(query)
+
+

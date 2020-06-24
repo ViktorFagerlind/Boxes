@@ -1,13 +1,13 @@
 import logging
 import random
 import zipfile
-from concurrent import futures
-from os import path
-
 import grpc
 import pandas as pd
+
 from fitparse import FitFile
 from garminconnect import Garmin
+from concurrent import futures
+from os import path
 
 from common import boxes_pb2_grpc
 from common import boxes_pb2
