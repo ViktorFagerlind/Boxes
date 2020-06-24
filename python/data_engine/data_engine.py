@@ -13,7 +13,7 @@ class DataEngine:
     def __read_dbs(self):
         pass
 
-    def test(self):
+    def create_all_tables(self):
         names = self.connector_manager.get_table_names()
         print(names)
 
@@ -22,15 +22,14 @@ class DataEngine:
         for n, ps in zip(names, pts.table_schemas):
             pt = self.connector_manager.get_table(n)
             df = prototable_to_df(ps, pt)
-            print(df)
-            #for key in ['Totalt antal simtag', 'Längder', 'avg_cadence']:
-                #if key in df.columns:
-                #    print('Average of %s: %f' % (key, self.algorithms.average(df[key])))
-            print('\n')
+            self.database.create_table(name=n, proto_schema=ps, proto_table=pt)
+            print('Created table: ' + n)
 
-        name = names[1]
-        schema = pts.table_schemas[1]
-        table = self.connector_manager.get_table(name)
+    def print_algorithm_apply(self, query):
+        # for key in ['Totalt antal simtag', 'Längder', 'avg_cadence']:
+        # if key in df.columns:
+        #    print('Average of %s: %f' % (key, self.algorithms.average(df[key])))
+        pass    # TODO
 
-        self.database.create_table(name=name, proto_schema=schema, proto_table=table)
-        self.database.print_select_query("SELECT avg_cadence, total_distance, timestamp from '5129419239#swim_lengths'")
+    def print_select_query(self, query):
+        self.database.print_select_query(query)

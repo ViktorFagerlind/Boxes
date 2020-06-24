@@ -23,10 +23,15 @@ class Database:
 
     def print_select_query(self, query):
         with closing(self.conn.cursor()) as c:
-            it = c.execute(query)
-            print(query)
-            for row in it:
-                print(row)
+            try:
+                it = c.execute(query)
+                print('\n' + query)
+                for row in it:
+                    for item in row:
+                        print('{:>25}'.format(item), end='')
+                    print('')
+            except Exception as e:
+                print(type(e))
 
     def create_table(self, name, proto_schema, proto_table):
         with closing(self.conn.cursor()) as c:

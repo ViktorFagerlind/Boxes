@@ -1,5 +1,5 @@
 import logging
-
+import argparse
 
 from data_engine.data_engine import DataEngine
 
@@ -22,8 +22,18 @@ def serve(port):
 if __name__ == '__main__':
     logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-t', '--test',   help="Test mode", action="store_true")
+    parser.add_argument('-s', '--select', help="Select query to execute and print. E.g. \"SELECT avg_cadence, "
+                                               "total_distance, timestamp from \'5129419239#swim_lengths\'\"")
+    args = parser.parse_args()
+
     de = DataEngine()
-    de.test()
+
+    if args.test:
+        de.create_all_tables()
+        if args.select is not None:
+            de.print_select_query(args.select)
 
     # -----------
     '''

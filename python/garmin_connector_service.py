@@ -26,7 +26,7 @@ class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
         self.client = Garmin('viktor_fagerlind@hotmail.com', '6iZoXg4EooP3dpUg')
         self.client.login()
 
-        self.activity_df = self.__activities_to_df(self.client.get_activities(start=0, limit=3))
+        self.activity_df = self.__activities_to_df(self.client.get_activities(start=0, limit=10))
         print(self.activity_df)
 
     def __activities_to_df(self, activities):
