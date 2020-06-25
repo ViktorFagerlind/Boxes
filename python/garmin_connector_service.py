@@ -2,6 +2,7 @@ import logging
 import random
 import zipfile
 import grpc
+import argparse
 import pandas as pd
 
 from fitparse import FitFile
@@ -17,7 +18,7 @@ from common.df_prototables import df_to_prototable, df_to_protoschema
 separator = '#'
 
 class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
-    def __init__(self):
+    def __init__(self, nof_activities):
         self.table_to_df = {}
 
         self.activity_to_table_types = {'lap_swimming':['swim_lengths', 'swim_laps']}
@@ -26,7 +27,7 @@ class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
         self.client = Garmin('viktor_fagerlind@hotmail.com', '6iZoXg4EooP3dpUg')
         self.client.login()
 
-        self.activity_df = self.__activities_to_df(self.client.get_activities(start=0, limit=10))
+        self.activity_df = self.__activities_to_df(self.client.get_activities(start=0, limit=nof_activities))
         print(self.activity_df)
 
     def __activities_to_df(self, activities):
@@ -115,9 +116,9 @@ class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
             return df_to_prototable(self.__get_table_df(request.name))
 
 
-def serve(port):
+def serve(port, num_items):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    boxes_pb2_grpc.add_ConnectorServicer_to_server(GarminConnector(), server)
+    boxes_pb2_grpc.add_ConnectorServicer_to_server(GarminConnector(num_items), server)
     server.add_insecure_port('[::]:' + str(port))
     server.start()
     try:
@@ -129,9 +130,13 @@ def serve(port):
 if __name__ == '__main__':
     logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-n', '--numitems', default=10, help="Total number of items to retreive from garmin")
+    args = parser.parse_args()
+
     port = random.randint(50000, 59000)
 
     name = 'Connector'
     consul_register(name, port)
-    serve(port)
+    serve(port, args.numitems)
     consul_unregister(name, port)
