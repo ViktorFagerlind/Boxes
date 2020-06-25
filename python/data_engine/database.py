@@ -60,6 +60,7 @@ class Database:
                     table_name = e.args[0][len(es):]
                     print('Table "{}" not currently present in the database'.format(table_name))
                     return (Database.Result.TableMissing, table_name)
+                raise e
             return (Database.Result.Success, None)
         return wrap_function
 
