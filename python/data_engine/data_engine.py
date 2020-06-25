@@ -1,17 +1,38 @@
-from common.df_prototables import prototable_to_df
+import pandas as pd
+from common.df_prototables import df_to_protoschema, df_to_prototable
 from data_engine.connector_manager import ConnectorManager
 from data_engine.algorithms import Algorithms
 from data_engine.database import Database
 
 
 class DataEngine:
+    def missing_table_decorator(func):
+        def wrap_function(self, *args, **kwargs):
+            result = func(self, *args, **kwargs)
+            if result[0] == Database.Result.TableMissing:
+                name = result[1]
+                if not self.connector_manager.is_table_present(name):
+                    raise Exception('Table "{}" is not available in any connector!'.format(name))
+                self.__create_table(name)
+                return wrap_function(self, *args, **kwargs)
+        return wrap_function
+
     def __init__(self):
         self.connector_manager = ConnectorManager()
         self.algorithms = Algorithms()
         self.database = Database()
 
-    def __read_dbs(self):
-        pass
+        self.__setup_tablestable()
+
+    def __setup_tablestable(self):
+        name = 'all_tables'
+        table_names = [name] + self.connector_manager.get_table_names()
+        df = pd.DataFrame({'Table names':table_names, 'Cached':[False]*len(table_names)})
+
+        self.database.create_table(name=name, proto_schema=df_to_protoschema(df), proto_table=df_to_prototable(df))
+        self.database.print_table(name, full_print=True)
+        #print(df)
+
 
     def __create_table(self, name):
         ps = self.connector_manager.get_table_schema(name)
@@ -30,13 +51,9 @@ class DataEngine:
         #    print('Average of %s: %f' % (key, self.algorithms.average(df[key])))
         pass    # TODO
 
+    @missing_table_decorator
     def select_query(self, query):
-        result = self.database.select_query(query)
-        if result[0] == Database.Result.TableMissing:
-            name = result[1]
-            if not self.connector_manager.is_table_present(name):
-                raise Exception('Table "{}" is not available in any connector!'.format(nam))
-            self.__create_table(name)
-            self.select_query(query)
+        return self.database.select_query(query)
+
 
 

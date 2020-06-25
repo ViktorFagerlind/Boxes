@@ -19,7 +19,7 @@ def print_db_rows(it):
 
 def print_db_row(row):
     for item in row:
-        print('{:>20}'.format(item), end='')
+        print('{:>23}'.format('None' if item == None else str(item)), end='')
     print('')
 
 class Database:
@@ -74,14 +74,14 @@ class Database:
 
     @connection_decorator
     @missing_table_decorator
-    def print_table(self, table_name, connection, cursor):
+    def print_table(self, table_name, connection, cursor, full_print=False):
         print('----------- ' + table_name + ' ----------')
 
         cursor.execute('PRAGMA table_info("{}")'.format(table_name))
         print_db_row([e[1] + ' ' + e[2] for e in cursor.fetchall()])
 
         cursor.execute('SELECT * FROM "{}"'.format(table_name))
-        print_db_rows(cursor.fetchmany())
+        print_db_rows(cursor.fetchall() if full_print else cursor.fetchmany())
 
     @connection_decorator
     def create_table(self, name, proto_schema, proto_table, connection, cursor):

@@ -12,7 +12,6 @@ class ConnectorManager:
         self.table_to_connector = {}
 
         self.__setup_connectors()
-        print('All available tables:\n{}\n'.format('\n'.join(self.get_table_names())))
 
     def __setup_connectors(self):
         service_name = 'Connector'
