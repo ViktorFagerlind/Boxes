@@ -2,22 +2,30 @@
 import * as Plotly from 'plotly.js';
 import { Framework } from './framework';
 import { Internals } from './internals';
+import { UIComponents } from './ui_components';
 
 const tableName = 'swim.csv';
 const dataEngine = new Internals.DataEngine('localhost:50053');
 
+let root = Framework.div("root");
+document.body.append(root);
+
+let sidebar = new UIComponents.SideBar();
+sidebar.render(root);
+
 let canvas = Framework.div("canvas");
-document.body.append(canvas);
+root.append(canvas);
 
 // Generate some plots
 for (let i = 0; i < 4; ++i)
 {
   let plotItem = Framework.div("plot-item");
-  canvas.append(plotItem);  
 
   let plotDataResponseHandler = (response: any) => {
     let arr = Array.from({ length: 3 }, () => { return Math.random()*20.0 + response.value });
     plot(plotItem, arr);
+   
+    canvas.append(plotItem);
   }
 
   dataEngine.GetPlotData(tableName, plotDataResponseHandler)
@@ -33,5 +41,5 @@ function plot(elem: HTMLElement, data: number[])
     }
   ];
 
-  Plotly.newPlot(elem, plotData);
+  Plotly.newPlot(elem, plotData, {}, { responsive: true });
 }
