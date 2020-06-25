@@ -24,14 +24,13 @@ def consul_find_service(service_name, address = '127.0.0.1'):
     consul_resolver.nameservers = [address]
 
     dnsanswer = consul_resolver.query(service_name + '.service.consul', 'A')
-    for s in dnsanswer:
-        print(s)
     ip = str(dnsanswer[0])
     dnsanswer_srv = consul_resolver.query(service_name + '.service.consul', 'SRV')
     ports = []
     for srv in dnsanswer_srv:
-        print(srv)
         ports.append(int(str(srv).split()[2]))
+
+    print('Found service "{}" at ip:{} ports:{} using consul'.format(service_name, ip, ', '.join([str(p) for p in ports])))
 
     return (ip,ports)
 

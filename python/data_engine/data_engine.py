@@ -18,6 +18,7 @@ class DataEngine:
         pt = self.connector_manager.get_table(name)
         self.database.create_table(name=name, proto_schema=ps, proto_table=pt)
         print('Created table "{}"'.format(name))
+        self.database.print_table(name)
 
     def __create_all_tables(self):
         for n in self.connector_manager.get_table_names():
