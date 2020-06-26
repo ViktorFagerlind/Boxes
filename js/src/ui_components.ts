@@ -8,18 +8,18 @@ export module UIComponents
         render: (element: HTMLElement) => void;
     }
 
-    export class SideBar implements IRenderable {
+    export class Sidebar implements IRenderable {
 
         private sidebar: HTMLElement;
 
-        private menus: SideBarMenu[];
+        private menus: SidebarMenu[];
 
         constructor() {
             this.sidebar = Framework.div("sidebar");
             this.menus = [
-                new SideBarMenu("Graphs"),
-                new SideBarMenu("Data"),
-                new SideBarMenu("Funcs")
+                new SidebarMenu("Graphs"),
+                new SidebarMenu("Data"),
+                new SidebarMenu("Funcs")
             ];
         }
 
@@ -30,7 +30,7 @@ export module UIComponents
         }
     }
 
-    export class SideBarMenu implements IRenderable {
+    export class SidebarMenu implements IRenderable {
 
         menu: HTMLElement;
         

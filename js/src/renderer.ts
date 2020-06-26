@@ -10,7 +10,7 @@ const dataEngine = new Internals.DataEngine('localhost:50053');
 let root = Framework.div("root");
 document.body.append(root);
 
-let sidebar = new UIComponents.SideBar();
+let sidebar = new UIComponents.Sidebar();
 sidebar.render(root);
 
 let canvas = Framework.div("canvas");
