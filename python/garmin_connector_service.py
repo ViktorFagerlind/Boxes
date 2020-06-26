@@ -95,16 +95,18 @@ class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
         zip_filename = f'./tmp/{str(activity_id)}.zip'
         if not path.exists(zip_filename):
             zip_data = self.client.download_activity(activity_id, dl_fmt=self.client.ActivityDownloadFormat.ORIGINAL)
+            print('Downloding {}...'.format(zip_filename))
             with open(zip_filename, "wb") as fb:
-                print('------ ' + zip_filename + ' ------')
                 fb.write(zip_data)
 
         fit_filename = f'./tmp/{str(activity_id)}.fit'
         if not path.exists(fit_filename):
             with zipfile.ZipFile(zip_filename, 'r') as zip_ref:
+                print('Extracting {}...'.format(zip_filename))
                 zip_ref.extractall('./tmp')
 
         fitfile = FitFile(fit_filename)
+        print('Parsing    {}...'.format(fit_filename))
         fitfile.parse()
 
         (info_type,fields) = table_type_info[activity_type]
