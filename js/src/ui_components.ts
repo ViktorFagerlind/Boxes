@@ -1,6 +1,10 @@
 'use strict'
 import { Framework } from './framework';
 
+const div = Framework.div;
+const addClass = Framework.addClass;
+const removeClass = Framework.removeClass;
+
 export module UIComponents
 {
 
@@ -15,7 +19,7 @@ export module UIComponents
         private menus: SidebarMenu[];
 
         constructor() {
-            this.sidebar = Framework.div("sidebar");
+            this.sidebar = div("sidebar");
             this.menus = [
                 new SidebarMenu("Graphs"),
                 new SidebarMenu("Data"),
@@ -35,14 +39,14 @@ export module UIComponents
         menu: HTMLElement;
         
         constructor(displayName: string) {
-            this.menu = Framework.div("sidebar-menu");
+            this.menu = div("sidebar-menu");
             this.menu.innerText = displayName;
 
             hover(this.menu, () => {
-                    Framework.addClass(this.menu, "sidebar-menu-hover");
+                    addClass(this.menu, "sidebar-menu-hover");
                 },
                 () => {
-                    Framework.removeClass(this.menu, "sidebar-menu-hover");
+                    removeClass(this.menu, "sidebar-menu-hover");
                 });
         }
 

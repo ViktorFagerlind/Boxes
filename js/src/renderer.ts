@@ -4,22 +4,24 @@ import { Framework } from './framework';
 import { Internals } from './internals';
 import { UIComponents } from './ui_components';
 
+const div = Framework.div;
+
 const tableName = 'swim.csv';
 const dataEngine = new Internals.DataEngine('localhost:50053');
 
-let root = Framework.div("root");
+let root = div("root");
 document.body.append(root);
 
 let sidebar = new UIComponents.Sidebar();
 sidebar.render(root);
 
-let canvas = Framework.div("canvas");
+let canvas = div("canvas");
 root.append(canvas);
 
 // Generate some plots
 for (let i = 0; i < 4; ++i)
 {
-  let plotItem = Framework.div("plot-item");
+  let plotItem = div("plot-item");
 
   let plotDataResponseHandler = (response: any) => {
     let arr = Array.from({ length: 3 }, () => { return Math.random()*20.0 + response.value });
