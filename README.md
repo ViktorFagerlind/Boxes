@@ -44,10 +44,14 @@ https://thenewstack.io/implementing-service-discovery-of-microservices-with-cons
 * Generate Python RPC definitions
   > python -m grpc_tools.protoc -I../protos --python_out=. --grpc_python_out=. ../protos/boxes.proto
 
-## Run C++ together with Python
-* Open up two terminals and go to /cpp/ and /python/ respectively
-* start the servers; algorithm_server and csv_connector_server.py
-* run data_engine.py 
+## Test data engine
+Open up terminals and run the following
+1. consul according to above
+1. csv_connector_service
+1. garmin_connector_sevice
+1. data_engine_service
+1. test_data_engine.py -p<br>
+Run SQL queries from the prompt, examples in Queries.sql
 
 ## Build Electron (GUI) program
 * Open a terminal and browse to the 'js' folder in this project.
