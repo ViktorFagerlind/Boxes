@@ -18,10 +18,25 @@ body {
 }
 
 .sidebar {
+  display: flex;
+  flex-direction: column;
   width: 50px;
   min-width: 50px;
   height: 100%;
   background-color: black;
+}
+
+.sidebar-menu {
+  color: gray;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 6px;
+  font-size: 12px;
+}
+
+.sidebar-menu-hover {
+  color: white;
+  text-decoration: underline;
 }
 
 .plot-item {

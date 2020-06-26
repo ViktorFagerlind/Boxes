@@ -12,4 +12,11 @@ export module Framework {
       return elem;
     }
 
+    export function addClass(elem: HTMLElement, className: string) : void {
+      elem.classList.add(className);
+    }
+
+    export function removeClass(elem: HTMLElement, className: string) : void {
+      elem.classList.remove(className);
+    }
 }
