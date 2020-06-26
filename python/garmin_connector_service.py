@@ -71,7 +71,7 @@ class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
             name_parts = name.split(separator)
             if len(name_parts) > 1 and name_parts[1] == type_name:
                 tdf = self.__get_table_df(name).copy()
-                tdf['activity'] = name_parts[0]
+                tdf['activityId'] = name_parts[0]
                 if new_df is None:
                     new_df = tdf
                 else:
@@ -152,7 +152,7 @@ if __name__ == '__main__':
     logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-n', '--numitems', default=10, help="Total number of items to retreive from garmin")
+    parser.add_argument('-n', '--numitems', default=100, help="Total number of items to retreive from garmin")
     args = parser.parse_args()
 
     port = random.randint(50000, 59000)
