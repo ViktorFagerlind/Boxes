@@ -15,20 +15,42 @@ from common import boxes_pb2
 from common.consul_services import consul_register, consul_unregister
 from common.df_prototables import df_to_prototable, df_to_protoschema
 
+table_type_info = {'swim_lengths': ('lap', ['avg_cadence', 'total_distance', 'total_elapsed_time', 'timestamp']),
+                   'swim_laps': ('length', ['avg_swimming_cadence', 'total_strokes', 'total_elapsed_time', 'timestamp'])}
+
 separator = '#'
 
 class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
     def __init__(self, nof_activities):
-        self.table_to_df = {}
 
         self.activity_to_table_types = {'lap_swimming':['swim_lengths', 'swim_laps']}
-        self.activities_table_name = 'activities'
+        self.activities_table_name = 'all_activities'
 
         self.client = Garmin('viktor_fagerlind@hotmail.com', '6iZoXg4EooP3dpUg')
         self.client.login()
 
         self.activity_df = self.__activities_to_df(self.client.get_activities(start=0, limit=nof_activities))
+        self.table_to_df = {}
+        self.table_to_df[self.activities_table_name] = self.activity_df
+
+        self.__setup_names()
+
         print(self.activity_df)
+
+    def __setup_names(self):
+        self.table_names = [self.activities_table_name]
+
+        for table_types in self.activity_to_table_types.values():
+            for table_type in table_types:
+                self.table_names.append(table_type)
+
+        for i,row in self.activity_df.iterrows():
+            activity_type = row['activityType']
+            if activity_type in self.activity_to_table_types:
+                for table_type in self.activity_to_table_types[activity_type]:
+                    self.table_names.append(str(row['activityId']) + separator + table_type)
+            else:
+                print('Activity type \'' + activity_type + '\' not supported (yet?).')
 
     def __activities_to_df(self, activities):
         cols = ['activityId', 'activityName', 'startTimeLocal', 'activityType']
@@ -37,18 +59,36 @@ class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
             dict[c] = []
         for a in activities:
             for c in cols[:-1]:
-                dict[c].append(a[c])
+                dict[c].append(str(a[c]))
             dict[cols[-1]].append(a[cols[-1]]['typeKey']) # Special handling of activity type since it is not a straight name:val pair
 
         return pd.DataFrame(data=dict, columns=cols)
 
-    def __get_table_df(self, activity_id_and_type):
-        if not activity_id_and_type in self.table_to_df:
-            self.table_to_df[activity_id_and_type] = self.__get_table_df_no_cache(activity_id_and_type)
-        return self.table_to_df[activity_id_and_type]
+    def __get_table_type_metatable(self, type_name):
+        new_df = None
+
+        for name in self.table_names:
+            name_parts = name.split(separator)
+            if len(name_parts) > 1 and name_parts[1] == type_name:
+                tdf = self.__get_table_df(name).copy()
+                tdf['activity'] = name_parts[0]
+                if new_df is None:
+                    new_df = tdf
+                else:
+                    new_df = pd.concat([new_df, tdf])
+        return new_df
 
 
-    def __get_table_df(self, activity_id_and_type):
+    def __get_table_df(self, table_name):
+        if not table_name in self.table_to_df:
+            if table_name in table_type_info:
+                self.table_to_df[table_name] = self.__get_table_type_metatable(table_name)
+            else:
+                self.table_to_df[table_name] = self.__get_table_df_no_cache(table_name)
+        return self.table_to_df[table_name]
+
+
+    def __get_table_df_no_cache(self, activity_id_and_type):
         activity_id   = activity_id_and_type.split(separator)[0]
         activity_type = activity_id_and_type.split(separator)[1]
 
@@ -67,9 +107,6 @@ class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
         fitfile = FitFile(fit_filename)
         fitfile.parse()
 
-
-        table_type_info = {'swim_lengths':('lap',    ['avg_cadence', 'total_distance', 'total_elapsed_time', 'timestamp']),
-                           'swim_laps':   ('length', ['avg_swimming_cadence', 'total_strokes', 'total_elapsed_time', 'timestamp'])}
         (info_type,fields) = table_type_info[activity_type]
 
         dict = {}
@@ -84,36 +121,20 @@ class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
         return pd.DataFrame(data=dict, columns=fields)
 
     def GetTableNames(self, request, context):
-        table_names = [self.activities_table_name]
-
-        for i,row in self.activity_df.iterrows():
-            activity_type = row['activityType']
-            if activity_type in self.activity_to_table_types:
-                for table_type in self.activity_to_table_types[activity_type]:
-                    table_names.append(str(row['activityId']) + separator + table_type)
-            else:
-                print('Activity type \'' + activity_type + '\' not supported (yet?).')
-
-        return boxes_pb2.TableNames(table_names=table_names)
+        return boxes_pb2.TableNames(table_names=self.table_names)
 
 
     def GetTableSchemas(self, request, context):
         ts = boxes_pb2.TableSchemas(table_schemas=[])
 
         for name in request.table_names:
-            if name == self.activities_table_name:
-                ts.table_schemas.append(df_to_protoschema(self.activity_df))
-            else:
-                ts.table_schemas.append(df_to_protoschema(self.__get_table_df(name)))
+            ts.table_schemas.append(df_to_protoschema(self.__get_table_df(name)))
 
         return ts
 
 
     def GetTable(self, request, context):
-        if request.name == self.activities_table_name:
-            return df_to_prototable(self.activity_df)
-        else:
-            return df_to_prototable(self.__get_table_df(request.name))
+        return df_to_prototable(self.__get_table_df(request.name))
 
 
 def serve(port, num_items):
