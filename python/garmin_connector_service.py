@@ -3,6 +3,7 @@ import random
 import zipfile
 import grpc
 import argparse
+import numpy
 import pandas as pd
 
 from fitparse import FitFile
@@ -15,8 +16,8 @@ from common import boxes_pb2
 from common.consul_services import consul_register, consul_unregister
 from common.df_prototables import df_to_prototable, df_to_protoschema
 
-table_type_info = {'swim_lengths': ('lap', ['avg_cadence', 'total_distance', 'total_elapsed_time', 'timestamp']),
-                   'swim_laps': ('length', ['avg_swimming_cadence', 'total_strokes', 'total_elapsed_time', 'timestamp'])}
+table_type_info = {'swim_lengths': ('lap', ['avg_cadence', 'total_distance', 'total_elapsed_time', 'timestamp'], [float, int, float, numpy.datetime64]),
+                   'swim_laps': ('length', ['avg_swimming_cadence', 'total_strokes', 'total_elapsed_time', 'timestamp'], [float, int, float, numpy.datetime64])}
 
 separator = '#'
 
@@ -53,16 +54,21 @@ class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
                 print('Activity type \'' + activity_type + '\' not supported (yet?).')
 
     def __activities_to_df(self, activities):
-        cols = ['activityId', 'activityName', 'startTimeLocal', 'activityType']
-        dict = {}
-        for c in cols:
-            dict[c] = []
+        column_names = ['activityId', 'activityName', 'startTimeLocal', 'activityType']
+        column_types = [int, str, numpy.datetime64, str]
+        data_dict = {}
+        for c in column_names:
+            data_dict[c] = []
         for a in activities:
-            for c in cols[:-1]:
-                dict[c].append(str(a[c]))
-            dict[cols[-1]].append(a[cols[-1]]['typeKey']) # Special handling of activity type since it is not a straight name:val pair
+            for c in column_names[:-1]:
+                data_dict[c].append(a[c])
+            data_dict[column_names[-1]].append(a[column_names[-1]]['typeKey']) # Special handling of activity type since it is not a straight name:val pair
 
-        return pd.DataFrame(data=dict, columns=cols)
+        dataframe =  pd.DataFrame(data=data_dict, columns=column_names)
+        for (column, column_type) in zip(column_names, column_types):
+            dataframe[column] = dataframe[column].astype(column_type)
+
+        return dataframe
 
     def __get_table_type_metatable(self, type_name):
         new_df = None
@@ -109,18 +115,22 @@ class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
         print('Parsing    {}...'.format(fit_filename))
         fitfile.parse()
 
-        (info_type,fields) = table_type_info[activity_type]
+        (info_type,column_names, column_types) = table_type_info[activity_type]
 
-        dict = {}
-        for f in fields:
-            dict[f] = []
+        data_dict = {}
+        for f in column_names:
+            data_dict[f] = []
         for msg in fitfile.get_messages(info_type, as_dict=False):
             # Go through all the data entries in this record
             for field in msg:
-                if field.name in fields:
-                    dict[field.name].append(field.value)
+                if field.name in column_names:
+                    data_dict[field.name].append(field.value)
 
-        return pd.DataFrame(data=dict, columns=fields)
+        dataframe = pd.DataFrame(data=data_dict, columns=column_names)
+        for (column, column_type) in zip(column_names, column_types):
+            dataframe[column] = dataframe[column].astype(column_type)
+
+        return dataframe
 
     def GetTableNames(self, request, context):
         return boxes_pb2.TableNames(table_names=self.table_names)

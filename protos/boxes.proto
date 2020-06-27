@@ -36,8 +36,9 @@ message TableSchema {
 
 enum ColumnType {
   UNUSED  = 0;
-  NUMBER  = 1;
-  STRING  = 2;
+  INTEGER = 1;
+  REAL    = 2;
+  STRING  = 3;
 }
 
 message ColumnSchema {

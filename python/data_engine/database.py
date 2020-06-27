@@ -1,17 +1,25 @@
 import sqlite3
 
 from contextlib import closing
-from common import boxes_pb2
+#from common import boxes_pb2
 from enum import Enum
 
+'''
 def ct_to_str(ct):
-    return "REAL" if ct == boxes_pb2.ColumnType.NUMBER else "TEXT"
+    if ct == boxes_pb2.ColumnType.REAL:
+        return "REAL"
+    if ct == boxes_pb2.ColumnType.INTEGER:
+        return "INTEGER"
+    if ct == boxes_pb2.ColumnType.STRING:
+        return "TEXT"
+    return "NULL"
 
 def quoted(s):
     return "'" + s + "'"
 
 def c_to_str(ct, cvs, i):
     return cvs.str_values[i] if ct == boxes_pb2.ColumnType.STRING else cvs.num_values[i]
+'''
 
 def print_db_rows(it):
     for row in it:
