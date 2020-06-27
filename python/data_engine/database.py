@@ -85,7 +85,10 @@ class Database:
         print_db_rows(cursor.fetchall() if full_print else cursor.fetchmany())
 
     @connection_decorator
-    def create_table(self, name, proto_schema, proto_table, connection, cursor):
+    def create_table(self, name, dataframe, connection, cursor):
+        dataframe.to_sql(name=name, con=connection)
+
+        '''
         create_string = "CREATE TABLE '{tn}' ({cols});".format(
             tn=name,
             cols=', '.join([quoted(cs.name) + ' ' + ct_to_str(cs.type) for cs in proto_schema.column_schemas]))
@@ -104,4 +107,5 @@ class Database:
         cursor.executemany(insert_string, value_gen(proto_schema, proto_table))
 
         connection.commit()
+        '''
 
