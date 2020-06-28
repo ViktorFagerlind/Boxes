@@ -31,6 +31,8 @@ if args.prompt:
         except KeyboardInterrupt:
             print('User aborted...')
             break
+        except Exception as e:
+            print('Caught exception {}:'.format(e))
 elif args.select is not None:
     for stm in args.select.split(';'):
         c.ExecuteQuery(boxes_pb2.Query(q=stm))
