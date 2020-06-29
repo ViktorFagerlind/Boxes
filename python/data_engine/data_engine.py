@@ -27,7 +27,7 @@ class DataEngine:
     def __setup_tablestable(self):
         name = 'all_tables'
         table_names = [name] + self.connector_manager.get_table_names()
-        df = pd.DataFrame({'Table names':table_names, 'Cached':[False]*len(table_names)})
+        df = pd.DataFrame({'table_name':table_names, 'cached':[False]*len(table_names)})
 
         self.database.create_table(name=name, proto_schema=df_to_protoschema(df), proto_table=df_to_prototable(df))
         self.database.print_table(name, full_print=True)
