@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='boxes',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x0b\x62oxes.proto\x12\x05\x62oxes\"\x07\n\x05\x45mpty\"\x19\n\tTableName\x12\x0c\n\x04name\x18\x01 \x01(\t\"!\n\nTableNames\x12\x13\n\x0btable_names\x18\x01 \x03(\t\"9\n\x0cTableSchemas\x12)\n\rtable_schemas\x18\x01 \x03(\x0b\x32\x12.boxes.TableSchema\":\n\x0bTableSchema\x12+\n\x0e\x63olumn_schemas\x18\x01 \x03(\x0b\x32\x13.boxes.ColumnSchema\"=\n\x0c\x43olumnSchema\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x1f\n\x04type\x18\x02 \x01(\x0e\x32\x11.boxes.ColumnType\"-\n\x05Table\x12$\n\x07\x63olumns\x18\x01 \x03(\x0b\x32\x13.boxes.ColumnValues\"6\n\x0c\x43olumnValues\x12\x12\n\nstr_values\x18\x01 \x03(\t\x12\x12\n\nnum_values\x18\x02 \x03(\x01\"\x1c\n\nDoubleList\x12\x0e\n\x06values\x18\x01 \x03(\x01\"\x1c\n\x0b\x44oubleValue\x12\r\n\x05value\x18\x01 \x01(\x01\"\x12\n\x05Query\x12\t\n\x01q\x18\x01 \x01(\t*0\n\nColumnType\x12\n\n\x06UNUSED\x10\x00\x12\n\n\x06NUMBER\x10\x01\x12\n\n\x06STRING\x10\x02\x32\xaa\x01\n\tConnector\x12\x32\n\rGetTableNames\x12\x0c.boxes.Empty\x1a\x11.boxes.TableNames\"\x00\x12;\n\x0fGetTableSchemas\x12\x11.boxes.TableNames\x1a\x13.boxes.TableSchemas\"\x00\x12,\n\x08GetTable\x12\x10.boxes.TableName\x1a\x0c.boxes.Table\"\x00\x32\xd3\x01\n\nAlgorithms\x12.\n\x03Max\x12\x11.boxes.DoubleList\x1a\x12.boxes.DoubleValue\"\x00\x12.\n\x03Min\x12\x11.boxes.DoubleList\x1a\x12.boxes.DoubleValue\"\x00\x12\x32\n\x07\x41verage\x12\x11.boxes.DoubleList\x1a\x12.boxes.DoubleValue\"\x00\x12\x31\n\x06Median\x12\x11.boxes.DoubleList\x1a\x12.boxes.DoubleValue\"\x00\x32:\n\nDataEngine\x12,\n\x0c\x45xecuteQuery\x12\x0c.boxes.Query\x1a\x0c.boxes.Table\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x0b\x62oxes.proto\x12\x05\x62oxes\"\x07\n\x05\x45mpty\"\x19\n\tTableName\x12\x0c\n\x04name\x18\x01 \x01(\t\"!\n\nTableNames\x12\x13\n\x0btable_names\x18\x01 \x03(\t\"9\n\x0cTableSchemas\x12)\n\rtable_schemas\x18\x01 \x03(\x0b\x32\x12.boxes.TableSchema\":\n\x0bTableSchema\x12+\n\x0e\x63olumn_schemas\x18\x01 \x03(\x0b\x32\x13.boxes.ColumnSchema\"=\n\x0c\x43olumnSchema\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x1f\n\x04type\x18\x02 \x01(\x0e\x32\x11.boxes.ColumnType\"-\n\x05Table\x12$\n\x07\x63olumns\x18\x01 \x03(\x0b\x32\x13.boxes.ColumnValues\"6\n\x0c\x43olumnValues\x12\x12\n\nstr_values\x18\x01 \x03(\t\x12\x12\n\nnum_values\x18\x02 \x03(\x01\"\x1c\n\nDoubleList\x12\x0e\n\x06values\x18\x01 \x03(\x01\"\x1c\n\x0b\x44oubleValue\x12\r\n\x05value\x18\x01 \x01(\x01\";\n\x05Query\x12\t\n\x01q\x18\x01 \x01(\t\x12\'\n\x0c\x63olumn_types\x18\x02 \x03(\x0e\x32\x11.boxes.ColumnType*;\n\nColumnType\x12\n\n\x06UNUSED\x10\x00\x12\x0b\n\x07INTEGER\x10\x01\x12\x08\n\x04REAL\x10\x02\x12\n\n\x06STRING\x10\x03\x32\xaa\x01\n\tConnector\x12\x32\n\rGetTableNames\x12\x0c.boxes.Empty\x1a\x11.boxes.TableNames\"\x00\x12;\n\x0fGetTableSchemas\x12\x11.boxes.TableNames\x1a\x13.boxes.TableSchemas\"\x00\x12,\n\x08GetTable\x12\x10.boxes.TableName\x1a\x0c.boxes.Table\"\x00\x32\xd3\x01\n\nAlgorithms\x12.\n\x03Max\x12\x11.boxes.DoubleList\x1a\x12.boxes.DoubleValue\"\x00\x12.\n\x03Min\x12\x11.boxes.DoubleList\x1a\x12.boxes.DoubleValue\"\x00\x12\x32\n\x07\x41verage\x12\x11.boxes.DoubleList\x1a\x12.boxes.DoubleValue\"\x00\x12\x31\n\x06Median\x12\x11.boxes.DoubleList\x1a\x12.boxes.DoubleValue\"\x00\x32:\n\nDataEngine\x12,\n\x0c\x45xecuteQuery\x12\x0c.boxes.Query\x1a\x0c.boxes.Table\"\x00\x62\x06proto3'
 )
 
 _COLUMNTYPE = _descriptor.EnumDescriptor(
@@ -33,25 +33,30 @@ _COLUMNTYPE = _descriptor.EnumDescriptor(
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='NUMBER', index=1, number=1,
+      name='INTEGER', index=1, number=1,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='STRING', index=2, number=2,
+      name='REAL', index=2, number=2,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='STRING', index=3, number=3,
       serialized_options=None,
       type=None),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=458,
-  serialized_end=506,
+  serialized_start=499,
+  serialized_end=558,
 )
 _sym_db.RegisterEnumDescriptor(_COLUMNTYPE)
 
 ColumnType = enum_type_wrapper.EnumTypeWrapper(_COLUMNTYPE)
 UNUSED = 0
-NUMBER = 1
-STRING = 2
+INTEGER = 1
+REAL = 2
+STRING = 3
 
 
 
@@ -386,6 +391,13 @@ _QUERY = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='column_types', full_name='boxes.Query.column_types', index=1,
+      number=2, type=14, cpp_type=8, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -399,13 +411,14 @@ _QUERY = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=438,
-  serialized_end=456,
+  serialized_end=497,
 )
 
 _TABLESCHEMAS.fields_by_name['table_schemas'].message_type = _TABLESCHEMA
 _TABLESCHEMA.fields_by_name['column_schemas'].message_type = _COLUMNSCHEMA
 _COLUMNSCHEMA.fields_by_name['type'].enum_type = _COLUMNTYPE
 _TABLE.fields_by_name['columns'].message_type = _COLUMNVALUES
+_QUERY.fields_by_name['column_types'].enum_type = _COLUMNTYPE
 DESCRIPTOR.message_types_by_name['Empty'] = _EMPTY
 DESCRIPTOR.message_types_by_name['TableName'] = _TABLENAME
 DESCRIPTOR.message_types_by_name['TableNames'] = _TABLENAMES
@@ -505,8 +518,8 @@ _CONNECTOR = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=509,
-  serialized_end=679,
+  serialized_start=561,
+  serialized_end=731,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetTableNames',
@@ -547,8 +560,8 @@ _ALGORITHMS = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=1,
   serialized_options=None,
-  serialized_start=682,
-  serialized_end=893,
+  serialized_start=734,
+  serialized_end=945,
   methods=[
   _descriptor.MethodDescriptor(
     name='Max',
@@ -598,8 +611,8 @@ _DATAENGINE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=2,
   serialized_options=None,
-  serialized_start=895,
-  serialized_end=953,
+  serialized_start=947,
+  serialized_end=1005,
   methods=[
   _descriptor.MethodDescriptor(
     name='ExecuteQuery',

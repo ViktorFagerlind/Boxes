@@ -1,6 +1,6 @@
 
 --- Fastest laps
-SELECT l.activityId, l.timestamp, l.total_elapsed_time, r.activityType
+SELECT l.activityId, r.startTimeLocal, l.total_elapsed_time, r.activityType
 FROM swim_laps l
 LEFT JOIN all_activities r ON l.activityId = r.activityId
 WHERE l.total_elapsed_time > 30
@@ -8,7 +8,7 @@ ORDER BY l.total_elapsed_time
 LIMIT 30
 
 --- Fastest 100m swims
-SELECT l.activityId, l.total_distance, l.timestamp, l.total_elapsed_time, r.activityType
+SELECT l.activityId, l.total_distance, r.startTimeLocal, l.total_elapsed_time, r.activityType
 FROM swim_lengths l
 LEFT JOIN all_activities r ON l.activityId = r.activityId
 WHERE l.total_elapsed_time > 70 AND l.total_distance == 100
@@ -16,10 +16,22 @@ ORDER BY l.total_elapsed_time
 LIMIT 10
 
 --- Fastest 100m each month, time order
-???
+SELECT strftime("%Y-%m", r.startTimeLocal), min(l.total_elapsed_time)
+FROM swim_lengths l 
+LEFT JOIN all_activities r ON l.activityId = r.activityId
+WHERE l.total_elapsed_time > 73 AND l.total_elapsed_time < 180 AND l.total_distance == 100
+GROUP BY strftime("%Y-%m", r.startTimeLocal)
+ORDER BY r.startTimeLocal
+
 
 --- Fastest 200m each month, time order
-???
+SELECT strftime("%Y-%m", r.startTimeLocal), min(l.total_elapsed_time)
+FROM swim_lengths l 
+LEFT JOIN all_activities r ON l.activityId = r.activityId
+WHERE l.total_elapsed_time > 150 AND l.total_elapsed_time < 360 AND l.total_distance == 200
+GROUP BY strftime("%Y-%m", r.startTimeLocal)
+ORDER BY r.startTimeLocal
+
 
 --- Longest session each month, time order
 ???

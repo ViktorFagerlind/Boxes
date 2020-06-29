@@ -1,5 +1,5 @@
 import pandas as pd
-from common.df_prototables import df_to_protoschema, df_to_prototable
+from common.df_prototables import df_to_protoschema, df_to_prototable, prototable_to_df
 from data_engine.connector_manager import ConnectorManager
 from data_engine.algorithms import Algorithms
 from data_engine.database import Database
@@ -15,6 +15,7 @@ class DataEngine:
                     raise Exception('Table "{}" is not available in any connector!'.format(name))
                 self.__create_table(name)
                 return wrap_function(self, *args, **kwargs)
+            return result[1]
         return wrap_function
 
     def __init__(self):
@@ -29,7 +30,7 @@ class DataEngine:
         table_names = [name] + self.connector_manager.get_table_names()
         df = pd.DataFrame({'table_name':table_names, 'cached':[False]*len(table_names)})
 
-        self.database.create_table(name=name, proto_schema=df_to_protoschema(df), proto_table=df_to_prototable(df))
+        self.database.create_table(name=name, dataframe=df)
         self.database.print_table(name, full_print=True)
         #print(df)
 
@@ -37,7 +38,8 @@ class DataEngine:
     def __create_table(self, name):
         ps = self.connector_manager.get_table_schema(name)
         pt = self.connector_manager.get_table(name)
-        self.database.create_table(name=name, proto_schema=ps, proto_table=pt)
+
+        self.database.create_table(name=name, dataframe=prototable_to_df(ps, pt))
         print('Created table "{}"'.format(name))
         self.database.print_table(name)
 
@@ -52,8 +54,12 @@ class DataEngine:
         pass    # TODO
 
     @missing_table_decorator
-    def select_query(self, query):
-        return self.database.select_query(query)
+    def select_query(self, query, column_types):
+        return self.database.select_query(query, column_types)
+
+
+
+
 
 
 
