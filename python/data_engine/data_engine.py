@@ -15,6 +15,7 @@ class DataEngine:
                     raise Exception('Table "{}" is not available in any connector!'.format(name))
                 self.__create_table(name)
                 return wrap_function(self, *args, **kwargs)
+            return result[1]
         return wrap_function
 
     def __init__(self):
@@ -53,8 +54,12 @@ class DataEngine:
         pass    # TODO
 
     @missing_table_decorator
-    def select_query(self, query):
-        return self.database.select_query(query)
+    def select_query(self, query, column_types):
+        return self.database.select_query(query, column_types)
+
+
+
+
 
 
 

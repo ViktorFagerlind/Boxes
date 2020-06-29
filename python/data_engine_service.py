@@ -14,8 +14,8 @@ class DataEngineService(boxes_pb2_grpc.DataEngineServicer):
         self.de = DataEngine()
 
     def ExecuteQuery(self, request, context):
-        result = self.de.select_query(request.q)
-        return boxes_pb2.Table(columns=[]) # TODO
+        pb_table = self.de.select_query(request.q, request.column_types)
+        return pb_table
 
 def serve(port):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

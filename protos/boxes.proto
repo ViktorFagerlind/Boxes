@@ -85,8 +85,8 @@ service DataEngine {
   rpc ExecuteQuery (Query) returns (Table) {}
 }
 
-
 message Query {
-  string q = 1;
+  string              q            = 1;
+  repeated ColumnType column_types = 2;
 }
 

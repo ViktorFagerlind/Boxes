@@ -1,6 +1,6 @@
 
 --- Fastest laps
-SELECT l.activityId, l.timestamp, l.total_elapsed_time, r.activityType
+SELECT l.activityId, r.startTimeLocal, l.total_elapsed_time, r.activityType
 FROM swim_laps l
 LEFT JOIN all_activities r ON l.activityId = r.activityId
 WHERE l.total_elapsed_time > 30
@@ -8,7 +8,7 @@ ORDER BY l.total_elapsed_time
 LIMIT 30
 
 --- Fastest 100m swims
-SELECT l.activityId, l.total_distance, l.timestamp, l.total_elapsed_time, r.activityType
+SELECT l.activityId, l.total_distance, r.startTimeLocal, l.total_elapsed_time, r.activityType
 FROM swim_lengths l
 LEFT JOIN all_activities r ON l.activityId = r.activityId
 WHERE l.total_elapsed_time > 70 AND l.total_distance == 100
