@@ -54,7 +54,7 @@ class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
                 print('Activity type \'' + activity_type + '\' not supported (yet?).')
 
     def __activities_to_df(self, activities):
-        column_names = ['activityId', 'activityName', 'startTimeLocal', 'activityType']
+        column_names = ['activityId', 'activityName', 'startTimeLocal', 'distance', 'elapsedDuration', 'movingDuration', 'poolLength', 'activityType']
         column_types = [int, str, numpy.datetime64, str]
         data_dict = {}
         for c in column_names:
@@ -64,7 +64,7 @@ class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
                 data_dict[c].append(a[c])
             data_dict[column_names[-1]].append(a[column_names[-1]]['typeKey']) # Special handling of activity type since it is not a straight name:val pair
 
-        dataframe =  pd.DataFrame(data=data_dict, columns=column_names)
+        dataframe =  pd.DataFrame(data=data_dict, columns=column_names, )
         for (column, column_type) in zip(column_names, column_types):
             dataframe[column] = dataframe[column].astype(column_type)
 

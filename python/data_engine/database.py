@@ -108,7 +108,7 @@ class Database:
 
     @connection_decorator
     def create_table(self, name, dataframe, connection, cursor):
-        dataframe.to_sql(name=name, con=connection)
+        dataframe.to_sql(name=name, con=connection, index = False)
 
         '''
         create_string = "CREATE TABLE '{tn}' ({cols});".format(

@@ -33,8 +33,12 @@ GROUP BY strftime("%Y-%m", r.startTimeLocal)
 ORDER BY r.startTimeLocal
 
 
---- Longest session each month, time order
-???
+--- Max session length each month, time order
+SELECT strftime("%Y-%m", startTimeLocal), MAX(distance)
+FROM all_activities 
+WHERE activityType == "lap_swimming"
+GROUP BY strftime("%Y-%m", startTimeLocal)
+ORDER BY startTimeLocal
 
 --- "Fastest" session (distance / total time) per month, time order
 ???
