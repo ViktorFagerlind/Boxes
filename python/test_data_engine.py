@@ -1,5 +1,8 @@
 import argparse
 import grpc
+import matplotlib.pyplot as plt
+import pandas as pd
+import yaml
 
 from prompt_toolkit import prompt
 from common import boxes_pb2_grpc, boxes_pb2
@@ -14,19 +17,58 @@ def setup_connection():
     return boxes_pb2_grpc.DataEngineStub(channel)
 
 
-def execute_and_print(query):
+def execute_query(query, column_types=[], column_names=[]):
     for stm in query.split(';'):
-        column_types = []
         result_table = c.ExecuteQuery(boxes_pb2.Query(q=stm, column_types=column_types))
 
         column_schemas = []
         for i in range(len(result_table.columns)):
-            column_schemas.append(boxes_pb2.ColumnSchema(name='col {}'.format(i),type=column_types[i] if i < len(column_types) else boxes_pb2.ColumnType.STRING))
+            name = column_names[i] if i < len(column_names) else 'col {}'.format(i)
+            column_schemas.append(boxes_pb2.ColumnSchema(name=name,type=column_types[i] if i < len(column_types) else boxes_pb2.ColumnType.STRING))
         result_schema = boxes_pb2.TableSchema(column_schemas=column_schemas)
-        print (prototable_to_df(schema=result_schema, table=result_table))
+
+        return  prototable_to_df(schema=result_schema, table=result_table)
+
+def name_to_enum(name):
+    for e in boxes_pb2.ColumnType.items():
+        if name == e[0]:
+            return e[1]
+    return boxes_pb2.ColumnType.UNUSED
+
+
+def plot_config(plot_config):
+    column_types = []
+    column_names = []
+    for columndef in plot_config['columns']:
+        column_types.append(name_to_enum(columndef['type']))
+        column_names.append(columndef['name'])
+
+    df = execute_query(query=plot_config['query'], column_types=column_types, column_names=column_names)
+    print(df)
+
+    ax = plt.gca()
+    df.plot(kind=plot_config['kind'], x=column_names[0], y=column_names[1], ax=ax)
+
+
+def draw_predefined_plot(names):
+    filename = r'../input/plots.yaml'
+    with open(filename) as file:
+        plot_configs = yaml.full_load(file)
+
+        if names == 'all':
+            for cfg in plot_configs.values():
+                plot_config(cfg)
+        else:
+            namelist = names.split(',')
+            for name in namelist:
+                plot_config(plot_configs[name])
+
+        plt.show()
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-p', '--prompt', help="Use promt", action="store_true")
+parser.add_argument('-d', '--draw',   help="Draw predefined plot")
 parser.add_argument('-s', '--select', help="Select query to execute and print. E.g. \"SELECT avg_cadence, "
                                            "total_distance, timestamp from \'5129419239#swim_lengths\'\"")
 args = parser.parse_args()
@@ -37,13 +79,20 @@ if args.prompt:
     while True:
         try:
             input = prompt('> ')
-            execute_and_print(input)
+            df = execute_query(input)
+            print(df)
+
         except KeyboardInterrupt:
             print('User aborted...')
             break
         except Exception as e:
             print('Caught exception {}:'.format(e))
-elif args.select is not None:
-    execute_and_print(args.select)
+else:
+    if args.select is not None:
+        df = execute_query(args.select)
+        print(df)
+
+    if args.draw is not None:
+        draw_predefined_plot(args.draw)
 
 
