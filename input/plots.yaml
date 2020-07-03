@@ -1,36 +1,39 @@
 
-plot_100m:
+line_100m:
   name: Fastest 100m swims by month
-  kind: 'line'
+  kind: line
+  color: orange
   query: |
           SELECT strftime("%Y-%m-%d", r.startTimeLocal), min(l.total_elapsed_time)
           FROM swim_lengths l 
           LEFT JOIN all_activities r ON l.activityId = r.activityId
           WHERE l.total_elapsed_time > 73 AND l.total_elapsed_time < 180 AND l.total_distance == 100
-          GROUP BY strftime("%Y-%m", r.startTimeLocal)
+          GROUP BY strftime("%Y-%m-%d", r.startTimeLocal)
           ORDER BY r.startTimeLocal
   columns: 
     - # X axis
       name: Month
-      type: STRING
+      type: DATETIME
     - # Y axis
       name: 100m time
       type: REAL
 
-plot_200m:
+
+line_200m:
   name: Fastest 200m swims by month
-  kind: 'line'
+  kind: line
+  color: red
   query: |
-          SELECT strftime("%Y-%m", r.startTimeLocal), min(l.total_elapsed_time)
+          SELECT strftime("%Y-%m-%d", r.startTimeLocal), min(l.total_elapsed_time)
           FROM swim_lengths l 
           LEFT JOIN all_activities r ON l.activityId = r.activityId
           WHERE l.total_elapsed_time > 150 AND l.total_elapsed_time < 360 AND l.total_distance == 200
-          GROUP BY strftime("%Y-%m", r.startTimeLocal)
+          GROUP BY strftime('%W', r.startTimeLocal)
           ORDER BY r.startTimeLocal
   columns: 
     - # X axis
       name: Month
-      type: STRING
+      type: DATETIME
     - # Y axis
       name: 200m time
       type: REAL
@@ -38,7 +41,8 @@ plot_200m:
 
 scat_100m:
   name: 100m swims
-  kind: 'scatter'
+  kind: scatter
+  color: black
   query: |
           SELECT strftime("%Y-%m-%d", r.startTimeLocal), l.total_elapsed_time
           FROM swim_lengths l 
@@ -48,7 +52,26 @@ scat_100m:
   columns: 
     - # X axis
       name: Date
-      type: STRING
+      type: DATETIME
     - # Y axis
       name: 100m time
       type: REAL
+
+scat_200m:
+  name: 200m swims
+  kind: scatter
+  color: black
+  query: |
+          SELECT strftime("%Y-%m-%d", r.startTimeLocal), l.total_elapsed_time
+          FROM swim_lengths l 
+          LEFT JOIN all_activities r ON l.activityId = r.activityId
+          WHERE l.total_elapsed_time > 150 AND l.total_elapsed_time < 360 AND l.total_distance == 200
+          ORDER BY r.startTimeLocal
+  columns: 
+    - # X axis
+      name: Date
+      type: DATETIME
+    - # Y axis
+      name: 200m time
+      type: REAL
+

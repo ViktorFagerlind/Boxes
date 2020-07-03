@@ -35,10 +35,11 @@ message TableSchema {
 }
 
 enum ColumnType {
-  UNUSED  = 0;
-  INTEGER = 1;
-  REAL    = 2;
-  STRING  = 3;
+  UNUSED    = 0;
+  INTEGER   = 1;
+  REAL      = 2;
+  TEXT      = 3;
+  DATETIME  = 4;
 }
 
 message ColumnSchema {

@@ -1,5 +1,6 @@
 import pandas as pd
 from pandas.api.types import is_numeric_dtype
+from pandas.api.types import is_datetime64_dtype
 
 from common import boxes_pb2
 
@@ -29,8 +30,10 @@ def df_to_protoschema(df):
             t = boxes_pb2.ColumnType.INTEGER
         elif df_type == float:
             t = boxes_pb2.ColumnType.REAL
+        elif is_datetime64_dtype(df_type):
+            t = boxes_pb2.ColumnType.DATETIME
         else:
-            t = boxes_pb2.ColumnType.STRING
+            t = boxes_pb2.ColumnType.TEXT
 
         protoschema.column_schemas.append(boxes_pb2.ColumnSchema(name=column_name, type=t))
 
@@ -50,6 +53,8 @@ def prototable_to_df(schema, table):
             df[s.name] = df[s.name].astype(int)
         elif s.type == boxes_pb2.ColumnType.REAL:
             df[s.name] = df[s.name].astype(float)
+        elif s.type == boxes_pb2.ColumnType.DATETIME:
+            df[s.name] = pd.to_datetime(df[s.name])
         else:
             df[s.name] = df[s.name].astype(str)
 

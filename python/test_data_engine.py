@@ -24,7 +24,7 @@ def execute_query(query, column_types=[], column_names=[]):
         column_schemas = []
         for i in range(len(result_table.columns)):
             name = column_names[i] if i < len(column_names) else 'col {}'.format(i)
-            column_schemas.append(boxes_pb2.ColumnSchema(name=name,type=column_types[i] if i < len(column_types) else boxes_pb2.ColumnType.STRING))
+            column_schemas.append(boxes_pb2.ColumnSchema(name=name,type=column_types[i] if i < len(column_types) else boxes_pb2.ColumnType.TEXT))
         result_schema = boxes_pb2.TableSchema(column_schemas=column_schemas)
 
         return  prototable_to_df(schema=result_schema, table=result_table)
@@ -47,7 +47,7 @@ def plot_config(plot_config):
     print(df)
 
     ax = plt.gca()
-    df.plot(kind=plot_config['kind'], x=column_names[0], y=column_names[1], ax=ax)
+    df.plot(kind=plot_config['kind'], x=column_names[0], y=column_names[1], ax=ax, color=plot_config['color'])
 
 
 def draw_predefined_plot(names):
