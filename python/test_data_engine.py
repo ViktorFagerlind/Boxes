@@ -47,7 +47,8 @@ def plot_config(plot_config):
     print(df)
 
     ax = plt.gca()
-    df.plot(kind=plot_config['kind'], x=column_names[0], y=column_names[1], ax=ax, color=plot_config['color'])
+    for plot in plot_config['plots']:
+        df.plot(kind=plot['kind'], x=plot_config['x-axis'], y=plot['y-axis'], ax=ax, color=plot['color'])
 
 
 def draw_predefined_plot(names):

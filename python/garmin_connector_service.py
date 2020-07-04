@@ -15,37 +15,39 @@ from common import boxes_pb2_grpc
 from common import boxes_pb2
 from common.consul_services import consul_register, consul_unregister
 from common.df_prototables import df_to_prototable, df_to_protoschema
+from datetime import date, timedelta
 
 table_type_info = {'swim_lengths': ('lap', ['avg_cadence', 'total_distance', 'total_elapsed_time', 'timestamp'], [float, int, float, str]),
                    'swim_laps': ('length', ['avg_swimming_cadence', 'total_strokes', 'total_elapsed_time', 'timestamp'], [float, float, float, str])}
+
+all_activities_name = 'all_activities'
 
 separator = '#'
 
 class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
     def __init__(self, nof_activities):
-
         self.activity_to_table_types = {'lap_swimming':['swim_lengths', 'swim_laps']}
-        self.activities_table_name = 'all_activities'
 
         self.client = Garmin('viktor_fagerlind@hotmail.com', '6iZoXg4EooP3dpUg')
         self.client.login()
 
-        self.activity_df = self.__activities_to_df(self.client.get_activities(start=0, limit=nof_activities))
+        self.table_names = []
         self.table_to_df = {}
-        self.table_to_df[self.activities_table_name] = self.activity_df
 
-        self.__setup_names()
+        self.__setup_heart_rates(date(2018,9,1))
+        self.__setup_activities(nof_activities)
+        self.__setup_activity_table_names()
 
-        print(self.activity_df)
+    def __add_table(self, name, df):
+        self.table_names.append(name)
+        self.table_to_df[name] = df
 
-    def __setup_names(self):
-        self.table_names = [self.activities_table_name]
-
+    def __setup_activity_table_names(self):
         for table_types in self.activity_to_table_types.values():
             for table_type in table_types:
                 self.table_names.append(table_type)
 
-        for i,row in self.activity_df.iterrows():
+        for i,row in self.table_to_df[all_activities_name].iterrows():
             activity_type = row['activityType']
             if activity_type in self.activity_to_table_types:
                 for table_type in self.activity_to_table_types[activity_type]:
@@ -53,7 +55,8 @@ class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
             else:
                 print('Activity type \'' + activity_type + '\' not supported (yet?).')
 
-    def __activities_to_df(self, activities):
+    def __setup_activities(self, nof_activities):
+        activities = self.client.get_activities(start=0, limit=nof_activities)
         column_names = ['activityId', 'activityName', 'startTimeLocal', 'distance', 'elapsedDuration', 'movingDuration', 'poolLength', 'activityType']
         column_types = [int, str, numpy.datetime64, str]
         data_dict = {}
@@ -64,11 +67,39 @@ class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
                 data_dict[c].append(a[c])
             data_dict[column_names[-1]].append(a[column_names[-1]]['typeKey']) # Special handling of activity type since it is not a straight name:val pair
 
-        dataframe =  pd.DataFrame(data=data_dict, columns=column_names, )
+        dataframe =  pd.DataFrame(data=data_dict, columns=column_names)
         for (column, column_type) in zip(column_names, column_types):
             dataframe[column] = dataframe[column].astype(column_type)
 
-        return dataframe
+        self.__add_table(all_activities_name, dataframe)
+        print(dataframe)
+
+    def __setup_heart_rates(self, start_date):
+        column_names = ['calendarDate', 'maxHeartRate', 'minHeartRate', 'restingHeartRate', 'lastSevenDaysAvgRestingHeartRate']
+        column_types = [numpy.datetime64, float, float, float, float]
+
+        data_dict = {}
+        for c in column_names:
+            data_dict[c] = []
+
+        end_date = date.today()
+        delta = end_date - start_date
+        i = 0
+        while i < delta.days:
+            day = end_date - timedelta(days=i)
+            heart_day = self.client.get_heart_rates(day.isoformat())
+            if not None in heart_day.values():
+                for c in column_names:
+                    data_dict[c].append(heart_day[c])
+            i = i + 7
+            print (' ' + str(i), end='')
+
+        dataframe =  pd.DataFrame(data=data_dict, columns=column_names)
+        for (column, column_type) in zip(column_names, column_types):
+            dataframe[column] = dataframe[column].astype(column_type)
+
+        self.__add_table('heart_rates', dataframe)
+        print(dataframe)
 
     def __get_table_type_metatable(self, type_name):
         new_df = None
@@ -138,7 +169,6 @@ class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
 
     def GetTableNames(self, request, context):
         return boxes_pb2.TableNames(table_names=self.table_names)
-
 
     def GetTableSchemas(self, request, context):
         ts = boxes_pb2.TableSchemas(table_schemas=[])

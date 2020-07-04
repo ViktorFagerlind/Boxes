@@ -86,9 +86,9 @@ class Database:
                     is_digits.append(bool(j < len(column_types) and (column_types[j] == boxes_pb2.ColumnType.REAL or column_types[j] == boxes_pb2.ColumnType.INTEGER)))
 
                 if is_digits[j]:
-                    bp_table.columns[j].num_values.append(float(item))
+                    bp_table.columns[j].num_values.append(float(item) if item is not None else float('nan'))
                 else:
-                    bp_table.columns[j].str_values.append(str(item))
+                    bp_table.columns[j].str_values.append(str(item) if item is not None else '')
                 if do_print:
                     print('{:>23}'.format('None' if item == None else str(item)), end='')
             if do_print:

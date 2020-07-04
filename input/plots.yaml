@@ -1,77 +1,110 @@
+scat_100m:
+  name: 100m swims
+  query: |
+          SELECT strftime("%Y-%m-%d", r.startTimeLocal), l.total_elapsed_time
+          FROM swim_lengths l 
+          LEFT JOIN all_activities r ON l.activityId = r.activityId
+          WHERE l.total_elapsed_time > 73 AND l.total_elapsed_time < 140 AND l.total_distance == 100
+          ORDER BY r.startTimeLocal
+  columns: 
+    - name: Date
+      type: DATETIME
+
+    - name: 100m time
+      type: REAL
+  x-axis: Date
+  plots:
+    - kind: scatter
+      color: black
+      y-axis: 100m time
+
+
+scat_200m:
+  name: 200m swims
+  query: |
+          SELECT strftime("%Y-%m-%d", r.startTimeLocal), l.total_elapsed_time
+          FROM swim_lengths l 
+          LEFT JOIN all_activities r ON l.activityId = r.activityId
+          WHERE l.total_elapsed_time > 150 AND l.total_elapsed_time < 260 AND l.total_distance == 200
+          ORDER BY r.startTimeLocal
+  columns: 
+    - name: Date
+      type: DATETIME
+
+    - name: 200m time
+      type: REAL
+  x-axis: Date
+  plots:
+    - kind: scatter
+      color: blue
+      y-axis: 200m time
 
 line_100m:
   name: Fastest 100m swims by month
-  kind: line
-  color: orange
   query: |
           SELECT strftime("%Y-%m-%d", r.startTimeLocal), min(l.total_elapsed_time)
           FROM swim_lengths l 
           LEFT JOIN all_activities r ON l.activityId = r.activityId
-          WHERE l.total_elapsed_time > 73 AND l.total_elapsed_time < 180 AND l.total_distance == 100
+          WHERE l.total_elapsed_time > 73 AND l.total_elapsed_time < 140 AND l.total_distance == 100
           GROUP BY strftime("%Y-%m-%d", r.startTimeLocal)
           ORDER BY r.startTimeLocal
   columns: 
-    - # X axis
-      name: Month
+    - name: Date
       type: DATETIME
-    - # Y axis
-      name: 100m time
+
+    - name: 100m time
       type: REAL
+  x-axis: Date
+  plots:
+    - kind: line
+      color: orange
+      y-axis: 100m time
 
 
 line_200m:
   name: Fastest 200m swims by month
-  kind: line
-  color: red
   query: |
           SELECT strftime("%Y-%m-%d", r.startTimeLocal), min(l.total_elapsed_time)
           FROM swim_lengths l 
           LEFT JOIN all_activities r ON l.activityId = r.activityId
-          WHERE l.total_elapsed_time > 150 AND l.total_elapsed_time < 360 AND l.total_distance == 200
-          GROUP BY strftime('%W', r.startTimeLocal)
+          WHERE l.total_elapsed_time > 150 AND l.total_elapsed_time < 260 AND l.total_distance == 200
+          GROUP BY strftime("%Y-%m-%d", r.startTimeLocal)
           ORDER BY r.startTimeLocal
   columns: 
-    - # X axis
-      name: Month
+    - name: Date
       type: DATETIME
-    - # Y axis
-      name: 200m time
+
+    - name: 200m time
       type: REAL
+  x-axis: Date
+  plots:
+    - kind: line
+      color: purple
+      y-axis: 200m time
 
 
-scat_100m:
-  name: 100m swims
-  kind: scatter
-  color: black
+heart:
+  name: Heart rate
   query: |
-          SELECT strftime("%Y-%m-%d", r.startTimeLocal), l.total_elapsed_time
-          FROM swim_lengths l 
-          LEFT JOIN all_activities r ON l.activityId = r.activityId
-          WHERE l.total_elapsed_time > 73 AND l.total_elapsed_time < 180 AND l.total_distance == 100
-          ORDER BY r.startTimeLocal
+          SELECT calendarDate, minHeartRate, maxHeartRate, restingHeartRate, lastSevenDaysAvgRestingHeartRate
+          FROM heart_rates
   columns: 
-    - # X axis
-      name: Date
+    - name: Date
       type: DATETIME
-    - # Y axis
-      name: 100m time
+    - name: Min heart rate
       type: REAL
-
-scat_200m:
-  name: 200m swims
-  kind: scatter
-  color: black
-  query: |
-          SELECT strftime("%Y-%m-%d", r.startTimeLocal), l.total_elapsed_time
-          FROM swim_lengths l 
-          LEFT JOIN all_activities r ON l.activityId = r.activityId
-          WHERE l.total_elapsed_time > 150 AND l.total_elapsed_time < 360 AND l.total_distance == 200
-          ORDER BY r.startTimeLocal
-  columns: 
-    - # X axis
-      name: Date
-      type: DATETIME
-    - # Y axis
-      name: 200m time
+    - name: Max heart rate
       type: REAL
+    - name: Resting heart rate
+      type: REAL
+    - name: Average resting heart rate
+      type: REAL
+  x-axis: Date
+  plots:
+    - kind: line
+      color: red
+      y-axis: Max heart rate
+    - kind: line
+      color: darkred
+      y-axis: Average resting heart rate
 
