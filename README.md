@@ -29,6 +29,12 @@ https://thenewstack.io/implementing-service-discovery-of-microservices-with-cons
 * Download and install Node.js from https://nodejs.org/en/download/
 * Download and install Yarn package manager from: https://classic.yarnpkg.com/en/docs/install/
 
+### Swift installation
+* Install Xcode
+* Open up Boxes.xcworkspace
+* protoc -I ../protos/ --grpc-swift_out=. ../protos/boxes.proto
+* protoc -I ../protos/ --grpc-swift_out=. ../protos/boxes.proto
+
 ## Build C++ programs
 * Go to /cpp folder
 * Create build dir
@@ -65,3 +71,4 @@ See demo_architecture.png
 
 ## Nice links
 * http://flagzeta.org/blog/a-python-microservice-stack/
+* https://levelup.gitconnected.com/swift-grpc-577ce1a4d1b7
