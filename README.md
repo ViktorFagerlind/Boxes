@@ -33,7 +33,7 @@ https://thenewstack.io/implementing-service-discovery-of-microservices-with-cons
 * Install Xcode
 * Open up Boxes.xcworkspace
 * protoc -I ../protos/ --grpc-swift_out=. ../protos/boxes.proto
-* protoc -I ../protos/ --grpc-swift_out=. ../protos/boxes.proto
+* protoc -I ../protos/ --swift_out=. ../protos/boxes.proto
 
 ## Build C++ programs
 * Go to /cpp folder
