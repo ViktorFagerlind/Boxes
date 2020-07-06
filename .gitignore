@@ -4,5 +4,7 @@ __pycache__
 .idea
 *.zip
 *.fit
+*.lock
+**/xcuserdata/*
 .vscode
 js/dist

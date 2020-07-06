@@ -30,9 +30,9 @@ def serve(port):
 if __name__ == '__main__':
     logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
-    port = random.randint(50000, 59000)
+    port = 51234 #random.randint(51234, 59000)
     name = 'DataEngineService'
 
-    consul_register(name, port)
+    #consul_register(name, port)
     serve(port)
-    consul_unregister(name, port)
+    #consul_unregister(name, port)

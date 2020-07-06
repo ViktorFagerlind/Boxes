@@ -1,3 +1,24 @@
+dist:
+  name: Distance (in km) swimmed each month
+  query: |
+          SELECT strftime("%Y-%m", startTimeLocal), SUM(distance)/1000
+          FROM all_activities 
+          WHERE activityType = "lap_swimming"
+          GROUP BY strftime("%Y-%m", startTimeLocal)
+          ORDER BY startTimeLocal
+  columns: 
+    - name: Date
+      type: DATETIME
+
+    - name: Distance (km/mån)
+      type: REAL
+  x-axis: Date
+  plots:
+    - kind: line
+      color: black
+      y-axis: Distance (km/mån)
+
+
 scat_100m:
   name: 100m swims
   query: |
