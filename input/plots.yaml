@@ -63,7 +63,7 @@ scat_200m:
 line_100m:
   name: Fastest 100m swims by month
   query: |
-          SELECT strftime("%Y-%m-%d", r.startTimeLocal), min(l.total_elapsed_time)
+          SELECT strftime("%Y-%m-%d", r.startTimeLocal), min(l.total_elapsed_time), avg(l.total_elapsed_time)
           FROM swim_lengths l 
           LEFT JOIN all_activities r ON l.activityId = r.activityId
           WHERE l.total_elapsed_time > 73 AND l.total_elapsed_time < 140 AND l.total_distance == 100
@@ -72,20 +72,24 @@ line_100m:
   columns: 
     - name: Date
       type: DATETIME
-
-    - name: 100m time
+    - name: Min 100m time
+      type: REAL
+    - name: Avg 100m time
       type: REAL
   x-axis: Date
   plots:
     - kind: line
       color: orange
-      y-axis: 100m time
+      y-axis: Min 100m time
+    - kind: line
+      color: saddlebrown
+      y-axis: Avg 100m time
 
 
 line_200m:
   name: Fastest 200m swims by month
   query: |
-          SELECT strftime("%Y-%m-%d", r.startTimeLocal), min(l.total_elapsed_time)
+          SELECT strftime("%Y-%m-%d", r.startTimeLocal), min(l.total_elapsed_time), avg(l.total_elapsed_time)
           FROM swim_lengths l 
           LEFT JOIN all_activities r ON l.activityId = r.activityId
           WHERE l.total_elapsed_time > 150 AND l.total_elapsed_time < 260 AND l.total_distance == 200
@@ -94,14 +98,18 @@ line_200m:
   columns: 
     - name: Date
       type: DATETIME
-
-    - name: 200m time
+    - name: Min 200m time
+      type: REAL
+    - name: Avg 200m time
       type: REAL
   x-axis: Date
   plots:
     - kind: line
       color: purple
-      y-axis: 200m time
+      y-axis: Min 200m time
+    - kind: line
+      color: deeppink
+      y-axis: Avg 200m time
 
 
 heart:
