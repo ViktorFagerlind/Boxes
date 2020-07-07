@@ -7,15 +7,21 @@
 //
 
 import SwiftUI
+import SwiftUICharts
+import Charts
 
-struct GraphView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+struct GraphView: View
+{
+  var body: some View
+  {
+    LineView(data: [8,23,54,32,12,37,7,23,43], title: "200m swims", legend: "Time")
+  }
 }
 
-struct GraphView_Previews: PreviewProvider {
-    static var previews: some View {
-        GraphView()
-    }
+struct GraphView_Previews: PreviewProvider
+{
+  static var previews: some View
+  {
+    GraphView()
+  }
 }

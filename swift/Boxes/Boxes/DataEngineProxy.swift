@@ -11,15 +11,56 @@ import GRPC
 import NIO
 import Logging
 
+class TableData
+{
+  var rows: [TableDataRow] = []
+  
+  init (boxesTable: Boxes_Table)
+  {
+    for iv in 0..<boxesTable.columns[0].strValues.count
+    {
+      var line: [String] = []
+      for ic in 0..<boxesTable.columns.count
+      {
+        line.append(boxesTable.columns[ic].strValues[iv])
+      }
+      rows.append(TableDataRow(id: iv, text: line))
+    }
+  }
+}
+
+class TableDataRow: Identifiable
+{
+  let id: Int
+  let text: [String]
+  
+  init (id: Int, text: [String])
+  {
+    self.id   = id
+    self.text = text
+  }
+}
+
+
+func makeClient(ip: String, port: Int, group: EventLoopGroup) -> Boxes_DataEngineClient
+{
+  let channel = ClientConnection.insecure(group: group).connect(host: ip, port: port)
+
+  return Boxes_DataEngineClient(channel: channel)
+}
+
+
 class DataEngineProxy
 {
   let client: Boxes_DataEngineClient
   let group: EventLoopGroup
+  
+  static let singleton = DataEngineProxy(ip: "vfhome.asuscomm.com", port: 51234)
 
-  init (ip: String, port: Int)
+  private init (ip: String, port: Int)
   {
     group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-    client = makeClient(ip: "vfhome.asuscomm.com", port: 51234, group: group)
+    client = makeClient(ip: ip, port: port, group: group)
   }
   
   deinit
@@ -28,7 +69,7 @@ class DataEngineProxy
     try? group.syncShutdownGracefully()
   }
 
-  func executeQuery(query: String) -> Boxes_Table
+  func executeQuery(query: String) -> TableData
   {
 
     let query: Boxes_Query = .with {$0.q = query}
@@ -46,56 +87,8 @@ class DataEngineProxy
       table = Boxes_Table()
     }
     
-    return table
+    return TableData(boxesTable: table)
   }
 }
 
-func makeClient(ip: String, port: Int, group: EventLoopGroup) -> Boxes_DataEngineClient
-{
-  let channel = ClientConnection.insecure(group: group).connect(host: ip, port: port)
-
-  return Boxes_DataEngineClient(channel: channel)
-}
-
-func executeQuery(client: Boxes_DataEngineClient) -> Boxes_Table
-{
-  print("ExecuteQuery")
-
-  let query: Boxes_Query = .with
-  {
-    $0.q = "select * from all_activities"
-  }
-
-  let call = client.executeQuery(query)
-  let table: Boxes_Table
-  
-  do
-  {
-    table = try call.response.wait()
-  }
-  catch
-  {
-    print("RPC failed: \(error)")
-    table = Boxes_Table()
-  }
-  
-  return table
-}
-
-func test()
-{
-  let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-  defer {
-    try? group.syncShutdownGracefully()
-  }
-
-  // Make a client, make sure we close it when we're done.
-  let client = makeClient(ip: "vfhome.asuscomm.com", port: 51234, group: group)
-  defer
-  {
-    try? client.channel.close().wait()
-  }
-
-  let response = executeQuery(client: client)
-}
 

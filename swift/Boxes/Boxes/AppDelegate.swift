@@ -15,11 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate
   {
     // Override point for customization after application launch.
     
-    //test()
-    
-    let dataEngine = DataEngineProxy(ip:"vfhome.asuscomm.com", port: 51234)
-    let response = dataEngine.executeQuery(query: "select * from all_tables")
-    
     return true
   }
 

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,10 @@
 		779468B324B2568600DFCAC3 /* boxes.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779468B124B2568500DFCAC3 /* boxes.grpc.swift */; };
 		779468B424B2568600DFCAC3 /* boxes.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779468B224B2568600DFCAC3 /* boxes.pb.swift */; };
 		779468B624B2578E00DFCAC3 /* DataEngineProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779468B524B2578E00DFCAC3 /* DataEngineProxy.swift */; };
+		77E993B224B34798007E6367 /* TableRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993B124B34798007E6367 /* TableRow.swift */; };
+		77E993B424B3D1AE007E6367 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993B324B3D1AE007E6367 /* AppView.swift */; };
+		77E993B724B43D76007E6367 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 77E993B624B43D76007E6367 /* SwiftUICharts */; };
+		77E993B924B47CBB007E6367 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993B824B47CBB007E6367 /* GraphView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +55,9 @@
 		779468B124B2568500DFCAC3 /* boxes.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = boxes.grpc.swift; path = grpc/boxes.grpc.swift; sourceTree = "<group>"; };
 		779468B224B2568600DFCAC3 /* boxes.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = boxes.pb.swift; path = grpc/boxes.pb.swift; sourceTree = "<group>"; };
 		779468B524B2578E00DFCAC3 /* DataEngineProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataEngineProxy.swift; sourceTree = "<group>"; };
+		77E993B124B34798007E6367 /* TableRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableRow.swift; sourceTree = "<group>"; };
+		77E993B324B3D1AE007E6367 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		77E993B824B47CBB007E6367 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		EAF0CC1E2B3C5C75F874EA85 /* Pods-Boxes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Boxes.debug.xcconfig"; path = "Target Support Files/Pods-Boxes/Pods-Boxes.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -60,6 +67,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				26890F2C2DFF80EBAC02D5DB /* Pods_Boxes.framework in Frameworks */,
+				77E993B724B43D76007E6367 /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,6 +110,9 @@
 				77292BEF24B1EB9F005B67EE /* AppDelegate.swift */,
 				77292BF124B1EB9F005B67EE /* SceneDelegate.swift */,
 				77292BF324B1EB9F005B67EE /* ContentView.swift */,
+				77E993B324B3D1AE007E6367 /* AppView.swift */,
+				77E993B824B47CBB007E6367 /* GraphView.swift */,
+				77E993B124B34798007E6367 /* TableRow.swift */,
 				77292BF524B1EBA1005B67EE /* Assets.xcassets */,
 				77292BFA24B1EBA1005B67EE /* LaunchScreen.storyboard */,
 				77292BFD24B1EBA1005B67EE /* Info.plist */,
@@ -166,6 +177,9 @@
 			dependencies = (
 			);
 			name = Boxes;
+			packageProductDependencies = (
+				77E993B624B43D76007E6367 /* SwiftUICharts */,
+			);
 			productName = Boxes;
 			productReference = 77292BEC24B1EB9F005B67EE /* Boxes.app */;
 			productType = "com.apple.product-type.application";
@@ -217,6 +231,9 @@
 				Base,
 			);
 			mainGroup = 77292BE324B1EB9F005B67EE;
+			packageReferences = (
+				77E993B524B43D76007E6367 /* XCRemoteSwiftPackageReference "ChartView" */,
+			);
 			productRefGroup = 77292BED24B1EB9F005B67EE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -318,7 +335,10 @@
 			files = (
 				77292BF024B1EB9F005B67EE /* AppDelegate.swift in Sources */,
 				779468B624B2578E00DFCAC3 /* DataEngineProxy.swift in Sources */,
+				77E993B924B47CBB007E6367 /* GraphView.swift in Sources */,
+				77E993B224B34798007E6367 /* TableRow.swift in Sources */,
 				779468B424B2568600DFCAC3 /* boxes.pb.swift in Sources */,
+				77E993B424B3D1AE007E6367 /* AppView.swift in Sources */,
 				77292BF224B1EB9F005B67EE /* SceneDelegate.swift in Sources */,
 				779468B324B2568600DFCAC3 /* boxes.grpc.swift in Sources */,
 				77292BF424B1EB9F005B67EE /* ContentView.swift in Sources */,
@@ -476,6 +496,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Boxes/Preview Content\"";
+				DEVELOPMENT_TEAM = XC439GXRLD;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Boxes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -496,6 +517,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Boxes/Preview Content\"";
+				DEVELOPMENT_TEAM = XC439GXRLD;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Boxes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -584,6 +606,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		77E993B524B43D76007E6367 /* XCRemoteSwiftPackageReference "ChartView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppPear/ChartView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		77E993B624B43D76007E6367 /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 77E993B524B43D76007E6367 /* XCRemoteSwiftPackageReference "ChartView" */;
+			productName = SwiftUICharts;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 77292BE424B1EB9F005B67EE /* Project object */;
 }
