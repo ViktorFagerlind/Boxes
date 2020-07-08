@@ -11,37 +11,6 @@ import GRPC
 import NIO
 import Logging
 
-class TableData
-{
-  var rows: [TableDataRow] = []
-  
-  init (boxesTable: Boxes_Table)
-  {
-    for iv in 0..<boxesTable.columns[0].strValues.count
-    {
-      var line: [String] = []
-      for ic in 0..<boxesTable.columns.count
-      {
-        line.append(boxesTable.columns[ic].strValues[iv])
-      }
-      rows.append(TableDataRow(id: iv, text: line))
-    }
-  }
-}
-
-class TableDataRow: Identifiable
-{
-  let id: Int
-  let text: [String]
-  
-  init (id: Int, text: [String])
-  {
-    self.id   = id
-    self.text = text
-  }
-}
-
-
 func makeClient(ip: String, port: Int, group: EventLoopGroup) -> Boxes_DataEngineClient
 {
   let channel = ClientConnection.insecure(group: group).connect(host: ip, port: port)
@@ -69,10 +38,9 @@ class DataEngineProxy
     try? group.syncShutdownGracefully()
   }
 
-  func executeQuery(query: String) -> TableData
+  func executeQuery(query: String, columnTypes: [Boxes_ColumnType]) -> Boxes_Table
   {
-
-    let query: Boxes_Query = .with {$0.q = query}
+    let query: Boxes_Query = .with {$0.q = query; $0.columnTypes=columnTypes}
     let call = client.executeQuery(query)
     let table: Boxes_Table
     
@@ -87,7 +55,7 @@ class DataEngineProxy
       table = Boxes_Table()
     }
     
-    return TableData(boxesTable: table)
+    return table
   }
 }
 
