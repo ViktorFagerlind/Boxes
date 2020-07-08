@@ -12,22 +12,32 @@ class QueryModel: ObservableObject
 {
   let query: String
   let columnTypes: [Boxes_ColumnType]
+  let y_col: Int
+  var loaded: Bool = false
 
   @Published private(set) var rows: [TableDataRow] = []
   @Published private(set) var y_vals: [Double] = []
 
   var table: Boxes_Table = Boxes_Table()
     
-  init(query: String, columnTypes: [Boxes_ColumnType])
+  init(query: String, columnTypes: [Boxes_ColumnType], y_col: Int)
   {
     self.query = query
     self.columnTypes = columnTypes
+    self.y_col = y_col
+    
+    loadFromDataEngine() // TODO: Should not be needed, instead invoked from onAppear. But seems to be a bug when running on device.
   }
   
-  func load()
+  func loadFromDataEngine()
   {
+    if loaded {return}
+    loaded = true
+    
+    print("Loading: \(query)")
+
     table = DataEngineProxy.singleton.executeQuery(query: query, columnTypes: columnTypes)
-    y_vals = table.columns[1].numValues
+    y_vals = table.columns[y_col].numValues
     
     updateRows()
   }

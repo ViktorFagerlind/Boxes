@@ -12,39 +12,35 @@ import SwiftUICharts
 
 struct AppView: View
 {
-  let title: String = "Top 200m swims"
+  let title: String
   
-  @ObservedObject var queryModel: QueryModel = QueryModel(
-    query: """
-      SELECT strftime("%Y-%m", r.startTimeLocal), min(l.total_elapsed_time)
-      FROM swim_lengths l
-      LEFT JOIN all_activities r ON l.activityId = r.activityId
-      WHERE l.total_elapsed_time > 150 AND l.total_elapsed_time < 360 AND l.total_distance == 200
-      GROUP BY strftime("%Y-%m", r.startTimeLocal)
-      ORDER BY r.startTimeLocal
-      """,
-    columnTypes: [Boxes_ColumnType.datetime, Boxes_ColumnType.real])
-  
+  @ObservedObject var queryModel: QueryModel
   @State private var showingSheet = false
+  
+  init(title: String, queryModel: QueryModel)
+  {
+    self.title = title
+    self.queryModel = queryModel
+  }
   
   var body: some View
   {
     VStack
     {
       GraphView(title: self.title, data: self.queryModel.y_vals)
-      
+
       Button("Show table data")
       {
         self.showingSheet.toggle()
       }
     }
-    .onAppear
-    {
-      self.queryModel.load()
-    }
     .sheet(isPresented: $showingSheet)
     {
       TableView(title: self.title, rows: self.queryModel.rows)
+    }
+    .onAppear
+    {
+      self.queryModel.loadFromDataEngine()
     }
   }
 }
@@ -90,6 +86,9 @@ struct AppView_Previews: PreviewProvider
 {
   static var previews: some View
   {
-    AppView()
+    AppView(title: "Top 200m swims",
+            queryModel: QueryModel(query: "SELECT total_elapsed_time FROM swim_lengths LIMIT 30",
+                                   columnTypes: [Boxes_ColumnType.real],
+                                   y_col: 0))
   }
 }

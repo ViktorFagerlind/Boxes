@@ -55,9 +55,11 @@ PODS:
     - SwiftNIOFoundationCompat (~> 2.0)
     - SwiftNIOTLS (~> 2.0)
   - SwiftProtobuf (1.8.0)
+  - Yaml (3.4.4)
 
 DEPENDENCIES:
   - gRPC-Swift (= 1.0.0-alpha.12)
+  - Yaml
 
 SPEC REPOS:
   trunk:
@@ -81,6 +83,7 @@ SPEC REPOS:
     - SwiftNIOTLS
     - SwiftNIOTransportServices
     - SwiftProtobuf
+    - Yaml
 
 SPEC CHECKSUMS:
   CGRPCZlib: a53e43fb0567e720e753dd172911b96baa3910d7
@@ -103,7 +106,8 @@ SPEC CHECKSUMS:
   SwiftNIOTLS: 51580e51240d1a4d51efb2d317e92cf243181042
   SwiftNIOTransportServices: 26d40c589fc8fe667af51b06ef0aa49fbc9ae7f2
   SwiftProtobuf: 2cbd9409689b7df170d82a92a33443c8e3e14a70
+  Yaml: 52831fc1d9ac2db4ddf6d7562993457127256ca6
 
-PODFILE CHECKSUM: 8db37d92a9bc0d8899b385fc20a380b3be57c193
+PODFILE CHECKSUM: 85a9d79971d0e87472d940266d776c8f6043b5e6
 
 COCOAPODS: 1.9.3

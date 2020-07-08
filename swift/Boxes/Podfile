@@ -6,7 +6,7 @@ target 'Boxes' do
   use_frameworks!
 
   pod 'gRPC-Swift', '1.0.0-alpha.12'
-  # Pods for Boxes
+  pod 'Yaml'
 
   target 'BoxesTests' do
     inherit! :search_paths

@@ -22,6 +22,7 @@
 		77E993B424B3D1AE007E6367 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993B324B3D1AE007E6367 /* AppView.swift */; };
 		77E993B724B43D76007E6367 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 77E993B624B43D76007E6367 /* SwiftUICharts */; };
 		77E993BB24B51C5F007E6367 /* QueryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993BA24B51C5F007E6367 /* QueryModels.swift */; };
+		77E993BD24B5CE27007E6367 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993BC24B5CE27007E6367 /* MainView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		77E993B124B34798007E6367 /* TableRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableRow.swift; sourceTree = "<group>"; };
 		77E993B324B3D1AE007E6367 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		77E993BA24B51C5F007E6367 /* QueryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryModels.swift; sourceTree = "<group>"; };
+		77E993BC24B5CE27007E6367 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		EAF0CC1E2B3C5C75F874EA85 /* Pods-Boxes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Boxes.debug.xcconfig"; path = "Target Support Files/Pods-Boxes/Pods-Boxes.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -115,6 +117,7 @@
 				77292BF724B1EBA1005B67EE /* Preview Content */,
 				779468B524B2578E00DFCAC3 /* DataEngineProxy.swift */,
 				77E993BA24B51C5F007E6367 /* QueryModels.swift */,
+				77E993BC24B5CE27007E6367 /* MainView.swift */,
 			);
 			path = Boxes;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77292BF024B1EB9F005B67EE /* AppDelegate.swift in Sources */,
+				77E993BD24B5CE27007E6367 /* MainView.swift in Sources */,
 				779468B624B2578E00DFCAC3 /* DataEngineProxy.swift in Sources */,
 				77E993B224B34798007E6367 /* TableRow.swift in Sources */,
 				77E993BB24B51C5F007E6367 /* QueryModels.swift in Sources */,

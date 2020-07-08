@@ -18,4 +18,5 @@ ${BUILT_PRODUCTS_DIR}/SwiftNIOSSL/NIOSSL.framework
 ${BUILT_PRODUCTS_DIR}/SwiftNIOTLS/NIOTLS.framework
 ${BUILT_PRODUCTS_DIR}/SwiftNIOTransportServices/NIOTransportServices.framework
 ${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework
+${BUILT_PRODUCTS_DIR}/Yaml/Yaml.framework
 ${BUILT_PRODUCTS_DIR}/gRPC-Swift/GRPC.framework

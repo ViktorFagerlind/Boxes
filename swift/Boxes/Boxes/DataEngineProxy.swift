@@ -46,7 +46,7 @@ class DataEngineProxy
     
     do
     {
-      print("ExecuteQuery")
+      print("ExecuteQuery: \(query.q)")
       table = try call.response.wait()
     }
     catch
