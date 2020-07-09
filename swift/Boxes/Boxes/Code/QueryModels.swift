@@ -10,23 +10,17 @@ import Foundation
 
 class QueryModel: ObservableObject
 {
-  let query: String
-  let columnTypes: [Boxes_ColumnType]
-  let y_col: Int
+  let plotInfo: PlotInfo
   var loaded: Bool = false
 
   @Published private(set) var rows: [TableDataRow] = []
   @Published private(set) var y_vals: [Double] = []
 
   var table: Boxes_Table = Boxes_Table()
-    
-  init(query: String, columnTypes: [Boxes_ColumnType], y_col: Int)
+  
+  init(plotInfo: PlotInfo)
   {
-    self.query = query
-    self.columnTypes = columnTypes
-    self.y_col = y_col
-    
-    loadFromDataEngine() // TODO: Should not be needed, instead invoked from onAppear. But seems to be a bug when running on device.
+    self.plotInfo = plotInfo
   }
   
   func loadFromDataEngine()
@@ -34,10 +28,10 @@ class QueryModel: ObservableObject
     if loaded {return}
     loaded = true
     
-    print("Loading: \(query)")
+    print("Loading: \(plotInfo.query)")
 
-    table = DataEngineProxy.singleton.executeQuery(query: query, columnTypes: columnTypes)
-    y_vals = table.columns[y_col].numValues
+    table = DataEngineProxy.singleton.executeQuery(query: plotInfo.query, columnTypes: plotInfo.columnTypes)
+    y_vals = table.columns[plotInfo.y_col].numValues
     
     updateRows()
   }
@@ -51,7 +45,7 @@ class QueryModel: ObservableObject
       var line: [String] = []
       for ic in 0..<table.columns.count
       {
-        switch columnTypes[ic]
+        switch plotInfo.columnTypes[ic]
         {
         case Boxes_ColumnType.datetime, Boxes_ColumnType.text:
           line.append(table.columns[ic].strValues[iv])

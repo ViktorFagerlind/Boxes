@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 import SwiftUICharts
 
-struct AppView: View
+struct PlotView: View
 {
   let title: String
   
@@ -72,7 +72,16 @@ struct TableView: View
         .font(.title)
       List (rows)
       {
-        tableDataRow in TableRow(tableDataRow: tableDataRow)
+        tableDataRow in
+        HStack
+        {
+          Text(tableDataRow.text[0])
+            .multilineTextAlignment(.trailing)
+            .frame(width: 100.0)
+          Text(tableDataRow.text[1])
+            .multilineTextAlignment(.trailing)
+            .frame(width: 140.0)
+        }
       }
       Button("Dismiss")
       {
@@ -82,13 +91,12 @@ struct TableView: View
   }
 }
 
+
 struct AppView_Previews: PreviewProvider
 {
   static var previews: some View
   {
-    AppView(title: "Top 200m swims",
-            queryModel: QueryModel(query: "SELECT total_elapsed_time FROM swim_lengths LIMIT 30",
-                                   columnTypes: [Boxes_ColumnType.real],
-                                   y_col: 0))
+    PlotView(title: PlotInfoCollection.singleton.plots[0].name,
+             queryModel: QueryModel(plotInfo: PlotInfoCollection.singleton.plots[0]))
   }
 }

@@ -2,12 +2,12 @@ line_100m:
   name: Fastest 100m swims by month
   query: |
           SELECT strftime("%Y-%m-%d", r.startTimeLocal), min(l.total_elapsed_time), avg(l.total_elapsed_time)
-          FROM swim_lengths l 
+          FROM swim_lengths l
           LEFT JOIN all_activities r ON l.activityId = r.activityId
           WHERE l.total_elapsed_time > 73 AND l.total_elapsed_time < 140 AND l.total_distance == 100
           GROUP BY strftime("%Y-%m-%d", r.startTimeLocal)
           ORDER BY r.startTimeLocal
-  columns: 
+  columns:
     - name: Date
       type: DATETIME
     - name: Min 100m time
@@ -29,12 +29,12 @@ line_200m:
   name: Fastest 200m swims by month
   query: |
           SELECT strftime("%Y-%m-%d", r.startTimeLocal), min(l.total_elapsed_time), avg(l.total_elapsed_time)
-          FROM swim_lengths l 
+          FROM swim_lengths l
           LEFT JOIN all_activities r ON l.activityId = r.activityId
           WHERE l.total_elapsed_time > 150 AND l.total_elapsed_time < 260 AND l.total_distance == 200
           GROUP BY strftime("%Y-%m-%d", r.startTimeLocal)
           ORDER BY r.startTimeLocal
-  columns: 
+  columns:
     - name: Date
       type: DATETIME
     - name: Min 200m time
@@ -57,7 +57,7 @@ heart:
   query: |
           SELECT calendarDate, minHeartRate, maxHeartRate, restingHeartRate, lastSevenDaysAvgRestingHeartRate
           FROM heart_rates
-  columns: 
+  columns:
     - name: Date
       type: DATETIME
     - name: Min heart rate
@@ -83,11 +83,11 @@ dist:
   name: Distance (in km) swimmed each month
   query: |
           SELECT strftime("%Y-%m", startTimeLocal), SUM(distance)/1000
-          FROM all_activities 
+          FROM all_activities
           WHERE activityType = "lap_swimming"
           GROUP BY strftime("%Y-%m", startTimeLocal)
           ORDER BY startTimeLocal
-  columns: 
+  columns:
     - name: Date
       type: DATETIME
 
@@ -95,7 +95,7 @@ dist:
       type: REAL
   x-axis: Date
   plots:
-    - kind: bar
+    - kind: line
       color: black
       y-axis: Distance (km/mån)
   category: pool_swim
@@ -105,11 +105,11 @@ scat_100m:
   name: 100m swims
   query: |
           SELECT strftime("%Y-%m-%d", r.startTimeLocal), l.total_elapsed_time
-          FROM swim_lengths l 
+          FROM swim_lengths l
           LEFT JOIN all_activities r ON l.activityId = r.activityId
           WHERE l.total_elapsed_time > 73 AND l.total_elapsed_time < 140 AND l.total_distance == 100
           ORDER BY r.startTimeLocal
-  columns: 
+  columns:
     - name: Date
       type: DATETIME
 
@@ -127,11 +127,11 @@ scat_200m:
   name: 200m swims
   query: |
           SELECT strftime("%Y-%m-%d", r.startTimeLocal), l.total_elapsed_time
-          FROM swim_lengths l 
+          FROM swim_lengths l
           LEFT JOIN all_activities r ON l.activityId = r.activityId
           WHERE l.total_elapsed_time > 150 AND l.total_elapsed_time < 260 AND l.total_distance == 200
           ORDER BY r.startTimeLocal
-  columns: 
+  columns:
     - name: Date
       type: DATETIME
 

@@ -18,11 +18,12 @@
 		779468B324B2568600DFCAC3 /* boxes.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779468B124B2568500DFCAC3 /* boxes.grpc.swift */; };
 		779468B424B2568600DFCAC3 /* boxes.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779468B224B2568600DFCAC3 /* boxes.pb.swift */; };
 		779468B624B2578E00DFCAC3 /* DataEngineProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779468B524B2578E00DFCAC3 /* DataEngineProxy.swift */; };
-		77E993B224B34798007E6367 /* TableRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993B124B34798007E6367 /* TableRow.swift */; };
-		77E993B424B3D1AE007E6367 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993B324B3D1AE007E6367 /* AppView.swift */; };
+		77E993B424B3D1AE007E6367 /* PlotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993B324B3D1AE007E6367 /* PlotView.swift */; };
 		77E993B724B43D76007E6367 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 77E993B624B43D76007E6367 /* SwiftUICharts */; };
 		77E993BB24B51C5F007E6367 /* QueryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993BA24B51C5F007E6367 /* QueryModels.swift */; };
 		77E993BD24B5CE27007E6367 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993BC24B5CE27007E6367 /* MainView.swift */; };
+		77E993BF24B72A03007E6367 /* PlotInfoCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993BE24B72A02007E6367 /* PlotInfoCollection.swift */; };
+		77E993C124B72B22007E6367 /* plots.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 77E993C024B72B22007E6367 /* plots.yaml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,13 +52,14 @@
 		77292C0224B1EBA2005B67EE /* BoxesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BoxesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77292C0624B1EBA2005B67EE /* BoxesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxesTests.swift; sourceTree = "<group>"; };
 		77292C0824B1EBA2005B67EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		779468B124B2568500DFCAC3 /* boxes.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = boxes.grpc.swift; path = grpc/boxes.grpc.swift; sourceTree = "<group>"; };
-		779468B224B2568600DFCAC3 /* boxes.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = boxes.pb.swift; path = grpc/boxes.pb.swift; sourceTree = "<group>"; };
+		779468B124B2568500DFCAC3 /* boxes.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = boxes.grpc.swift; sourceTree = "<group>"; };
+		779468B224B2568600DFCAC3 /* boxes.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = boxes.pb.swift; sourceTree = "<group>"; };
 		779468B524B2578E00DFCAC3 /* DataEngineProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataEngineProxy.swift; sourceTree = "<group>"; };
-		77E993B124B34798007E6367 /* TableRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableRow.swift; sourceTree = "<group>"; };
-		77E993B324B3D1AE007E6367 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		77E993B324B3D1AE007E6367 /* PlotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlotView.swift; sourceTree = "<group>"; };
 		77E993BA24B51C5F007E6367 /* QueryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryModels.swift; sourceTree = "<group>"; };
 		77E993BC24B5CE27007E6367 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		77E993BE24B72A02007E6367 /* PlotInfoCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlotInfoCollection.swift; sourceTree = "<group>"; };
+		77E993C024B72B22007E6367 /* plots.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = plots.yaml; sourceTree = "<group>"; };
 		EAF0CC1E2B3C5C75F874EA85 /* Pods-Boxes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Boxes.debug.xcconfig"; path = "Target Support Files/Pods-Boxes/Pods-Boxes.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,19 +107,15 @@
 		77292BEE24B1EB9F005B67EE /* Boxes */ = {
 			isa = PBXGroup;
 			children = (
-				779468B124B2568500DFCAC3 /* boxes.grpc.swift */,
-				779468B224B2568600DFCAC3 /* boxes.pb.swift */,
+				77C2DA3A24B7B8DA00A6C515 /* Code */,
+				77C2DA3924B7B8C700A6C515 /* Views */,
+				77E993C224B72B2F007E6367 /* Input */,
 				77292BEF24B1EB9F005B67EE /* AppDelegate.swift */,
 				77292BF124B1EB9F005B67EE /* SceneDelegate.swift */,
-				77E993B324B3D1AE007E6367 /* AppView.swift */,
-				77E993B124B34798007E6367 /* TableRow.swift */,
 				77292BF524B1EBA1005B67EE /* Assets.xcassets */,
 				77292BFA24B1EBA1005B67EE /* LaunchScreen.storyboard */,
 				77292BFD24B1EBA1005B67EE /* Info.plist */,
 				77292BF724B1EBA1005B67EE /* Preview Content */,
-				779468B524B2578E00DFCAC3 /* DataEngineProxy.swift */,
-				77E993BA24B51C5F007E6367 /* QueryModels.swift */,
-				77E993BC24B5CE27007E6367 /* MainView.swift */,
 			);
 			path = Boxes;
 			sourceTree = "<group>";
@@ -137,6 +135,35 @@
 				77292C0824B1EBA2005B67EE /* Info.plist */,
 			);
 			path = BoxesTests;
+			sourceTree = "<group>";
+		};
+		77C2DA3924B7B8C700A6C515 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				77E993BC24B5CE27007E6367 /* MainView.swift */,
+				77E993B324B3D1AE007E6367 /* PlotView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		77C2DA3A24B7B8DA00A6C515 /* Code */ = {
+			isa = PBXGroup;
+			children = (
+				779468B524B2578E00DFCAC3 /* DataEngineProxy.swift */,
+				77E993BA24B51C5F007E6367 /* QueryModels.swift */,
+				77E993BE24B72A02007E6367 /* PlotInfoCollection.swift */,
+			);
+			path = Code;
+			sourceTree = "<group>";
+		};
+		77E993C224B72B2F007E6367 /* Input */ = {
+			isa = PBXGroup;
+			children = (
+				779468B124B2568500DFCAC3 /* boxes.grpc.swift */,
+				779468B224B2568600DFCAC3 /* boxes.pb.swift */,
+				77E993C024B72B22007E6367 /* plots.yaml */,
+			);
+			path = Input;
 			sourceTree = "<group>";
 		};
 		8E5CCF68199BC47AD3E561BC /* Pods */ = {
@@ -250,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77292BFC24B1EBA1005B67EE /* LaunchScreen.storyboard in Resources */,
+				77E993C124B72B22007E6367 /* plots.yaml in Resources */,
 				77292BF924B1EBA1005B67EE /* Preview Assets.xcassets in Resources */,
 				77292BF624B1EBA1005B67EE /* Assets.xcassets in Resources */,
 			);
@@ -335,11 +363,11 @@
 			files = (
 				77292BF024B1EB9F005B67EE /* AppDelegate.swift in Sources */,
 				77E993BD24B5CE27007E6367 /* MainView.swift in Sources */,
+				77E993BF24B72A03007E6367 /* PlotInfoCollection.swift in Sources */,
 				779468B624B2578E00DFCAC3 /* DataEngineProxy.swift in Sources */,
-				77E993B224B34798007E6367 /* TableRow.swift in Sources */,
 				77E993BB24B51C5F007E6367 /* QueryModels.swift in Sources */,
 				779468B424B2568600DFCAC3 /* boxes.pb.swift in Sources */,
-				77E993B424B3D1AE007E6367 /* AppView.swift in Sources */,
+				77E993B424B3D1AE007E6367 /* PlotView.swift in Sources */,
 				77292BF224B1EB9F005B67EE /* SceneDelegate.swift in Sources */,
 				779468B324B2568600DFCAC3 /* boxes.grpc.swift in Sources */,
 			);
