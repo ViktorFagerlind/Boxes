@@ -27,7 +27,7 @@ struct PlotView: View
   {
     VStack
     {
-      GraphView(title: self.title, data: self.queryModel.y_vals)
+      GraphView(title: self.title, data: self.queryModel.y_vals, kind: queryModel.plotInfo.kind)
 
       Button("Show table data")
       {
@@ -50,9 +50,23 @@ struct GraphView: View
   let title: String
   let data: [Double]
   
+  @State var kind: String
+  
+  let chartStyle = ChartStyle(backgroundColor: Color.black, accentColor: Colors.OrangeStart, secondGradientColor: Colors.OrangeEnd, textColor: Color.white, legendTextColor: Color.white, dropShadowColor: .black)
+  
   var body: some View
   {
-    LineView(data: data, title: self.title, legend: "Time")
+    VStack
+    {
+      if kind == "bar"
+      {
+        BarChartView(data: ChartData(points: data), title: self.title, style: chartStyle, form: ChartForm.extraLarge)
+      }
+      else
+      {
+        LineView(data: data, title: self.title)
+      }
+    }
   }
 }
 

@@ -1,11 +1,11 @@
 line_100m:
   name: Fastest 100m swims by month
   query: |
-          SELECT strftime("%Y-%m-%d", r.startTimeLocal), min(l.total_elapsed_time), avg(l.total_elapsed_time)
+          SELECT strftime("%Y-%m", r.startTimeLocal), min(l.total_elapsed_time), avg(l.total_elapsed_time)
           FROM swim_lengths l
           LEFT JOIN all_activities r ON l.activityId = r.activityId
           WHERE l.total_elapsed_time > 73 AND l.total_elapsed_time < 140 AND l.total_distance == 100
-          GROUP BY strftime("%Y-%m-%d", r.startTimeLocal)
+          GROUP BY strftime("%Y-%m", r.startTimeLocal)
           ORDER BY r.startTimeLocal
   columns:
     - name: Date
@@ -28,11 +28,11 @@ line_100m:
 line_200m:
   name: Fastest 200m swims by month
   query: |
-          SELECT strftime("%Y-%m-%d", r.startTimeLocal), min(l.total_elapsed_time), avg(l.total_elapsed_time)
+          SELECT strftime("%Y-%m", r.startTimeLocal), min(l.total_elapsed_time), avg(l.total_elapsed_time)
           FROM swim_lengths l
           LEFT JOIN all_activities r ON l.activityId = r.activityId
           WHERE l.total_elapsed_time > 150 AND l.total_elapsed_time < 260 AND l.total_distance == 200
-          GROUP BY strftime("%Y-%m-%d", r.startTimeLocal)
+          GROUP BY strftime("%Y-%m", r.startTimeLocal)
           ORDER BY r.startTimeLocal
   columns:
     - name: Date
@@ -95,7 +95,7 @@ dist:
       type: REAL
   x-axis: Date
   plots:
-    - kind: line
+    - kind: bar
       color: black
       y-axis: Distance (km/mån)
   category: pool_swim
