@@ -12,14 +12,12 @@ import SwiftUICharts
 
 struct PlotView: View
 {
-  let title: String
-  
+  // TODO: Doubt id ObservedObject is really needed
   @ObservedObject var queryModel: QueryModel
   @State private var showingSheet = false
   
-  init(title: String, queryModel: QueryModel)
+  init(queryModel: QueryModel)
   {
-    self.title = title
     self.queryModel = queryModel
   }
   
@@ -27,7 +25,7 @@ struct PlotView: View
   {
     VStack
     {
-      GraphView(title: self.title, data: self.queryModel.y_vals, kind: queryModel.plotInfo.kind)
+      GraphView(queryModel: self.queryModel, kind: queryModel.plotInfo.sets[0].kind)
 
       Button("Show table data")
       {
@@ -36,35 +34,39 @@ struct PlotView: View
     }
     .sheet(isPresented: $showingSheet)
     {
-      TableView(title: self.title, rows: self.queryModel.rows)
+      TableView(title: self.queryModel.plotInfo.name, rows: self.queryModel.rows)
     }
-    .onAppear
+    /*.onAppear
     {
       self.queryModel.loadFromDataEngine()
-    }
+    }*/
   }
 }
 
 struct GraphView: View
 {
-  let title: String
-  let data: [Double]
+  let queryModel: QueryModel
   
   @State var kind: String
-  
-  let chartStyle = ChartStyle(backgroundColor: Color.black, accentColor: Colors.OrangeStart, secondGradientColor: Colors.OrangeEnd, textColor: Color.white, legendTextColor: Color.white, dropShadowColor: .black)
   
   var body: some View
   {
     VStack
     {
+      // TODO: Plot all sets, not just the first...
       if kind == "bar"
       {
-        BarChartView(data: ChartData(points: data), title: self.title, style: chartStyle, form: ChartForm.extraLarge)
+        ChartsBarView(dates: queryModel.getXdata(),
+                      values: queryModel.getYdata(set: 0),
+                      color: queryModel.plotInfo.sets[0].color,
+                      label: queryModel.getPlotName(set: 0))
       }
       else
       {
-        LineView(data: data, title: self.title)
+        ChartsLineView(dates: queryModel.getXdata(),
+                       values: queryModel.getYdata(set: 0),
+                       color: queryModel.plotInfo.sets[0].color,
+                       label: queryModel.getPlotName(set: 0))
       }
     }
   }
@@ -110,7 +112,6 @@ struct AppView_Previews: PreviewProvider
 {
   static var previews: some View
   {
-    PlotView(title: PlotInfoCollection.singleton.plots[0].name,
-             queryModel: QueryModel(plotInfo: PlotInfoCollection.singleton.plots[0]))
+    PlotView(queryModel: QueryModel(plotInfo: PlotInfoCollection.singleton.plots[0]))
   }
 }

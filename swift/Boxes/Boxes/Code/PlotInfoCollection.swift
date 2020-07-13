@@ -7,7 +7,20 @@
 //
 
 import Foundation
+import Charts
 import Yaml
+
+func findColumnsIndex(array: [Yaml], str: String) -> Int?
+{
+  for (i,e) in array.enumerated()
+  {
+    if e["name"].string == str
+    {
+      return i
+    }
+  }
+  return nil
+}
 
 class PlotInfoCollection
 {
@@ -26,12 +39,8 @@ class PlotInfoCollection
     for (_, yamlPlot) in yaml.dictionary!
     {
       var plot: PlotInfo = PlotInfo(name: yamlPlot["name"].string!,
-                                    kind: "line",
                                     category: yamlPlot["category"].string!,
-                                    query: yamlPlot["query"].string!,
-                                    columnTypes: [],
-                                    columnNames: [],
-                                    y_col: 0)
+                                    query: yamlPlot["query"].string!)
       
       for col in yamlPlot["columns"].array!
       {
@@ -47,19 +56,21 @@ class PlotInfoCollection
         plot.columnNames.append(col["name"].string!)
         plot.columnTypes.append(type)
       }
+
+      plot.x_col = findColumnsIndex(array: yamlPlot["columns"].array!, str: yamlPlot["x-axis"].string!)!
       
-      for (i, col) in yamlPlot["columns"].array!.enumerated()
+      for plt in yamlPlot["plots"].array!
       {
-        if col["name"].string != yamlPlot["x-axis"].string
-        {
-          plot.y_col = i
-          break
-        }
+        // TODO: Assign color
+        let set = SetInfo(kind: plt["kind"].string!,
+                          y_col: findColumnsIndex(array: yamlPlot["columns"].array!, str: plt["y-axis"].string!)!,
+                          color: NSUIColor(red:     CGFloat.random(in: 0.2...1.0),
+                                           green:   CGFloat.random(in: 0.2...1.0),
+                                           blue:    CGFloat.random(in: 0.2...1.0),
+                                           alpha:   0.8))
+        plot.sets.append(set)
       }
 
-      // TODO: There can be many plots...
-      plot.kind = yamlPlot["plots"].array![0]["kind"].string!
-      
       plots.append(plot)
     }
   }
@@ -68,10 +79,17 @@ class PlotInfoCollection
 struct PlotInfo: Hashable
 {
   var name: String
-  var kind: String
   var category: String
   var query: String
-  var columnTypes: [Boxes_ColumnType]
-  var columnNames: [String]
+  var columnTypes: [Boxes_ColumnType] = []
+  var columnNames: [String] = []
+  var x_col: Int = 0
+  var sets: [SetInfo] = []
+}
+
+struct SetInfo: Hashable
+{
+  var kind: String
   var y_col: Int
+  var color: NSUIColor
 }

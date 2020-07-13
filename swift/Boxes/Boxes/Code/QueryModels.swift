@@ -13,8 +13,8 @@ class QueryModel: ObservableObject
   let plotInfo: PlotInfo
   var loaded: Bool = false
 
+  // TODO: Should be able to get it from query result instead of duplicating everything as strings...
   @Published private(set) var rows: [TableDataRow] = []
-  @Published private(set) var y_vals: [Double] = []
 
   var table: Boxes_Table = Boxes_Table()
   
@@ -23,6 +23,30 @@ class QueryModel: ObservableObject
     self.plotInfo = plotInfo
   }
   
+  var setCount: Int {get {return plotInfo.sets.count}}
+  
+  // TODO: Only support dates string/dates this way...
+  func getXdata() -> [String]
+  {
+    loadFromDataEngine()
+    
+    return table.columns[plotInfo.x_col].strValues
+  }
+
+  func getYdata(set: Int) -> [Double]
+  {
+    loadFromDataEngine()
+    
+    return table.columns[plotInfo.sets[set].y_col].numValues
+  }
+
+  func getPlotName(set: Int) -> String
+  {
+    loadFromDataEngine()
+    
+    return plotInfo.columnNames[plotInfo.sets[set].y_col]
+  }
+
   func loadFromDataEngine()
   {
     if loaded {return}
@@ -31,7 +55,6 @@ class QueryModel: ObservableObject
     print("Loading: \(plotInfo.query)")
 
     table = DataEngineProxy.singleton.executeQuery(query: plotInfo.query, columnTypes: plotInfo.columnTypes)
-    y_vals = table.columns[plotInfo.y_col].numValues
     
     updateRows()
   }

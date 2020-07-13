@@ -55,7 +55,7 @@ line_200m:
 heart:
   name: Heart rate
   query: |
-          SELECT calendarDate, minHeartRate, maxHeartRate, restingHeartRate, lastSevenDaysAvgRestingHeartRate
+          SELECT strftime("%Y-%m-%d", calendarDate), minHeartRate, maxHeartRate, restingHeartRate, lastSevenDaysAvgRestingHeartRate
           FROM heart_rates
   columns: 
     - name: Date

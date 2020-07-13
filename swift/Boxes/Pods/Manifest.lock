@@ -1,5 +1,8 @@
 PODS:
   - CGRPCZlib (1.0.0-alpha.12)
+  - Charts (3.5.0):
+    - Charts/Core (= 3.5.0)
+  - Charts/Core (3.5.0)
   - CNIOAtomics (2.15.0)
   - CNIOBoringSSL (2.7.1)
   - CNIOBoringSSLShims (2.7.1):
@@ -58,12 +61,14 @@ PODS:
   - Yaml (3.4.4)
 
 DEPENDENCIES:
+  - Charts
   - gRPC-Swift (= 1.0.0-alpha.12)
   - Yaml
 
 SPEC REPOS:
   trunk:
     - CGRPCZlib
+    - Charts
     - CNIOAtomics
     - CNIOBoringSSL
     - CNIOBoringSSLShims
@@ -87,6 +92,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   CGRPCZlib: a53e43fb0567e720e753dd172911b96baa3910d7
+  Charts: 40a08591df1f8ad5c223ddedfb1a06da92f24f7c
   CNIOAtomics: ba49b1c86f281e1ecfd84c9205fbc27a81826847
   CNIOBoringSSL: e4766830ab6d7c7fcd3618331f05fcb11638314d
   CNIOBoringSSLShims: c3f3c6f05b7ce9b576521328a5b1b566d8f4665b
@@ -108,6 +114,6 @@ SPEC CHECKSUMS:
   SwiftProtobuf: 2cbd9409689b7df170d82a92a33443c8e3e14a70
   Yaml: 52831fc1d9ac2db4ddf6d7562993457127256ca6
 
-PODFILE CHECKSUM: 85a9d79971d0e87472d940266d776c8f6043b5e6
+PODFILE CHECKSUM: 5c60d01c02ea9439513f2d648c0e35a840120ef1
 
 COCOAPODS: 1.9.3

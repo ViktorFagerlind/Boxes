@@ -15,6 +15,8 @@
 		77292BF924B1EBA1005B67EE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77292BF824B1EBA1005B67EE /* Preview Assets.xcassets */; };
 		77292BFC24B1EBA1005B67EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77292BFA24B1EBA1005B67EE /* LaunchScreen.storyboard */; };
 		77292C0724B1EBA2005B67EE /* BoxesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77292C0624B1EBA2005B67EE /* BoxesTests.swift */; };
+		7755992D24B881F500011FEE /* ChartsBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7755992C24B881F500011FEE /* ChartsBarView.swift */; };
+		7755992F24BC1FE700011FEE /* ChartsLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7755992E24BC1FE700011FEE /* ChartsLineView.swift */; };
 		779468B324B2568600DFCAC3 /* boxes.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779468B124B2568500DFCAC3 /* boxes.grpc.swift */; };
 		779468B424B2568600DFCAC3 /* boxes.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779468B224B2568600DFCAC3 /* boxes.pb.swift */; };
 		779468B624B2578E00DFCAC3 /* DataEngineProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779468B524B2578E00DFCAC3 /* DataEngineProxy.swift */; };
@@ -52,6 +54,8 @@
 		77292C0224B1EBA2005B67EE /* BoxesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BoxesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77292C0624B1EBA2005B67EE /* BoxesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxesTests.swift; sourceTree = "<group>"; };
 		77292C0824B1EBA2005B67EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7755992C24B881F500011FEE /* ChartsBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsBarView.swift; sourceTree = "<group>"; };
+		7755992E24BC1FE700011FEE /* ChartsLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartsLineView.swift; sourceTree = "<group>"; };
 		779468B124B2568500DFCAC3 /* boxes.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = boxes.grpc.swift; sourceTree = "<group>"; };
 		779468B224B2568600DFCAC3 /* boxes.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = boxes.pb.swift; sourceTree = "<group>"; };
 		779468B524B2578E00DFCAC3 /* DataEngineProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataEngineProxy.swift; sourceTree = "<group>"; };
@@ -142,6 +146,8 @@
 			children = (
 				77E993BC24B5CE27007E6367 /* MainView.swift */,
 				77E993B324B3D1AE007E6367 /* PlotView.swift */,
+				7755992C24B881F500011FEE /* ChartsBarView.swift */,
+				7755992E24BC1FE700011FEE /* ChartsLineView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -365,10 +371,12 @@
 				77E993BD24B5CE27007E6367 /* MainView.swift in Sources */,
 				77E993BF24B72A03007E6367 /* PlotInfoCollection.swift in Sources */,
 				779468B624B2578E00DFCAC3 /* DataEngineProxy.swift in Sources */,
+				7755992F24BC1FE700011FEE /* ChartsLineView.swift in Sources */,
 				77E993BB24B51C5F007E6367 /* QueryModels.swift in Sources */,
 				779468B424B2568600DFCAC3 /* boxes.pb.swift in Sources */,
 				77E993B424B3D1AE007E6367 /* PlotView.swift in Sources */,
 				77292BF224B1EB9F005B67EE /* SceneDelegate.swift in Sources */,
+				7755992D24B881F500011FEE /* ChartsBarView.swift in Sources */,
 				779468B324B2568600DFCAC3 /* boxes.grpc.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

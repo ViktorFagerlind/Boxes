@@ -21,13 +21,14 @@ struct MainView: View
       {
         ForEach(PlotInfoCollection.singleton.plots.sorted(by: {$0.name > $1.name}), id: \.self)
         { plotInfo in
-          NavigationLink(destination: PlotView(title: plotInfo.name,
-                                               queryModel: QueryModel(plotInfo: plotInfo)))
+          NavigationLink(destination: PlotView(queryModel: QueryModel(plotInfo: plotInfo)))
           {
             PlotNavigationView(plotInfo: plotInfo)
           }
         }
       }
+      .navigationBarTitle("")
+      .navigationBarHidden(true)
     }
   }
 }
