@@ -93,36 +93,6 @@ struct ChartsBarView : UIViewRepresentable
   typealias UIViewType = BarChartView    
 }
 
-public class DateAxisFormatter: NSObject, IAxisValueFormatter
-{
-  private let dateFormatter = DateFormatter()
-
-  override init()
-  {
-    super.init()
-    dateFormatter.dateFormat = "yyyy-MM"
-  }
-
-  public func stringForValue(_ value: Double, axis: AxisBase?) -> String
-  {
-    return dateFormatter.string(from: Date(timeIntervalSince1970: value))
-  }
-}
-
-func stringToDate(dateString: String) -> Date
-{
-  var returnDate: Date?
-  let formatter = DateFormatter()
-  formatter.dateFormat = "yyyy-MM-dd"
-  returnDate = formatter.date(from: dateString)
-  
-  if returnDate == nil
-  {
-    formatter.dateFormat = "yyyy-MM"
-    returnDate = formatter.date(from: dateString)
-  }
-  return returnDate!
-}
 
 
 struct Bar_Previews: PreviewProvider

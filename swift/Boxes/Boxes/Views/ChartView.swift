@@ -51,6 +51,8 @@ struct GraphView: View
   {
     VStack
     {
+      ChartsCombinedView(chart: chart)
+      /*
       // TODO: Plot all sets, not just the first...
       if kind == "bar"
       {
@@ -61,11 +63,12 @@ struct GraphView: View
       }
       else
       {
-        ChartsLineView(dates:  chart.plots[0].getXvalues(),
-                       values: chart.plots[0].getYValues(),
-                       color:  chart.plots[0].color,
-                       label:  chart.plots[0].yColumn)
+        ChartsCombinedView(dates:  chart.plots[0].getXvalues(),
+                           values: chart.plots[0].getYValues(),
+                           color:  chart.plots[0].color,
+                           label:  chart.plots[0].yColumn)
       }
+ */
     }
   }
 }

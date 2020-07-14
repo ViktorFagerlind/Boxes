@@ -75,7 +75,7 @@ tables:
 
   - name: Distance
     query: |
-            SELECT strftime("%Y-%m", startTimeLocal), SUM(distance)/1000
+            SELECT strftime("%Y-%m", startTimeLocal), SUM(distance)/100
             FROM all_activities
             WHERE activityType = "lap_swimming"
             GROUP BY strftime("%Y-%m", startTimeLocal)
@@ -83,11 +83,27 @@ tables:
     columns:
       - name: Date
         type: DATETIME
-      - name: km
+      - name: Number of 100m
         type: REAL
 
 
 charts:
+  - name:     Swim overview
+    category: pool_swim
+    plots:
+      - table:    100m by month
+        kind:     line
+        x-column: Date
+        y-column: Min
+      - table:    200m by month
+        kind:     line
+        x-column: Date
+        y-column: Min
+      - table:    Distance
+        kind:     bar
+        x-column: Date
+        y-column: Number of 100m
+    
   - name:     100m swims
     category: pool_swim
     plots:
@@ -120,11 +136,11 @@ charts:
         x-column: Date
         y-column: AvgResting
 
-  - name: Distance (in km) swimmed each month
+  - name: Distance swimmed each month
     category: pool_swim
     plots:
       - table:    Distance
         kind:     bar
         x-column: Date
-        y-column: km
+        y-column: Number of 100m
 
