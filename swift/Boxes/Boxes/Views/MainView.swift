@@ -19,11 +19,11 @@ struct MainView: View
     {
       List
       {
-        ForEach(PlotInfoCollection.singleton.plots.sorted(by: {$0.name > $1.name}), id: \.self)
-        { plotInfo in
-          NavigationLink(destination: PlotView(queryModel: QueryModel(plotInfo: plotInfo)))
+        ForEach(ChartCollection.singleton.charts, id: \.self)
+        { chart in
+          NavigationLink(destination: ChartView(chart: chart))
           {
-            PlotNavigationView(plotInfo: plotInfo)
+            PlotNavigationView(chartName: chart.name, chartCategory: chart.category)
           }
         }
       }
@@ -38,15 +38,16 @@ struct PlotNavigationView: View
   let text_w: CGFloat = 200
   let text_h: CGFloat = 70
 
-  let plotInfo: PlotInfo
-  
+  let chartName: String
+  let chartCategory: String
+
   var body: some View
   {
     VStack
     {
       ZStack(alignment: .bottomLeading)
       {
-        Image(plotInfo.category)
+        Image(chartCategory)
           .resizable()
           .aspectRatio(contentMode: .fill)
           .frame(width:300, height: 100)
@@ -59,7 +60,7 @@ struct PlotNavigationView: View
             .opacity(0.9)
             .foregroundColor(.black)
             .blur(radius: self.text_h/3)
-          Text(plotInfo.name)
+          Text(chartName)
             .multilineTextAlignment(.center)
             .frame(width: self.text_w)
             .foregroundColor(.white)

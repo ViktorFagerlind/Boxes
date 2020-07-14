@@ -20,12 +20,12 @@
 		779468B324B2568600DFCAC3 /* boxes.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779468B124B2568500DFCAC3 /* boxes.grpc.swift */; };
 		779468B424B2568600DFCAC3 /* boxes.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779468B224B2568600DFCAC3 /* boxes.pb.swift */; };
 		779468B624B2578E00DFCAC3 /* DataEngineProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779468B524B2578E00DFCAC3 /* DataEngineProxy.swift */; };
-		77E993B424B3D1AE007E6367 /* PlotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993B324B3D1AE007E6367 /* PlotView.swift */; };
+		77E993B424B3D1AE007E6367 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993B324B3D1AE007E6367 /* ChartView.swift */; };
 		77E993B724B43D76007E6367 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 77E993B624B43D76007E6367 /* SwiftUICharts */; };
-		77E993BB24B51C5F007E6367 /* QueryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993BA24B51C5F007E6367 /* QueryModels.swift */; };
+		77E993BB24B51C5F007E6367 /* TableCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993BA24B51C5F007E6367 /* TableCollection.swift */; };
 		77E993BD24B5CE27007E6367 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993BC24B5CE27007E6367 /* MainView.swift */; };
-		77E993BF24B72A03007E6367 /* PlotInfoCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993BE24B72A02007E6367 /* PlotInfoCollection.swift */; };
-		77E993C124B72B22007E6367 /* plots.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 77E993C024B72B22007E6367 /* plots.yaml */; };
+		77E993BF24B72A03007E6367 /* ChartCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993BE24B72A02007E6367 /* ChartCollection.swift */; };
+		77E993C124B72B22007E6367 /* tables_and_charts.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 77E993C024B72B22007E6367 /* tables_and_charts.yaml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,11 +59,11 @@
 		779468B124B2568500DFCAC3 /* boxes.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = boxes.grpc.swift; sourceTree = "<group>"; };
 		779468B224B2568600DFCAC3 /* boxes.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = boxes.pb.swift; sourceTree = "<group>"; };
 		779468B524B2578E00DFCAC3 /* DataEngineProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataEngineProxy.swift; sourceTree = "<group>"; };
-		77E993B324B3D1AE007E6367 /* PlotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlotView.swift; sourceTree = "<group>"; };
-		77E993BA24B51C5F007E6367 /* QueryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryModels.swift; sourceTree = "<group>"; };
+		77E993B324B3D1AE007E6367 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		77E993BA24B51C5F007E6367 /* TableCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCollection.swift; sourceTree = "<group>"; };
 		77E993BC24B5CE27007E6367 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		77E993BE24B72A02007E6367 /* PlotInfoCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlotInfoCollection.swift; sourceTree = "<group>"; };
-		77E993C024B72B22007E6367 /* plots.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = plots.yaml; sourceTree = "<group>"; };
+		77E993BE24B72A02007E6367 /* ChartCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCollection.swift; sourceTree = "<group>"; };
+		77E993C024B72B22007E6367 /* tables_and_charts.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = tables_and_charts.yaml; sourceTree = "<group>"; };
 		EAF0CC1E2B3C5C75F874EA85 /* Pods-Boxes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Boxes.debug.xcconfig"; path = "Target Support Files/Pods-Boxes/Pods-Boxes.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -145,7 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				77E993BC24B5CE27007E6367 /* MainView.swift */,
-				77E993B324B3D1AE007E6367 /* PlotView.swift */,
+				77E993B324B3D1AE007E6367 /* ChartView.swift */,
 				7755992C24B881F500011FEE /* ChartsBarView.swift */,
 				7755992E24BC1FE700011FEE /* ChartsLineView.swift */,
 			);
@@ -156,8 +156,8 @@
 			isa = PBXGroup;
 			children = (
 				779468B524B2578E00DFCAC3 /* DataEngineProxy.swift */,
-				77E993BA24B51C5F007E6367 /* QueryModels.swift */,
-				77E993BE24B72A02007E6367 /* PlotInfoCollection.swift */,
+				77E993BA24B51C5F007E6367 /* TableCollection.swift */,
+				77E993BE24B72A02007E6367 /* ChartCollection.swift */,
 			);
 			path = Code;
 			sourceTree = "<group>";
@@ -167,7 +167,7 @@
 			children = (
 				779468B124B2568500DFCAC3 /* boxes.grpc.swift */,
 				779468B224B2568600DFCAC3 /* boxes.pb.swift */,
-				77E993C024B72B22007E6367 /* plots.yaml */,
+				77E993C024B72B22007E6367 /* tables_and_charts.yaml */,
 			);
 			path = Input;
 			sourceTree = "<group>";
@@ -283,7 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77292BFC24B1EBA1005B67EE /* LaunchScreen.storyboard in Resources */,
-				77E993C124B72B22007E6367 /* plots.yaml in Resources */,
+				77E993C124B72B22007E6367 /* tables_and_charts.yaml in Resources */,
 				77292BF924B1EBA1005B67EE /* Preview Assets.xcassets in Resources */,
 				77292BF624B1EBA1005B67EE /* Assets.xcassets in Resources */,
 			);
@@ -369,12 +369,12 @@
 			files = (
 				77292BF024B1EB9F005B67EE /* AppDelegate.swift in Sources */,
 				77E993BD24B5CE27007E6367 /* MainView.swift in Sources */,
-				77E993BF24B72A03007E6367 /* PlotInfoCollection.swift in Sources */,
+				77E993BF24B72A03007E6367 /* ChartCollection.swift in Sources */,
 				779468B624B2578E00DFCAC3 /* DataEngineProxy.swift in Sources */,
 				7755992F24BC1FE700011FEE /* ChartsLineView.swift in Sources */,
-				77E993BB24B51C5F007E6367 /* QueryModels.swift in Sources */,
+				77E993BB24B51C5F007E6367 /* TableCollection.swift in Sources */,
 				779468B424B2568600DFCAC3 /* boxes.pb.swift in Sources */,
-				77E993B424B3D1AE007E6367 /* PlotView.swift in Sources */,
+				77E993B424B3D1AE007E6367 /* ChartView.swift in Sources */,
 				77292BF224B1EB9F005B67EE /* SceneDelegate.swift in Sources */,
 				7755992D24B881F500011FEE /* ChartsBarView.swift in Sources */,
 				779468B324B2568600DFCAC3 /* boxes.grpc.swift in Sources */,

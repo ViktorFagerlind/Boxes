@@ -1,0 +1,130 @@
+tables:
+  - name: 100m by month
+    query: |
+            SELECT strftime("%Y-%m", r.startTimeLocal), min(l.total_elapsed_time), avg(l.total_elapsed_time)
+            FROM swim_lengths l
+            LEFT JOIN all_activities r ON l.activityId = r.activityId
+            WHERE l.total_elapsed_time > 73 AND l.total_elapsed_time < 140 AND l.total_distance == 100
+            GROUP BY strftime("%Y-%m", r.startTimeLocal)
+            ORDER BY r.startTimeLocal
+    columns:
+      - name: Date
+        type: DATETIME
+      - name: Min
+        type: REAL
+      - name: Avg
+        type: REAL
+
+  - name: 200m by month
+    query: |
+            SELECT strftime("%Y-%m", r.startTimeLocal), min(l.total_elapsed_time), avg(l.total_elapsed_time)
+            FROM swim_lengths l
+            LEFT JOIN all_activities r ON l.activityId = r.activityId
+            WHERE l.total_elapsed_time > 150 AND l.total_elapsed_time < 260 AND l.total_distance == 200
+            GROUP BY strftime("%Y-%m", r.startTimeLocal)
+            ORDER BY r.startTimeLocal
+    columns:
+      - name: Date
+        type: DATETIME
+      - name: Min
+        type: REAL
+      - name: Avg
+        type: REAL
+
+  - name: All 100m
+    query: |
+            SELECT strftime("%Y-%m-%d", r.startTimeLocal), l.total_elapsed_time
+            FROM swim_lengths l
+            LEFT JOIN all_activities r ON l.activityId = r.activityId
+            WHERE l.total_elapsed_time > 73 AND l.total_elapsed_time < 140 AND l.total_distance == 100
+            ORDER BY r.startTimeLocal
+    columns:
+      - name: Date
+        type: DATETIME
+      - name: time
+        type: REAL
+
+  - name: All 200m
+    query: |
+            SELECT strftime("%Y-%m-%d", r.startTimeLocal), l.total_elapsed_time
+            FROM swim_lengths l
+            LEFT JOIN all_activities r ON l.activityId = r.activityId
+            WHERE l.total_elapsed_time > 150 AND l.total_elapsed_time < 260 AND l.total_distance == 200
+            ORDER BY r.startTimeLocal
+    columns:
+      - name: Date
+        type: DATETIME
+      - name: time
+        type: REAL
+
+  - name: Heart
+    query: |
+            SELECT strftime("%Y-%m-%d", calendarDate), minHeartRate, maxHeartRate, restingHeartRate, lastSevenDaysAvgRestingHeartRate
+            FROM heart_rates
+    columns:
+      - name: Date
+        type: DATETIME
+      - name: Min
+        type: REAL
+      - name: Max
+        type: REAL
+      - name: Resting
+        type: REAL
+      - name: AvgResting
+        type: REAL
+
+  - name: Distance
+    query: |
+            SELECT strftime("%Y-%m", startTimeLocal), SUM(distance)/1000
+            FROM all_activities
+            WHERE activityType = "lap_swimming"
+            GROUP BY strftime("%Y-%m", startTimeLocal)
+            ORDER BY startTimeLocal
+    columns:
+      - name: Date
+        type: DATETIME
+      - name: km
+        type: REAL
+
+
+charts:
+  - name:     100m swims
+    category: pool_swim
+    plots:
+      - table:    100m by month
+        kind:     line
+        x-column: Date
+        y-column: Min
+      - table:    100m by month
+        kind:     line
+        x-column: Date
+        y-column: Avg
+
+  - name:     200m swims
+    category: pool_swim
+    plots:
+      - table:    200m by month
+        kind:     line
+        x-column: Date
+        y-column: Min
+      - table:    200m by month
+        kind:     line
+        x-column: Date
+        y-column: Avg
+
+  - name: Heart
+    category: health
+    plots:
+      - table:    Heart
+        kind:     line
+        x-column: Date
+        y-column: AvgResting
+
+  - name: Distance (in km) swimmed each month
+    category: pool_swim
+    plots:
+      - table:    Distance
+        kind:     bar
+        x-column: Date
+        y-column: km
+
