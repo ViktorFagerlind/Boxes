@@ -13,6 +13,12 @@ struct MainView: View
   let text_w: CGFloat = 200
   let text_h: CGFloat = 70
 
+  init()
+  {
+    // Removes list separations lines
+    UITableView.appearance().separatorStyle = .none
+  }
+  
   var body: some View
   {
     NavigationView
@@ -50,7 +56,7 @@ struct PlotNavigationView: View
         Image(chartCategory)
           .resizable()
           .aspectRatio(contentMode: .fill)
-          .frame(width:300, height: 100)
+          .frame(width:280, height: 100)
           .cornerRadius(20)
           .shadow(color: Color(red:0.5, green:0.5, blue:0.5), radius: 5, x: 5, y:5)
         ZStack(alignment: .center)
@@ -72,7 +78,6 @@ struct PlotNavigationView: View
     }
   }
 }
-
 
 struct MainView_Previews: PreviewProvider
 {
