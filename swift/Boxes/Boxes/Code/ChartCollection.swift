@@ -68,7 +68,7 @@ struct Plot: Hashable
   
   var name: String {get {table + " - " + yColumn}}
 
-  func getXvalues() -> [String] // TODO: Support other than dates/string
+  func getXvalues() -> [String]
   {
     return TableCollection.singleton.getTable(name: table)!.getColumnData(columnName: xColumn)
   }
