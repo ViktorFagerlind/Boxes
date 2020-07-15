@@ -103,7 +103,19 @@ charts:
         kind:     bar
         x-column: Date
         y-column: Number of 100m
-    
+
+  - name: Training
+    category: health
+    plots:
+      - table:    Heart
+        kind:     line
+        x-column: Date
+        y-column: AvgResting
+      - table:    Distance
+        kind:     bar
+        x-column: Date
+        y-column: Number of 100m
+
   - name:     100m swims
     category: pool_swim
     plots:
@@ -135,6 +147,10 @@ charts:
         kind:     line
         x-column: Date
         y-column: AvgResting
+      - table:    Heart
+        kind:     line
+        x-column: Date
+        y-column: Max
 
   - name: Distance swimmed each month
     category: pool_swim

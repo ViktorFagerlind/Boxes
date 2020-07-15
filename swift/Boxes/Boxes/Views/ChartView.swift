@@ -12,7 +12,6 @@ import SwiftUICharts
 
 struct ChartView: View
 {
-  // TODO: Doubt id ObservedObject is really needed
   let chart: Chart
   @State private var showingSheet = false
   
@@ -20,56 +19,59 @@ struct ChartView: View
   {
     VStack
     {
-      // TODO: Kind needed?
-      GraphView(chart: chart, kind: chart.plots[0].kind)
+      Text(chart.name)
+        .font(.headline)
+      
+      ChartsCombinedView(chart: chart)
 
-      Button("Show table data")
+      Button("Show chart data")
       {
         self.showingSheet.toggle()
       }
     }
     .sheet(isPresented: $showingSheet)
     {
-      // TODO: Totally wrong!
-      Text("TODO!!")
-      //TableView(title: self.chart.name, rows: self.chart.r)
+      TableView(chart: self.chart)
     }
-    /*.onAppear
-    {
-      self.queryModel.loadFromDataEngine()
-    }*/
   }
 }
 
-struct GraphView: View
+func createRows(plot: Plot) -> [IdStringPair]
 {
-  let chart: Chart
+  var pairs: [IdStringPair] = []
   
-  @State var kind: String
-  
-  var body: some View
+  for (i,(date, value)) in zip(plot.getXvalues(), plot.getYValues()).enumerated()
   {
-    VStack
-    {
-      ChartsCombinedView(chart: chart)
-      /*
-      // TODO: Plot all sets, not just the first...
-      if kind == "bar"
-      {
-        ChartsBarView(dates:  chart.plots[0].getXvalues(),
-                      values: chart.plots[0].getYValues(),
-                      color:  chart.plots[0].color,
-                      label:  chart.plots[0].yColumn)
-      }
-      else
-      {
-        ChartsCombinedView(dates:  chart.plots[0].getXvalues(),
-                           values: chart.plots[0].getYValues(),
-                           color:  chart.plots[0].color,
-                           label:  chart.plots[0].yColumn)
-      }
- */
-    }
+    pairs.append(IdStringPair(id: i, first: date, second: value.description))
+  }
+  
+  return pairs
+}
+
+class IdStringPair: Identifiable
+{
+  let id: Int
+  let first: String
+  let second: String
+
+  init (id: Int, first: String, second: String)
+  {
+    self.id     = id
+    self.first  = first
+    self.second = second
+  }
+}
+
+class PlotTable: Identifiable
+{
+  let id = UUID()
+  let name: String
+  let rows: [IdStringPair]
+
+  init (name: String, rows: [IdStringPair])
+  {
+    self.name = name
+    self.rows = rows
   }
 }
 
@@ -78,26 +80,51 @@ struct TableView: View
   @Environment(\.presentationMode) var presentation
 
   let title: String
+  var plotTables: [PlotTable] = []
   
-  let rows: [TableDataRow]
+  init(chart: Chart)
+  {
+    title = chart.name
+    
+    for plot in chart.plots
+    {
+      let plotTable = PlotTable(name: plot.name, rows: createRows(plot: plot))
+      plotTables.append(plotTable)
+    }
+  }
 
   var body: some View
   {
     VStack
     {
-      Text(self.title)
-        .font(.title)
-      List (rows)
+      Text(title)
+      TabView
       {
-        tableDataRow in
-        HStack
-        {
-          Text(tableDataRow.text[0])
-            .multilineTextAlignment(.trailing)
-            .frame(width: 100.0)
-          Text(tableDataRow.text[1])
-            .multilineTextAlignment(.trailing)
-            .frame(width: 140.0)
+        ForEach(plotTables)
+        { plotTable in
+          VStack
+          {
+            List(plotTable.rows)
+            { stringPair in
+              HStack
+              {
+                Text(stringPair.first)
+                  .font(.body)
+                  .multilineTextAlignment(.trailing)
+                  .frame(width: 100.0)
+                Text(stringPair.second)
+                  .font(.body)
+                  .multilineTextAlignment(.trailing)
+                  .frame(width: 140.0)
+              }
+            }
+          }
+            .font(.title)
+            .tabItem
+            {
+              Image(systemName: "table")
+              Text(plotTable.name)
+            }
         }
       }
       Button("Dismiss")

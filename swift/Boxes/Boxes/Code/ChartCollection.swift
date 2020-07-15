@@ -65,6 +65,8 @@ struct Plot: Hashable
   let xColumn: String
   let yColumn: String
   let color:   NSUIColor
+  
+  var name: String {get {table + " - " + yColumn}}
 
   func getXvalues() -> [String] // TODO: Support other than dates/string
   {

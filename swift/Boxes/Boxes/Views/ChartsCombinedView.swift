@@ -45,13 +45,14 @@ struct ChartsCombinedView : UIViewRepresentable
       dataSet.colors = [plot.color]
       dataSet.circleHoleColor = NSUIColor.black
       dataSet.setCircleColor (plot.color)
-      dataSet.label = plot.table + " - " + plot.yColumn
+      dataSet.label = plot.name
       dataSet.mode = LineChartDataSet.Mode.horizontalBezier
       dataSet.circleRadius = 5.0
       dataSet.circleHoleRadius = 2.5
       dataSet.drawFilledEnabled = true
       dataSet.fillColor = plot.color
       dataSet.lineWidth = 2.0
+      //dataSet.drawCirclesEnabled = false
       
       lineData.addDataSet(dataSet)
     }
@@ -73,7 +74,7 @@ struct ChartsCombinedView : UIViewRepresentable
       let entries = createBarEntries(dates: plot.getXvalues(), values: plot.getYValues())
       let dataSet = BarChartDataSet(entries: entries)
       dataSet.colors = [plot.color]
-      dataSet.label = plot.table + " - " + plot.yColumn
+      dataSet.label = plot.name
       
       barData.addDataSet(dataSet)
       
@@ -178,6 +179,8 @@ func createEntries(dates: [String], values: [Double]) -> [ChartDataEntry]
   {
     entries.append(ChartDataEntry(x: stringToDate(dateString: dateString).timeIntervalSince1970,y: value))
   }
+  
+  entries.sort(by: { $0.x < $1.x }) // Bug in charts forcing ordering by x
   
   return entries
 }
