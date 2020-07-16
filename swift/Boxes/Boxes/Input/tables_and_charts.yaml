@@ -73,9 +73,9 @@ tables:
       - name: AvgResting
         type: REAL
 
-  - name: Distance
+  - name: All activities
     query: |
-            SELECT strftime("%Y-%m", startTimeLocal), SUM(distance)/100
+            SELECT strftime("%Y-%m", startTimeLocal), SUM(distance)/100, AVG(movingDuration)
             FROM all_activities
             WHERE activityType = "lap_swimming"
             GROUP BY strftime("%Y-%m", startTimeLocal)
@@ -84,6 +84,8 @@ tables:
       - name: Date
         type: DATETIME
       - name: Number of 100m
+        type: REAL
+      - name: Moving duration
         type: REAL
 
 
@@ -99,7 +101,7 @@ charts:
         kind:     line
         x-column: Date
         y-column: Min
-      - table:    Distance
+      - table:    All activities
         kind:     bar
         x-column: Date
         y-column: Number of 100m
@@ -111,7 +113,7 @@ charts:
         kind:     line
         x-column: Date
         y-column: AvgResting
-      - table:    Distance
+      - table:    All activities
         kind:     bar
         x-column: Date
         y-column: Number of 100m
@@ -155,7 +157,7 @@ charts:
   - name: Distance swimmed each month
     category: pool_swim
     plots:
-      - table:    Distance
+      - table:    All activities
         kind:     bar
         x-column: Date
         y-column: Number of 100m

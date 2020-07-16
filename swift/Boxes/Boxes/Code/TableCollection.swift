@@ -57,15 +57,22 @@ class TableCollection
   }
 }
 
-class Table: ObservableObject // TODO: Observable needed??
+
+
+class Table: Identifiable //ObservableObject
 {
   var loaded: Bool = false
   
+  let id = UUID()
   let name: String
   let query: String
   let columnTypes: [Boxes_ColumnType]
   let columnNames: [String]
   
+  private var textRows: [TableTextRow] = []
+  
+  var rows: [TableTextRow] {get {loadContents(); return textRows}}
+
   private var contents: Boxes_Table = Boxes_Table()
   
   init(name: String, query: String, columnNames: [String], columnTypes: [Boxes_ColumnType])
@@ -109,6 +116,48 @@ class Table: ObservableObject // TODO: Observable needed??
     print("Loading: \(query)")
 
     contents = DataEngineProxy.singleton.executeQuery(query: query, columnTypes: columnTypes)
+    
+    createRows()
+  }
+  
+  func getRowCount() -> Int
+  {
+    return max(contents.columns[0].numValues.count, contents.columns[0].strValues.count)
+  }
+
+  func createRows()
+  {
+    let nofRows = getRowCount()
+    
+    for i in 0..<nofRows
+    {
+      var row: [String] = []
+      for c in contents.columns
+      {
+        if c.numValues.count == 0
+        {
+          row.append(c.strValues[i])
+        }
+        else
+        {
+          row.append(String(format: "%.2f", c.numValues[i]))
+        }
+      }
+      textRows.append(TableTextRow(id: i, items: row))
+    }
+    
   }
 }
 
+// Mostly to be able to show the table
+class TableTextRow: Identifiable
+{
+  let id: Int
+  let items: [String]
+
+  init (id: Int, items: [String])
+  {
+    self.id    = id
+    self.items = items
+  }
+}

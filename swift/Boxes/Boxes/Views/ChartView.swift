@@ -19,19 +19,18 @@ struct ChartView: View
   {
     VStack
     {
-      Text(chart.name)
-        .font(.headline)
-      
       ChartsCombinedView(chart: chart)
 
       Button("Show chart data")
       {
         self.showingSheet.toggle()
       }
+      .font(.headline)
     }
+    .navigationBarTitle(Text(chart.name), displayMode: .inline)
     .sheet(isPresented: $showingSheet)
     {
-      TableView(chart: self.chart)
+      ChartDataView(chart: self.chart)
     }
   }
 }
@@ -42,7 +41,7 @@ func createRows(plot: Plot) -> [IdStringPair]
   
   for (i,(date, value)) in zip(plot.getXvalues(), plot.getYValues()).enumerated()
   {
-    pairs.append(IdStringPair(id: i, first: date, second: value.description))
+    pairs.append(IdStringPair(id: i, first: date, second: String(format: "%.2f", value)))
   }
   
   return pairs
@@ -75,7 +74,7 @@ class PlotTable: Identifiable
   }
 }
 
-struct TableView: View
+struct ChartDataView: View
 {
   @Environment(\.presentationMode) var presentation
 
@@ -97,34 +96,31 @@ struct TableView: View
   {
     VStack
     {
-      Text(title)
+      Text(title + " - raw values")
+        .font(.headline)
       TabView
       {
         ForEach(plotTables)
         { plotTable in
-          VStack
-          {
-            List(plotTable.rows)
-            { stringPair in
-              HStack
-              {
-                Text(stringPair.first)
-                  .font(.body)
-                  .multilineTextAlignment(.trailing)
-                  .frame(width: 100.0)
-                Text(stringPair.second)
-                  .font(.body)
-                  .multilineTextAlignment(.trailing)
-                  .frame(width: 140.0)
-              }
+          
+          List(plotTable.rows)
+          { stringPair in
+            HStack
+            {
+              Text(stringPair.first)
+                .frame(width: 100.0)
+              Text(stringPair.second)
+                .frame(width: 140.0)
             }
           }
-            .font(.title)
-            .tabItem
-            {
-              Image(systemName: "table")
-              Text(plotTable.name)
-            }
+          .font(Font.body)
+          .environment(\.defaultMinListRowHeight, 30)
+
+          .tabItem
+          {
+            Image(systemName: "table")
+            Text(plotTable.name)
+          }
         }
       }
       Button("Dismiss")

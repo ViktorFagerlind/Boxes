@@ -19,10 +19,12 @@
 		779468B424B2568600DFCAC3 /* boxes.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779468B224B2568600DFCAC3 /* boxes.pb.swift */; };
 		779468B624B2578E00DFCAC3 /* DataEngineProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779468B524B2578E00DFCAC3 /* DataEngineProxy.swift */; };
 		77ADDA4024BE4BD800943EE2 /* ChartsCombinedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77ADDA3F24BE4BD800943EE2 /* ChartsCombinedView.swift */; };
+		77ADDA4224C01BA900943EE2 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77ADDA4124C01BA900943EE2 /* MainView.swift */; };
+		77ADDA4424C0688700943EE2 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77ADDA4324C0688700943EE2 /* TableView.swift */; };
 		77E993B424B3D1AE007E6367 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993B324B3D1AE007E6367 /* ChartView.swift */; };
 		77E993B724B43D76007E6367 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 77E993B624B43D76007E6367 /* SwiftUICharts */; };
 		77E993BB24B51C5F007E6367 /* TableCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993BA24B51C5F007E6367 /* TableCollection.swift */; };
-		77E993BD24B5CE27007E6367 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993BC24B5CE27007E6367 /* MainView.swift */; };
+		77E993BD24B5CE27007E6367 /* ChartsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993BC24B5CE27007E6367 /* ChartsListView.swift */; };
 		77E993BF24B72A03007E6367 /* ChartCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E993BE24B72A02007E6367 /* ChartCollection.swift */; };
 		77E993C124B72B22007E6367 /* tables_and_charts.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 77E993C024B72B22007E6367 /* tables_and_charts.yaml */; };
 /* End PBXBuildFile section */
@@ -57,9 +59,11 @@
 		779468B224B2568600DFCAC3 /* boxes.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = boxes.pb.swift; sourceTree = "<group>"; };
 		779468B524B2578E00DFCAC3 /* DataEngineProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataEngineProxy.swift; sourceTree = "<group>"; };
 		77ADDA3F24BE4BD800943EE2 /* ChartsCombinedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartsCombinedView.swift; sourceTree = "<group>"; };
+		77ADDA4124C01BA900943EE2 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		77ADDA4324C0688700943EE2 /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 		77E993B324B3D1AE007E6367 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		77E993BA24B51C5F007E6367 /* TableCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCollection.swift; sourceTree = "<group>"; };
-		77E993BC24B5CE27007E6367 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		77E993BC24B5CE27007E6367 /* ChartsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsListView.swift; sourceTree = "<group>"; };
 		77E993BE24B72A02007E6367 /* ChartCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCollection.swift; sourceTree = "<group>"; };
 		77E993C024B72B22007E6367 /* tables_and_charts.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = tables_and_charts.yaml; sourceTree = "<group>"; };
 		EAF0CC1E2B3C5C75F874EA85 /* Pods-Boxes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Boxes.debug.xcconfig"; path = "Target Support Files/Pods-Boxes/Pods-Boxes.debug.xcconfig"; sourceTree = "<group>"; };
@@ -142,7 +146,9 @@
 		77C2DA3924B7B8C700A6C515 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				77E993BC24B5CE27007E6367 /* MainView.swift */,
+				77ADDA4124C01BA900943EE2 /* MainView.swift */,
+				77ADDA4324C0688700943EE2 /* TableView.swift */,
+				77E993BC24B5CE27007E6367 /* ChartsListView.swift */,
 				77E993B324B3D1AE007E6367 /* ChartView.swift */,
 				77ADDA3F24BE4BD800943EE2 /* ChartsCombinedView.swift */,
 			);
@@ -365,12 +371,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				77292BF024B1EB9F005B67EE /* AppDelegate.swift in Sources */,
-				77E993BD24B5CE27007E6367 /* MainView.swift in Sources */,
+				77ADDA4424C0688700943EE2 /* TableView.swift in Sources */,
+				77E993BD24B5CE27007E6367 /* ChartsListView.swift in Sources */,
 				77E993BF24B72A03007E6367 /* ChartCollection.swift in Sources */,
 				779468B624B2578E00DFCAC3 /* DataEngineProxy.swift in Sources */,
 				77ADDA4024BE4BD800943EE2 /* ChartsCombinedView.swift in Sources */,
 				77E993BB24B51C5F007E6367 /* TableCollection.swift in Sources */,
 				779468B424B2568600DFCAC3 /* boxes.pb.swift in Sources */,
+				77ADDA4224C01BA900943EE2 /* MainView.swift in Sources */,
 				77E993B424B3D1AE007E6367 /* ChartView.swift in Sources */,
 				77292BF224B1EB9F005B67EE /* SceneDelegate.swift in Sources */,
 				779468B324B2568600DFCAC3 /* boxes.grpc.swift in Sources */,
