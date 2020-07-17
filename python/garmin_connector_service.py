@@ -57,7 +57,9 @@ class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
 
     def __setup_activities(self, nof_activities):
         activities = self.client.get_activities(start=0, limit=nof_activities)
-        column_names = ['activityId', 'activityName', 'startTimeLocal', 'distance', 'elapsedDuration', 'movingDuration', 'poolLength', 'activityType']
+        column_names = ['activityId', 'activityName', 'startTimeLocal', 'distance', 'elapsedDuration', 'movingDuration',
+                        'poolLength', 'averageSpeed', 'maxSpeed', 'averageSwimCadenceInStrokesPerMinute',
+                        'maxSwimCadenceInStrokesPerMinute', 'averageSwolf', 'activityType']
         column_types = [int, str, numpy.datetime64, str]
         data_dict = {}
         for c in column_names:
@@ -93,6 +95,7 @@ class GarminConnector(boxes_pb2_grpc.ConnectorServicer):
                     data_dict[c].append(heart_day[c])
             i = i + 7
             print (' ' + str(i), end='')
+        print ('')
 
         dataframe =  pd.DataFrame(data=data_dict, columns=column_names)
         for (column, column_type) in zip(column_names, column_types):
