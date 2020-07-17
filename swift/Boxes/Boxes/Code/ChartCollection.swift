@@ -28,15 +28,12 @@ class ChartCollection
       var plots: [Plot] = []
       for plotYaml in chartYaml["plots"].array!
       {
-        // TODO: Assign color
         let plot = Plot(table: plotYaml["table"].string!,
                         kind: plotYaml["kind"].string!,
                         xColumn: plotYaml["x-column"].string!,
                         yColumn: plotYaml["y-column"].string!,
-                        color: NSUIColor(red:     CGFloat.random(in: 0.2...1.0),
-                                         green:   CGFloat.random(in: 0.2...1.0),
-                                         blue:    CGFloat.random(in: 0.2...1.0),
-                                         alpha:   0.8))
+                        color: colorFromString(plotYaml["color"].string),
+                        filled: plotYaml["filled"].bool == nil ? false : plotYaml["filled"].bool!)
         plots.append(plot)
       }
 
@@ -65,7 +62,8 @@ struct Plot: Hashable
   let xColumn: String
   let yColumn: String
   let color:   NSUIColor
-  
+  let filled:  Bool
+
   var name: String {get {table + " - " + yColumn}}
 
   func getXvalues() -> [String]
@@ -77,4 +75,50 @@ struct Plot: Hashable
   {
     return TableCollection.singleton.getTable(name: table)!.getColumnData(columnName: yColumn)
   }
+}
+
+func colorFromString(_ colorString: String?) -> UIColor
+{
+  switch colorString
+  {
+  case "black":     return UIColor.black
+  case "darkGray":  return UIColor.darkGray
+  case "lightGray": return UIColor.lightGray
+  case "white":     return UIColor.white
+  case "gray":      return UIColor.gray
+  case "red":       return UIColor.red
+  case "green":     return UIColor.green
+  case "blue":      return UIColor.blue
+  case "cyan":      return UIColor.cyan
+  case "yellow":    return UIColor.yellow
+  case "magenta":   return UIColor.magenta
+  case "orange":    return UIColor.orange
+  case "purple":    return UIColor.purple
+  case "brown":     return UIColor.brown
+  default:
+    let rgb: UInt? = colorString == nil ? nil : UInt(colorString!, radix: 16)
+    
+    if rgb == nil
+    {
+      return UIColor(red:   CGFloat.random(in: 0.2...1.0),
+                     green: CGFloat.random(in: 0.2...1.0),
+                     blue:  CGFloat.random(in: 0.2...1.0),
+                     alpha: 0.8)
+    }
+    else
+    {
+      return colorFromRGB(rgb: rgb!)
+    }
+  }
+}
+
+
+func colorFromRGB(rgb: UInt) -> UIColor
+{
+    return UIColor(
+        red:    CGFloat((rgb & 0xFF000000) >> 24) / 255.0,
+        green:  CGFloat((rgb & 0x00FF0000) >> 16) / 255.0,
+        blue:   CGFloat((rgb & 0x0000FF00) >>  8) / 255.0,
+        alpha:  CGFloat (rgb & 0x000000F0)        / 255.0
+    )
 }

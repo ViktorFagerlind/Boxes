@@ -73,9 +73,11 @@ tables:
       - name: AvgResting
         type: REAL
 
-  - name: All activities
+  - name: Swim sessions by month
     query: |
-            SELECT strftime("%Y-%m", startTimeLocal), SUM(distance)/100, AVG(movingDuration)
+            SELECT strftime("%Y-%m", startTimeLocal), SUM(distance)/100, AVG(elapsedDuration), AVG(movingDuration), AVG(100.0/averageSpeed),
+                   MAX(100.0/maxSpeed), AVG(2*averageSwimCadenceInStrokesPerMinute), MAX(2*maxSwimCadenceInStrokesPerMinute),
+                   AVG(averageSwolf)
             FROM all_activities
             WHERE activityType = "lap_swimming"
             GROUP BY strftime("%Y-%m", startTimeLocal)
@@ -85,7 +87,19 @@ tables:
         type: DATETIME
       - name: Number of 100m
         type: REAL
+      - name: Duration
+        type: REAL
       - name: Moving duration
+        type: REAL
+      - name: Avg 100m speed
+        type: REAL
+      - name: Max 100m speed
+        type: REAL
+      - name: Avg Cadence
+        type: REAL
+      - name: Max Cadence
+        type: REAL
+      - name: Avg SWOLF
         type: REAL
 
 
@@ -97,14 +111,28 @@ charts:
         kind:     line
         x-column: Date
         y-column: Min
+        color:    red
+        filled:   true
       - table:    200m by month
         kind:     line
         x-column: Date
         y-column: Min
-      - table:    All activities
+        color:    "FF223399"
+      - table:    Swim sessions by month
         kind:     bar
         x-column: Date
         y-column: Number of 100m
+        color:    "998811FF"
+      - table:    Swim sessions by month
+        kind:     line
+        x-column: Date
+        y-column: Avg SWOLF
+        color:    blue
+      - table:    Swim sessions by month
+        kind:     line
+        x-column: Date
+        y-column: Avg Cadence
+        color:    purple
 
   - name: Training
     category: health
@@ -113,7 +141,7 @@ charts:
         kind:     line
         x-column: Date
         y-column: AvgResting
-      - table:    All activities
+      - table:    Swim sessions by month
         kind:     bar
         x-column: Date
         y-column: Number of 100m
@@ -157,7 +185,7 @@ charts:
   - name: Distance swimmed each month
     category: pool_swim
     plots:
-      - table:    All activities
+      - table:    Swim sessions by month
         kind:     bar
         x-column: Date
         y-column: Number of 100m
