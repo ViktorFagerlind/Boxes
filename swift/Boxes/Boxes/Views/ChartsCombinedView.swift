@@ -42,18 +42,21 @@ struct ChartsCombinedView : UIViewRepresentable
     {
       let dataSet = LineChartDataSet(entries: createEntries(dates: plot.getXvalues(),
                                                             values: plot.getYValues()))
-      
+
+      dataSet.lineWidth = 2.0
       dataSet.colors = [plot.color]
-      dataSet.circleHoleColor = NSUIColor.black
-      dataSet.setCircleColor (plot.color)
-      dataSet.label = plot.name
-      dataSet.mode = LineChartDataSet.Mode.horizontalBezier
-      dataSet.circleRadius = 5.0
-      dataSet.circleHoleRadius = 2.5
       dataSet.drawFilledEnabled = plot.filled
       dataSet.fillColor = plot.color
-      dataSet.lineWidth = 2.0
-      //dataSet.drawCirclesEnabled = false
+
+      dataSet.drawCirclesEnabled = plot.circles
+      dataSet.circleHoleColor = NSUIColor.black
+      dataSet.setCircleColor (plot.color)
+      dataSet.circleRadius = 5.0
+      dataSet.circleHoleRadius = 2.5
+
+      dataSet.label = plot.name
+      dataSet.mode = LineChartDataSet.Mode.horizontalBezier
+      
       
       lineData.addDataSet(dataSet)
     }
@@ -135,7 +138,7 @@ func calcBarWidth(xRange: Double, xValues: [Double]) -> Double
 {
   var width: Double
   let fillGrade: Double = 0.8
-  let minWidth: Double = 0.01
+  let minWidth: Double = 0.002
 
   var minDistance: Double = xRange
   

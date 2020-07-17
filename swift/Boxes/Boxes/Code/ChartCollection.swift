@@ -10,6 +10,11 @@ import Foundation
 import Charts
 import Yaml
 
+func getBool(yaml: Yaml) -> Bool
+{
+  return yaml.bool == nil ? false : yaml.bool!
+}
+
 class ChartCollection
 {
   static let singleton = ChartCollection()
@@ -33,7 +38,8 @@ class ChartCollection
                         xColumn: plotYaml["x-column"].string!,
                         yColumn: plotYaml["y-column"].string!,
                         color: colorFromString(plotYaml["color"].string),
-                        filled: plotYaml["filled"].bool == nil ? false : plotYaml["filled"].bool!)
+                        filled: getBool(yaml: plotYaml["filled"]),
+                        circles: getBool(yaml: plotYaml["circles"]))
         plots.append(plot)
       }
 
@@ -63,6 +69,7 @@ struct Plot: Hashable
   let yColumn: String
   let color:   NSUIColor
   let filled:  Bool
+  let circles: Bool
 
   var name: String {get {table + " - " + yColumn}}
 

@@ -72,15 +72,46 @@ tables:
         type: REAL
       - name: AvgResting
         type: REAL
-
+  
   - name: Swim sessions by month
     query: |
-            SELECT strftime("%Y-%m", startTimeLocal), SUM(distance)/100, AVG(elapsedDuration), AVG(movingDuration), AVG(100.0/averageSpeed),
-                   MAX(100.0/maxSpeed), AVG(2*averageSwimCadenceInStrokesPerMinute), MAX(2*maxSwimCadenceInStrokesPerMinute),
-                   AVG(averageSwolf)
+            SELECT strftime("%Y-%m", startTimeLocal), SUM(distance)/100, AVG(elapsedDuration), AVG(movingDuration),
+                   AVG(100.0/averageSpeed), MAX(100.0/maxSpeed), AVG(2*averageSwimCadenceInStrokesPerMinute),
+                   MAX(2*maxSwimCadenceInStrokesPerMinute), AVG(averageSwolf)
             FROM all_activities
-            WHERE activityType = "lap_swimming"
+            WHERE activityType = "lap_swimming" AND averageSwolf > 20 AND averageSwolf < 200 AND
+                  averageSwimCadenceInStrokesPerMinute > 10 AND averageSwimCadenceInStrokesPerMinute < 100
             GROUP BY strftime("%Y-%m", startTimeLocal)
+            ORDER BY startTimeLocal
+    columns:
+      - name: Date
+        type: DATETIME
+      - name: Number of 100m
+        type: REAL
+      - name: Duration
+        type: REAL
+      - name: Moving duration
+        type: REAL
+      - name: Avg 100m speed
+        type: REAL
+      - name: Max 100m speed
+        type: REAL
+      - name: Avg Cadence
+        type: REAL
+      - name: Max Cadence
+        type: REAL
+      - name: Avg SWOLF
+        type: REAL
+        
+  - name: Swim sessions
+    query: |
+            SELECT strftime("%Y-%m-%d", startTimeLocal), SUM(distance)/100, AVG(elapsedDuration), AVG(movingDuration),
+                   AVG(100.0/averageSpeed), MAX(100.0/maxSpeed), AVG(2*averageSwimCadenceInStrokesPerMinute),
+                   MAX(2*maxSwimCadenceInStrokesPerMinute), AVG(averageSwolf)
+            FROM all_activities
+            WHERE activityType = "lap_swimming" AND averageSwolf > 20 AND averageSwolf < 200 AND
+                  averageSwimCadenceInStrokesPerMinute > 10 AND averageSwimCadenceInStrokesPerMinute < 100
+            GROUP BY strftime("%Y-%m-%d", startTimeLocal)
             ORDER BY startTimeLocal
     columns:
       - name: Date
@@ -111,28 +142,31 @@ charts:
         kind:     line
         x-column: Date
         y-column: Min
-        color:    red
-        filled:   true
+        color:    "4477DDAA"
+        circles:  true
       - table:    200m by month
         kind:     line
         x-column: Date
         y-column: Min
-        color:    "FF223399"
+        color:    "44DD77AA"
+        circles:  true
       - table:    Swim sessions by month
         kind:     bar
         x-column: Date
         y-column: Number of 100m
-        color:    "998811FF"
-      - table:    Swim sessions by month
+        color:    brown
+      - table:    Swim sessions
         kind:     line
         x-column: Date
         y-column: Avg SWOLF
-        color:    blue
-      - table:    Swim sessions by month
+        color:    "DD44DD99"
+        filled:   true
+      - table:    Swim sessions
         kind:     line
         x-column: Date
         y-column: Avg Cadence
-        color:    purple
+        color:    "DDDD4499"
+        filled:   true
 
   - name: Training
     category: health
