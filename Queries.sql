@@ -48,13 +48,8 @@ ORDER BY startTimeLocal
 
 
 ----------- all_activities ----------
-        activityId TEXT      activityName TEXT    startTimeLocal TEXT      activityType TEXT
-             5129419239             Simbassäng    2020-06-22 20:23:27           lap_swimming
-             5117664387             Simbassäng    2020-06-20 14:22:40           lap_swimming
-             5105060041             Simbassäng    2020-06-17 20:22:39           lap_swimming
-             5094851020             Simbassäng    2020-06-15 20:26:46           lap_swimming
-             5083417722             Simbassäng    2020-06-13 10:03:54           lap_swimming
-             5083417317             Simbassäng    2020-06-13 09:55:20           lap_swimming
+ activityId INTEGER      activityName TEXTstartTimeLocal TIMESTAMP          distance TEXT   elapsedDuration REAL    movingDuration REAL        poolLength REAL      averageSpeed REAL          maxSpeed REAL averageSwimCadenceInStrokesPerMinute REAL maxSwimCadenceInStrokesPerMinute REAL      averageSwolf REAL      activityType TEXT
+             5231379895             Simbassäng    2020-07-13 17:21:09                 2000.0      2780945.068359375         2237.455078125                 5000.0     0.9110000133514404       1.0880000591278076                   24.0                                             30.0                   77.0           lap_swimming
 
 ----------- swim_lengths ----------
        avg_cadence REAL    total_distance REALtotal_elapsed_time REAL         timestamp TEXT        activityId TEXT

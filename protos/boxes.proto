@@ -87,7 +87,131 @@ service DataEngine {
 }
 
 message Query {
-  string              q            = 1;
+           string     q            = 1;
   repeated ColumnType column_types = 2;
 }
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+// Backend to all GUI clients
+
+service Backend {
+  // Initialises the backend by loading charts/tables accoring to configuration
+  rpc Initialise (ConfigFile)       returns (Empty) {}
+
+  // -- Procedures used to display charts ------------------------------------------------------------------------------
+
+  // Get all charts (actual graph window) contaning all plots (each line/scat/bar-collection), excluding actual values
+  rpc GetCharts (Empty)             returns (ChartCollection) {}
+
+  // Get x/y values for a certain plot
+  rpc GetPlotValues (PlotName)      returns (PlotValues) {}
+
+  // Get information on the loaded plots
+  rpc GetLoadedTables (Empty)       returns (TableCollection) {}
+
+  // -- Procedures used to display tables ------------------------------------------------------------------------------
+
+  // Get table schemas available in data engine
+  rpc GetAllTableNames (Empty)      returns (TableNames) {}
+
+  // Get table schemas from data engine
+  rpc GetTableSchemas (TableNames)  returns (TableSchemas) {}
+
+  // Get table contents from loaded table or from one in data engine
+  rpc GetTable (TableName)          returns (Table) {}
+
+  // -- Procedures modifying the saved configuration, typically by the used defining or modifying plots/tables ---------
+
+  // Add chart (and save this configuration in the yaml config)
+  rpc AddChart (ChartInfo)          returns (Empty) {}
+
+  // Remove chart (and save this configuration in the yaml config)
+  rpc RemoveChart (ChartName)       returns (Empty) {}
+
+  // Load table from data engine (and save this configuration in the yaml config)
+  rpc LoadTable (TableName)         returns (TableCollection) {}
+
+  // Unload table from backend (and save this configuration in the yaml config)
+  rpc UnloadTable (TableName)         returns (TableCollection) {}
+}
+
+
+message ConfigFile {
+  string yamlPath = 1;
+}
+
+
+message ChartCollection {
+  repeated Chart charts = 1
+}
+
+message Chart {
+           string name       = 1
+           string category   = 2
+  repeated Plot   plots      = 3
+}
+
+message Plot {
+  string name   = 1
+  string kind   = 2
+  uint32 color  = 3
+  bool filled   = 4
+  bool circles  = 5
+}
+
+message PlotTableInfo {
+  string tableName   = 1
+  string xColumnName = 2
+  string yColumnName = 3
+  Plot   plot        = 4
+}
+
+message ChartInfo {
+           Chart    chart     = 1
+  repeated PlotInfo plotInfos = 2
+}
+
+message PlotName {
+  string str = 1;
+}
+
+message ChartName {
+  string str = 1;
+}
+
+message PlotValues {
+  repeated string xValues = 1; // TODO: must currently be dates
+  repeated double yValues = 1; // TODO: must currently be doubles
+}
+
+
+message TableCollection {
+  repeated TableInfo table = 1
+}
+
+message TableInfo {
+  string name         = 1
+  TableSchema schema  = 2
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
