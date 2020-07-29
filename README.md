@@ -46,6 +46,10 @@ https://thenewstack.io/implementing-service-discovery-of-microservices-with-cons
 * Build programs
   > make -j
 
+## Run go backend (temp / TODO)
+* go to go/backend/proto
+  > protoc -I ../../protos/ --go_out=. --go-grpc_out=. --go_opt=paths=source_relative --go-grpc_opt=paths=source_relative ../../protos/boxes.proto
+
 ## Prepare Python program
 * Generate Python RPC definitions
   > python -m grpc_tools.protoc -I../protos --python_out=. --grpc_python_out=. ../protos/boxes.proto
