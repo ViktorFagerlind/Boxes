@@ -35,6 +35,14 @@ https://thenewstack.io/implementing-service-discovery-of-microservices-with-cons
 * protoc -I ../protos/ --grpc-swift_out=. ../protos/boxes.proto
 * protoc -I ../protos/ --swift_out=. ../protos/boxes.proto
 
+### Go installation
+* Install go according to https://golang.org/doc/install
+* Install grpc for go according to https://grpc.io/docs/languages/go/quickstart/
+* Install protoc-gen-go-grpc as well
+  > google.golang.org/grpc/cmd/protoc-gen-go-grpc
+* Add /usr/local/go/bin and $HOME/go/bin to your path
+* go get gopkg.in/yaml.v2
+
 ## Build C++ programs
 * Go to /cpp folder
 * Create build dir
