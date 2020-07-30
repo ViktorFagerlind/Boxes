@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package boxes;
 
+option go_package = "boxes/backend/protos";
+
 // ---------------------------------------------------------------------------------------------------------------------
 
 service Connector {
@@ -143,33 +145,33 @@ message ConfigFile {
 
 
 message ChartCollection {
-  repeated Chart charts = 1
+  repeated Chart charts = 1;
 }
 
 message Chart {
-           string name       = 1
-           string category   = 2
-  repeated Plot   plots      = 3
+           string name       = 1;
+           string category   = 2;
+  repeated Plot   plots      = 3;
 }
 
 message Plot {
-  string name   = 1
-  string kind   = 2
-  uint32 color  = 3
-  bool filled   = 4
-  bool circles  = 5
+  string name   = 1;
+  string kind   = 2;
+  uint32 color  = 3;
+  bool filled   = 4;
+  bool circles  = 5;
 }
 
-message PlotTableInfo {
-  string tableName   = 1
-  string xColumnName = 2
-  string yColumnName = 3
-  Plot   plot        = 4
+message PlotInfo {
+  string tableName   = 1;
+  string xColumnName = 2;
+  string yColumnName = 3;
+  Plot   plot        = 4;
 }
 
 message ChartInfo {
-           Chart    chart     = 1
-  repeated PlotInfo plotInfos = 2
+           Chart    chart     = 1;
+  repeated PlotInfo plotInfos = 2;
 }
 
 message PlotName {
@@ -182,17 +184,17 @@ message ChartName {
 
 message PlotValues {
   repeated string xValues = 1; // TODO: must currently be dates
-  repeated double yValues = 1; // TODO: must currently be doubles
+  repeated double yValues = 2; // TODO: must currently be doubles
 }
 
 
 message TableCollection {
-  repeated TableInfo table = 1
+  repeated TableInfo table = 1;
 }
 
 message TableInfo {
-  string name         = 1
-  TableSchema schema  = 2
+  string name         = 1;
+  TableSchema schema  = 2;
 }
 
 

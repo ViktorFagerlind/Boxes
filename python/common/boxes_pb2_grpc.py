@@ -377,3 +377,412 @@ class DataEngine(object):
             boxes__pb2.Table.FromString,
             options, channel_credentials,
             call_credentials, compression, wait_for_ready, timeout, metadata)
+
+
+class BackendStub(object):
+    """---------------------------------------------------------------------------------------------------------------------
+
+    Backend to all GUI clients
+
+    """
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.Initialise = channel.unary_unary(
+                '/boxes.Backend/Initialise',
+                request_serializer=boxes__pb2.ConfigFile.SerializeToString,
+                response_deserializer=boxes__pb2.Empty.FromString,
+                )
+        self.GetCharts = channel.unary_unary(
+                '/boxes.Backend/GetCharts',
+                request_serializer=boxes__pb2.Empty.SerializeToString,
+                response_deserializer=boxes__pb2.ChartCollection.FromString,
+                )
+        self.GetPlotValues = channel.unary_unary(
+                '/boxes.Backend/GetPlotValues',
+                request_serializer=boxes__pb2.PlotName.SerializeToString,
+                response_deserializer=boxes__pb2.PlotValues.FromString,
+                )
+        self.GetLoadedTables = channel.unary_unary(
+                '/boxes.Backend/GetLoadedTables',
+                request_serializer=boxes__pb2.Empty.SerializeToString,
+                response_deserializer=boxes__pb2.TableCollection.FromString,
+                )
+        self.GetAllTableNames = channel.unary_unary(
+                '/boxes.Backend/GetAllTableNames',
+                request_serializer=boxes__pb2.Empty.SerializeToString,
+                response_deserializer=boxes__pb2.TableNames.FromString,
+                )
+        self.GetTableSchemas = channel.unary_unary(
+                '/boxes.Backend/GetTableSchemas',
+                request_serializer=boxes__pb2.TableNames.SerializeToString,
+                response_deserializer=boxes__pb2.TableSchemas.FromString,
+                )
+        self.GetTable = channel.unary_unary(
+                '/boxes.Backend/GetTable',
+                request_serializer=boxes__pb2.TableName.SerializeToString,
+                response_deserializer=boxes__pb2.Table.FromString,
+                )
+        self.AddChart = channel.unary_unary(
+                '/boxes.Backend/AddChart',
+                request_serializer=boxes__pb2.ChartInfo.SerializeToString,
+                response_deserializer=boxes__pb2.Empty.FromString,
+                )
+        self.RemoveChart = channel.unary_unary(
+                '/boxes.Backend/RemoveChart',
+                request_serializer=boxes__pb2.ChartName.SerializeToString,
+                response_deserializer=boxes__pb2.Empty.FromString,
+                )
+        self.LoadTable = channel.unary_unary(
+                '/boxes.Backend/LoadTable',
+                request_serializer=boxes__pb2.TableName.SerializeToString,
+                response_deserializer=boxes__pb2.TableCollection.FromString,
+                )
+        self.UnloadTable = channel.unary_unary(
+                '/boxes.Backend/UnloadTable',
+                request_serializer=boxes__pb2.TableName.SerializeToString,
+                response_deserializer=boxes__pb2.TableCollection.FromString,
+                )
+
+
+class BackendServicer(object):
+    """---------------------------------------------------------------------------------------------------------------------
+
+    Backend to all GUI clients
+
+    """
+
+    def Initialise(self, request, context):
+        """Initialises the backend by loading charts/tables accoring to configuration
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetCharts(self, request, context):
+        """-- Procedures used to display charts ------------------------------------------------------------------------------
+
+        Get all charts (actual graph window) contaning all plots (each line/scat/bar-collection), excluding actual values
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetPlotValues(self, request, context):
+        """Get x/y values for a certain plot
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetLoadedTables(self, request, context):
+        """Get information on the loaded plots
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetAllTableNames(self, request, context):
+        """-- Procedures used to display tables ------------------------------------------------------------------------------
+
+        Get table schemas available in data engine
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetTableSchemas(self, request, context):
+        """Get table schemas from data engine
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetTable(self, request, context):
+        """Get table contents from loaded table or from one in data engine
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddChart(self, request, context):
+        """-- Procedures modifying the saved configuration, typically by the used defining or modifying plots/tables ---------
+
+        Add chart (and save this configuration in the yaml config)
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def RemoveChart(self, request, context):
+        """Remove chart (and save this configuration in the yaml config)
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def LoadTable(self, request, context):
+        """Load table from data engine (and save this configuration in the yaml config)
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UnloadTable(self, request, context):
+        """Unload table from backend (and save this configuration in the yaml config)
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_BackendServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+            'Initialise': grpc.unary_unary_rpc_method_handler(
+                    servicer.Initialise,
+                    request_deserializer=boxes__pb2.ConfigFile.FromString,
+                    response_serializer=boxes__pb2.Empty.SerializeToString,
+            ),
+            'GetCharts': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCharts,
+                    request_deserializer=boxes__pb2.Empty.FromString,
+                    response_serializer=boxes__pb2.ChartCollection.SerializeToString,
+            ),
+            'GetPlotValues': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetPlotValues,
+                    request_deserializer=boxes__pb2.PlotName.FromString,
+                    response_serializer=boxes__pb2.PlotValues.SerializeToString,
+            ),
+            'GetLoadedTables': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetLoadedTables,
+                    request_deserializer=boxes__pb2.Empty.FromString,
+                    response_serializer=boxes__pb2.TableCollection.SerializeToString,
+            ),
+            'GetAllTableNames': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetAllTableNames,
+                    request_deserializer=boxes__pb2.Empty.FromString,
+                    response_serializer=boxes__pb2.TableNames.SerializeToString,
+            ),
+            'GetTableSchemas': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetTableSchemas,
+                    request_deserializer=boxes__pb2.TableNames.FromString,
+                    response_serializer=boxes__pb2.TableSchemas.SerializeToString,
+            ),
+            'GetTable': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetTable,
+                    request_deserializer=boxes__pb2.TableName.FromString,
+                    response_serializer=boxes__pb2.Table.SerializeToString,
+            ),
+            'AddChart': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddChart,
+                    request_deserializer=boxes__pb2.ChartInfo.FromString,
+                    response_serializer=boxes__pb2.Empty.SerializeToString,
+            ),
+            'RemoveChart': grpc.unary_unary_rpc_method_handler(
+                    servicer.RemoveChart,
+                    request_deserializer=boxes__pb2.ChartName.FromString,
+                    response_serializer=boxes__pb2.Empty.SerializeToString,
+            ),
+            'LoadTable': grpc.unary_unary_rpc_method_handler(
+                    servicer.LoadTable,
+                    request_deserializer=boxes__pb2.TableName.FromString,
+                    response_serializer=boxes__pb2.TableCollection.SerializeToString,
+            ),
+            'UnloadTable': grpc.unary_unary_rpc_method_handler(
+                    servicer.UnloadTable,
+                    request_deserializer=boxes__pb2.TableName.FromString,
+                    response_serializer=boxes__pb2.TableCollection.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'boxes.Backend', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+
+
+ # This class is part of an EXPERIMENTAL API.
+class Backend(object):
+    """---------------------------------------------------------------------------------------------------------------------
+
+    Backend to all GUI clients
+
+    """
+
+    @staticmethod
+    def Initialise(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/boxes.Backend/Initialise',
+            boxes__pb2.ConfigFile.SerializeToString,
+            boxes__pb2.Empty.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetCharts(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/boxes.Backend/GetCharts',
+            boxes__pb2.Empty.SerializeToString,
+            boxes__pb2.ChartCollection.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetPlotValues(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/boxes.Backend/GetPlotValues',
+            boxes__pb2.PlotName.SerializeToString,
+            boxes__pb2.PlotValues.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetLoadedTables(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/boxes.Backend/GetLoadedTables',
+            boxes__pb2.Empty.SerializeToString,
+            boxes__pb2.TableCollection.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetAllTableNames(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/boxes.Backend/GetAllTableNames',
+            boxes__pb2.Empty.SerializeToString,
+            boxes__pb2.TableNames.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetTableSchemas(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/boxes.Backend/GetTableSchemas',
+            boxes__pb2.TableNames.SerializeToString,
+            boxes__pb2.TableSchemas.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetTable(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/boxes.Backend/GetTable',
+            boxes__pb2.TableName.SerializeToString,
+            boxes__pb2.Table.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def AddChart(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/boxes.Backend/AddChart',
+            boxes__pb2.ChartInfo.SerializeToString,
+            boxes__pb2.Empty.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def RemoveChart(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/boxes.Backend/RemoveChart',
+            boxes__pb2.ChartName.SerializeToString,
+            boxes__pb2.Empty.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def LoadTable(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/boxes.Backend/LoadTable',
+            boxes__pb2.TableName.SerializeToString,
+            boxes__pb2.TableCollection.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UnloadTable(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/boxes.Backend/UnloadTable',
+            boxes__pb2.TableName.SerializeToString,
+            boxes__pb2.TableCollection.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)

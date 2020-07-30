@@ -31,6 +31,38 @@ tables:
       - name: Avg
         type: REAL
 
+  - name: 100m by day
+    query: |
+            SELECT strftime("%Y-%m-%d", r.startTimeLocal), min(l.total_elapsed_time), avg(l.total_elapsed_time)
+            FROM swim_lengths l
+            LEFT JOIN all_activities r ON l.activityId = r.activityId
+            WHERE l.total_elapsed_time > 73 AND l.total_elapsed_time < 140 AND l.total_distance == 100
+            GROUP BY strftime("%Y-%m-%d", r.startTimeLocal)
+            ORDER BY r.startTimeLocal
+    columns:
+      - name: Date
+        type: DATETIME
+      - name: Min
+        type: REAL
+      - name: Avg
+        type: REAL
+
+  - name: 200m by day
+    query: |
+            SELECT strftime("%Y-%m-%d", r.startTimeLocal), min(l.total_elapsed_time), avg(l.total_elapsed_time)
+            FROM swim_lengths l
+            LEFT JOIN all_activities r ON l.activityId = r.activityId
+            WHERE l.total_elapsed_time > 150 AND l.total_elapsed_time < 260 AND l.total_distance == 200
+            GROUP BY strftime("%Y-%m-%d", r.startTimeLocal)
+            ORDER BY r.startTimeLocal
+    columns:
+      - name: Date
+        type: DATETIME
+      - name: Min
+        type: REAL
+      - name: Avg
+        type: REAL
+              
   - name: All 100m
     query: |
             SELECT strftime("%Y-%m-%d", r.startTimeLocal), l.total_elapsed_time
@@ -138,18 +170,28 @@ charts:
   - name:     Swim overview
     category: pool_swim
     plots:
-      - table:    100m by month
+      - table:    100m by day
         kind:     line
         x-column: Date
         y-column: Min
         color:    "4477DDAA"
         circles:  true
-      - table:    200m by month
+      - table:    200m by day
         kind:     line
         x-column: Date
         y-column: Min
         color:    "44DD77AA"
         circles:  true
+      - table:    100m by day
+        kind:     line
+        x-column: Date
+        y-column: Avg
+        color:    "7799DDAA"
+      - table:    200m by day
+        kind:     line
+        x-column: Date
+        y-column: Avg
+        color:    "77DD99AA"
       - table:    Swim sessions by month
         kind:     bar
         x-column: Date

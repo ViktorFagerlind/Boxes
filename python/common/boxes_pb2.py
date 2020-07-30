@@ -18,8 +18,8 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='boxes.proto',
   package='boxes',
   syntax='proto3',
-  serialized_options=None,
-  serialized_pb=b'\n\x0b\x62oxes.proto\x12\x05\x62oxes\"\x07\n\x05\x45mpty\"\x19\n\tTableName\x12\x0c\n\x04name\x18\x01 \x01(\t\"!\n\nTableNames\x12\x13\n\x0btable_names\x18\x01 \x03(\t\"9\n\x0cTableSchemas\x12)\n\rtable_schemas\x18\x01 \x03(\x0b\x32\x12.boxes.TableSchema\":\n\x0bTableSchema\x12+\n\x0e\x63olumn_schemas\x18\x01 \x03(\x0b\x32\x13.boxes.ColumnSchema\"=\n\x0c\x43olumnSchema\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x1f\n\x04type\x18\x02 \x01(\x0e\x32\x11.boxes.ColumnType\"-\n\x05Table\x12$\n\x07\x63olumns\x18\x01 \x03(\x0b\x32\x13.boxes.ColumnValues\"6\n\x0c\x43olumnValues\x12\x12\n\nstr_values\x18\x01 \x03(\t\x12\x12\n\nnum_values\x18\x02 \x03(\x01\"\x1c\n\nDoubleList\x12\x0e\n\x06values\x18\x01 \x03(\x01\"\x1c\n\x0b\x44oubleValue\x12\r\n\x05value\x18\x01 \x01(\x01\";\n\x05Query\x12\t\n\x01q\x18\x01 \x01(\t\x12\'\n\x0c\x63olumn_types\x18\x02 \x03(\x0e\x32\x11.boxes.ColumnType*G\n\nColumnType\x12\n\n\x06UNUSED\x10\x00\x12\x0b\n\x07INTEGER\x10\x01\x12\x08\n\x04REAL\x10\x02\x12\x08\n\x04TEXT\x10\x03\x12\x0c\n\x08\x44\x41TETIME\x10\x04\x32\xaa\x01\n\tConnector\x12\x32\n\rGetTableNames\x12\x0c.boxes.Empty\x1a\x11.boxes.TableNames\"\x00\x12;\n\x0fGetTableSchemas\x12\x11.boxes.TableNames\x1a\x13.boxes.TableSchemas\"\x00\x12,\n\x08GetTable\x12\x10.boxes.TableName\x1a\x0c.boxes.Table\"\x00\x32\xd3\x01\n\nAlgorithms\x12.\n\x03Max\x12\x11.boxes.DoubleList\x1a\x12.boxes.DoubleValue\"\x00\x12.\n\x03Min\x12\x11.boxes.DoubleList\x1a\x12.boxes.DoubleValue\"\x00\x12\x32\n\x07\x41verage\x12\x11.boxes.DoubleList\x1a\x12.boxes.DoubleValue\"\x00\x12\x31\n\x06Median\x12\x11.boxes.DoubleList\x1a\x12.boxes.DoubleValue\"\x00\x32:\n\nDataEngine\x12,\n\x0c\x45xecuteQuery\x12\x0c.boxes.Query\x1a\x0c.boxes.Table\"\x00\x62\x06proto3'
+  serialized_options=b'Z\024boxes/backend/protos',
+  serialized_pb=b'\n\x0b\x62oxes.proto\x12\x05\x62oxes\"\x07\n\x05\x45mpty\"\x19\n\tTableName\x12\x0c\n\x04name\x18\x01 \x01(\t\"!\n\nTableNames\x12\x13\n\x0btable_names\x18\x01 \x03(\t\"9\n\x0cTableSchemas\x12)\n\rtable_schemas\x18\x01 \x03(\x0b\x32\x12.boxes.TableSchema\":\n\x0bTableSchema\x12+\n\x0e\x63olumn_schemas\x18\x01 \x03(\x0b\x32\x13.boxes.ColumnSchema\"=\n\x0c\x43olumnSchema\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x1f\n\x04type\x18\x02 \x01(\x0e\x32\x11.boxes.ColumnType\"-\n\x05Table\x12$\n\x07\x63olumns\x18\x01 \x03(\x0b\x32\x13.boxes.ColumnValues\"6\n\x0c\x43olumnValues\x12\x12\n\nstr_values\x18\x01 \x03(\t\x12\x12\n\nnum_values\x18\x02 \x03(\x01\"\x1c\n\nDoubleList\x12\x0e\n\x06values\x18\x01 \x03(\x01\"\x1c\n\x0b\x44oubleValue\x12\r\n\x05value\x18\x01 \x01(\x01\";\n\x05Query\x12\t\n\x01q\x18\x01 \x01(\t\x12\'\n\x0c\x63olumn_types\x18\x02 \x03(\x0e\x32\x11.boxes.ColumnType\"\x1e\n\nConfigFile\x12\x10\n\x08yamlPath\x18\x01 \x01(\t\"/\n\x0f\x43hartCollection\x12\x1c\n\x06\x63harts\x18\x01 \x03(\x0b\x32\x0c.boxes.Chart\"C\n\x05\x43hart\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x10\n\x08\x63\x61tegory\x18\x02 \x01(\t\x12\x1a\n\x05plots\x18\x03 \x03(\x0b\x32\x0b.boxes.Plot\"R\n\x04Plot\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04kind\x18\x02 \x01(\t\x12\r\n\x05\x63olor\x18\x03 \x01(\r\x12\x0e\n\x06\x66illed\x18\x04 \x01(\x08\x12\x0f\n\x07\x63ircles\x18\x05 \x01(\x08\"b\n\x08PlotInfo\x12\x11\n\ttableName\x18\x01 \x01(\t\x12\x13\n\x0bxColumnName\x18\x02 \x01(\t\x12\x13\n\x0byColumnName\x18\x03 \x01(\t\x12\x19\n\x04plot\x18\x04 \x01(\x0b\x32\x0b.boxes.Plot\"L\n\tChartInfo\x12\x1b\n\x05\x63hart\x18\x01 \x01(\x0b\x32\x0c.boxes.Chart\x12\"\n\tplotInfos\x18\x02 \x03(\x0b\x32\x0f.boxes.PlotInfo\"\x17\n\x08PlotName\x12\x0b\n\x03str\x18\x01 \x01(\t\"\x18\n\tChartName\x12\x0b\n\x03str\x18\x01 \x01(\t\".\n\nPlotValues\x12\x0f\n\x07xValues\x18\x01 \x03(\t\x12\x0f\n\x07yValues\x18\x02 \x03(\x01\"2\n\x0fTableCollection\x12\x1f\n\x05table\x18\x01 \x03(\x0b\x32\x10.boxes.TableInfo\"=\n\tTableInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\"\n\x06schema\x18\x02 \x01(\x0b\x32\x12.boxes.TableSchema*G\n\nColumnType\x12\n\n\x06UNUSED\x10\x00\x12\x0b\n\x07INTEGER\x10\x01\x12\x08\n\x04REAL\x10\x02\x12\x08\n\x04TEXT\x10\x03\x12\x0c\n\x08\x44\x41TETIME\x10\x04\x32\xaa\x01\n\tConnector\x12\x32\n\rGetTableNames\x12\x0c.boxes.Empty\x1a\x11.boxes.TableNames\"\x00\x12;\n\x0fGetTableSchemas\x12\x11.boxes.TableNames\x1a\x13.boxes.TableSchemas\"\x00\x12,\n\x08GetTable\x12\x10.boxes.TableName\x1a\x0c.boxes.Table\"\x00\x32\xd3\x01\n\nAlgorithms\x12.\n\x03Max\x12\x11.boxes.DoubleList\x1a\x12.boxes.DoubleValue\"\x00\x12.\n\x03Min\x12\x11.boxes.DoubleList\x1a\x12.boxes.DoubleValue\"\x00\x12\x32\n\x07\x41verage\x12\x11.boxes.DoubleList\x1a\x12.boxes.DoubleValue\"\x00\x12\x31\n\x06Median\x12\x11.boxes.DoubleList\x1a\x12.boxes.DoubleValue\"\x00\x32:\n\nDataEngine\x12,\n\x0c\x45xecuteQuery\x12\x0c.boxes.Query\x1a\x0c.boxes.Table\"\x00\x32\xd6\x04\n\x07\x42\x61\x63kend\x12/\n\nInitialise\x12\x11.boxes.ConfigFile\x1a\x0c.boxes.Empty\"\x00\x12\x33\n\tGetCharts\x12\x0c.boxes.Empty\x1a\x16.boxes.ChartCollection\"\x00\x12\x35\n\rGetPlotValues\x12\x0f.boxes.PlotName\x1a\x11.boxes.PlotValues\"\x00\x12\x39\n\x0fGetLoadedTables\x12\x0c.boxes.Empty\x1a\x16.boxes.TableCollection\"\x00\x12\x35\n\x10GetAllTableNames\x12\x0c.boxes.Empty\x1a\x11.boxes.TableNames\"\x00\x12;\n\x0fGetTableSchemas\x12\x11.boxes.TableNames\x1a\x13.boxes.TableSchemas\"\x00\x12,\n\x08GetTable\x12\x10.boxes.TableName\x1a\x0c.boxes.Table\"\x00\x12,\n\x08\x41\x64\x64\x43hart\x12\x10.boxes.ChartInfo\x1a\x0c.boxes.Empty\"\x00\x12/\n\x0bRemoveChart\x12\x10.boxes.ChartName\x1a\x0c.boxes.Empty\"\x00\x12\x37\n\tLoadTable\x12\x10.boxes.TableName\x1a\x16.boxes.TableCollection\"\x00\x12\x39\n\x0bUnloadTable\x12\x10.boxes.TableName\x1a\x16.boxes.TableCollection\"\x00\x42\x16Z\x14\x62oxes/backend/protosb\x06proto3'
 )
 
 _COLUMNTYPE = _descriptor.EnumDescriptor(
@@ -51,8 +51,8 @@ _COLUMNTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=499,
-  serialized_end=570,
+  serialized_start=1125,
+  serialized_end=1196,
 )
 _sym_db.RegisterEnumDescriptor(_COLUMNTYPE)
 
@@ -419,11 +419,443 @@ _QUERY = _descriptor.Descriptor(
   serialized_end=497,
 )
 
+
+_CONFIGFILE = _descriptor.Descriptor(
+  name='ConfigFile',
+  full_name='boxes.ConfigFile',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='yamlPath', full_name='boxes.ConfigFile.yamlPath', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=499,
+  serialized_end=529,
+)
+
+
+_CHARTCOLLECTION = _descriptor.Descriptor(
+  name='ChartCollection',
+  full_name='boxes.ChartCollection',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='charts', full_name='boxes.ChartCollection.charts', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=531,
+  serialized_end=578,
+)
+
+
+_CHART = _descriptor.Descriptor(
+  name='Chart',
+  full_name='boxes.Chart',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='boxes.Chart.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='category', full_name='boxes.Chart.category', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='plots', full_name='boxes.Chart.plots', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=580,
+  serialized_end=647,
+)
+
+
+_PLOT = _descriptor.Descriptor(
+  name='Plot',
+  full_name='boxes.Plot',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='boxes.Plot.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='kind', full_name='boxes.Plot.kind', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='color', full_name='boxes.Plot.color', index=2,
+      number=3, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='filled', full_name='boxes.Plot.filled', index=3,
+      number=4, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='circles', full_name='boxes.Plot.circles', index=4,
+      number=5, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=649,
+  serialized_end=731,
+)
+
+
+_PLOTINFO = _descriptor.Descriptor(
+  name='PlotInfo',
+  full_name='boxes.PlotInfo',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='tableName', full_name='boxes.PlotInfo.tableName', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='xColumnName', full_name='boxes.PlotInfo.xColumnName', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='yColumnName', full_name='boxes.PlotInfo.yColumnName', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='plot', full_name='boxes.PlotInfo.plot', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=733,
+  serialized_end=831,
+)
+
+
+_CHARTINFO = _descriptor.Descriptor(
+  name='ChartInfo',
+  full_name='boxes.ChartInfo',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='chart', full_name='boxes.ChartInfo.chart', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='plotInfos', full_name='boxes.ChartInfo.plotInfos', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=833,
+  serialized_end=909,
+)
+
+
+_PLOTNAME = _descriptor.Descriptor(
+  name='PlotName',
+  full_name='boxes.PlotName',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='str', full_name='boxes.PlotName.str', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=911,
+  serialized_end=934,
+)
+
+
+_CHARTNAME = _descriptor.Descriptor(
+  name='ChartName',
+  full_name='boxes.ChartName',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='str', full_name='boxes.ChartName.str', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=936,
+  serialized_end=960,
+)
+
+
+_PLOTVALUES = _descriptor.Descriptor(
+  name='PlotValues',
+  full_name='boxes.PlotValues',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='xValues', full_name='boxes.PlotValues.xValues', index=0,
+      number=1, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='yValues', full_name='boxes.PlotValues.yValues', index=1,
+      number=2, type=1, cpp_type=5, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=962,
+  serialized_end=1008,
+)
+
+
+_TABLECOLLECTION = _descriptor.Descriptor(
+  name='TableCollection',
+  full_name='boxes.TableCollection',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='table', full_name='boxes.TableCollection.table', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1010,
+  serialized_end=1060,
+)
+
+
+_TABLEINFO = _descriptor.Descriptor(
+  name='TableInfo',
+  full_name='boxes.TableInfo',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='boxes.TableInfo.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='schema', full_name='boxes.TableInfo.schema', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1062,
+  serialized_end=1123,
+)
+
 _TABLESCHEMAS.fields_by_name['table_schemas'].message_type = _TABLESCHEMA
 _TABLESCHEMA.fields_by_name['column_schemas'].message_type = _COLUMNSCHEMA
 _COLUMNSCHEMA.fields_by_name['type'].enum_type = _COLUMNTYPE
 _TABLE.fields_by_name['columns'].message_type = _COLUMNVALUES
 _QUERY.fields_by_name['column_types'].enum_type = _COLUMNTYPE
+_CHARTCOLLECTION.fields_by_name['charts'].message_type = _CHART
+_CHART.fields_by_name['plots'].message_type = _PLOT
+_PLOTINFO.fields_by_name['plot'].message_type = _PLOT
+_CHARTINFO.fields_by_name['chart'].message_type = _CHART
+_CHARTINFO.fields_by_name['plotInfos'].message_type = _PLOTINFO
+_TABLECOLLECTION.fields_by_name['table'].message_type = _TABLEINFO
+_TABLEINFO.fields_by_name['schema'].message_type = _TABLESCHEMA
 DESCRIPTOR.message_types_by_name['Empty'] = _EMPTY
 DESCRIPTOR.message_types_by_name['TableName'] = _TABLENAME
 DESCRIPTOR.message_types_by_name['TableNames'] = _TABLENAMES
@@ -435,6 +867,17 @@ DESCRIPTOR.message_types_by_name['ColumnValues'] = _COLUMNVALUES
 DESCRIPTOR.message_types_by_name['DoubleList'] = _DOUBLELIST
 DESCRIPTOR.message_types_by_name['DoubleValue'] = _DOUBLEVALUE
 DESCRIPTOR.message_types_by_name['Query'] = _QUERY
+DESCRIPTOR.message_types_by_name['ConfigFile'] = _CONFIGFILE
+DESCRIPTOR.message_types_by_name['ChartCollection'] = _CHARTCOLLECTION
+DESCRIPTOR.message_types_by_name['Chart'] = _CHART
+DESCRIPTOR.message_types_by_name['Plot'] = _PLOT
+DESCRIPTOR.message_types_by_name['PlotInfo'] = _PLOTINFO
+DESCRIPTOR.message_types_by_name['ChartInfo'] = _CHARTINFO
+DESCRIPTOR.message_types_by_name['PlotName'] = _PLOTNAME
+DESCRIPTOR.message_types_by_name['ChartName'] = _CHARTNAME
+DESCRIPTOR.message_types_by_name['PlotValues'] = _PLOTVALUES
+DESCRIPTOR.message_types_by_name['TableCollection'] = _TABLECOLLECTION
+DESCRIPTOR.message_types_by_name['TableInfo'] = _TABLEINFO
 DESCRIPTOR.enum_types_by_name['ColumnType'] = _COLUMNTYPE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -515,7 +958,85 @@ Query = _reflection.GeneratedProtocolMessageType('Query', (_message.Message,), {
   })
 _sym_db.RegisterMessage(Query)
 
+ConfigFile = _reflection.GeneratedProtocolMessageType('ConfigFile', (_message.Message,), {
+  'DESCRIPTOR' : _CONFIGFILE,
+  '__module__' : 'boxes_pb2'
+  # @@protoc_insertion_point(class_scope:boxes.ConfigFile)
+  })
+_sym_db.RegisterMessage(ConfigFile)
 
+ChartCollection = _reflection.GeneratedProtocolMessageType('ChartCollection', (_message.Message,), {
+  'DESCRIPTOR' : _CHARTCOLLECTION,
+  '__module__' : 'boxes_pb2'
+  # @@protoc_insertion_point(class_scope:boxes.ChartCollection)
+  })
+_sym_db.RegisterMessage(ChartCollection)
+
+Chart = _reflection.GeneratedProtocolMessageType('Chart', (_message.Message,), {
+  'DESCRIPTOR' : _CHART,
+  '__module__' : 'boxes_pb2'
+  # @@protoc_insertion_point(class_scope:boxes.Chart)
+  })
+_sym_db.RegisterMessage(Chart)
+
+Plot = _reflection.GeneratedProtocolMessageType('Plot', (_message.Message,), {
+  'DESCRIPTOR' : _PLOT,
+  '__module__' : 'boxes_pb2'
+  # @@protoc_insertion_point(class_scope:boxes.Plot)
+  })
+_sym_db.RegisterMessage(Plot)
+
+PlotInfo = _reflection.GeneratedProtocolMessageType('PlotInfo', (_message.Message,), {
+  'DESCRIPTOR' : _PLOTINFO,
+  '__module__' : 'boxes_pb2'
+  # @@protoc_insertion_point(class_scope:boxes.PlotInfo)
+  })
+_sym_db.RegisterMessage(PlotInfo)
+
+ChartInfo = _reflection.GeneratedProtocolMessageType('ChartInfo', (_message.Message,), {
+  'DESCRIPTOR' : _CHARTINFO,
+  '__module__' : 'boxes_pb2'
+  # @@protoc_insertion_point(class_scope:boxes.ChartInfo)
+  })
+_sym_db.RegisterMessage(ChartInfo)
+
+PlotName = _reflection.GeneratedProtocolMessageType('PlotName', (_message.Message,), {
+  'DESCRIPTOR' : _PLOTNAME,
+  '__module__' : 'boxes_pb2'
+  # @@protoc_insertion_point(class_scope:boxes.PlotName)
+  })
+_sym_db.RegisterMessage(PlotName)
+
+ChartName = _reflection.GeneratedProtocolMessageType('ChartName', (_message.Message,), {
+  'DESCRIPTOR' : _CHARTNAME,
+  '__module__' : 'boxes_pb2'
+  # @@protoc_insertion_point(class_scope:boxes.ChartName)
+  })
+_sym_db.RegisterMessage(ChartName)
+
+PlotValues = _reflection.GeneratedProtocolMessageType('PlotValues', (_message.Message,), {
+  'DESCRIPTOR' : _PLOTVALUES,
+  '__module__' : 'boxes_pb2'
+  # @@protoc_insertion_point(class_scope:boxes.PlotValues)
+  })
+_sym_db.RegisterMessage(PlotValues)
+
+TableCollection = _reflection.GeneratedProtocolMessageType('TableCollection', (_message.Message,), {
+  'DESCRIPTOR' : _TABLECOLLECTION,
+  '__module__' : 'boxes_pb2'
+  # @@protoc_insertion_point(class_scope:boxes.TableCollection)
+  })
+_sym_db.RegisterMessage(TableCollection)
+
+TableInfo = _reflection.GeneratedProtocolMessageType('TableInfo', (_message.Message,), {
+  'DESCRIPTOR' : _TABLEINFO,
+  '__module__' : 'boxes_pb2'
+  # @@protoc_insertion_point(class_scope:boxes.TableInfo)
+  })
+_sym_db.RegisterMessage(TableInfo)
+
+
+DESCRIPTOR._options = None
 
 _CONNECTOR = _descriptor.ServiceDescriptor(
   name='Connector',
@@ -523,8 +1044,8 @@ _CONNECTOR = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=573,
-  serialized_end=743,
+  serialized_start=1199,
+  serialized_end=1369,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetTableNames',
@@ -565,8 +1086,8 @@ _ALGORITHMS = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=1,
   serialized_options=None,
-  serialized_start=746,
-  serialized_end=957,
+  serialized_start=1372,
+  serialized_end=1583,
   methods=[
   _descriptor.MethodDescriptor(
     name='Max',
@@ -616,8 +1137,8 @@ _DATAENGINE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=2,
   serialized_options=None,
-  serialized_start=959,
-  serialized_end=1017,
+  serialized_start=1585,
+  serialized_end=1643,
   methods=[
   _descriptor.MethodDescriptor(
     name='ExecuteQuery',
@@ -632,5 +1153,119 @@ _DATAENGINE = _descriptor.ServiceDescriptor(
 _sym_db.RegisterServiceDescriptor(_DATAENGINE)
 
 DESCRIPTOR.services_by_name['DataEngine'] = _DATAENGINE
+
+
+_BACKEND = _descriptor.ServiceDescriptor(
+  name='Backend',
+  full_name='boxes.Backend',
+  file=DESCRIPTOR,
+  index=3,
+  serialized_options=None,
+  serialized_start=1646,
+  serialized_end=2244,
+  methods=[
+  _descriptor.MethodDescriptor(
+    name='Initialise',
+    full_name='boxes.Backend.Initialise',
+    index=0,
+    containing_service=None,
+    input_type=_CONFIGFILE,
+    output_type=_EMPTY,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetCharts',
+    full_name='boxes.Backend.GetCharts',
+    index=1,
+    containing_service=None,
+    input_type=_EMPTY,
+    output_type=_CHARTCOLLECTION,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetPlotValues',
+    full_name='boxes.Backend.GetPlotValues',
+    index=2,
+    containing_service=None,
+    input_type=_PLOTNAME,
+    output_type=_PLOTVALUES,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetLoadedTables',
+    full_name='boxes.Backend.GetLoadedTables',
+    index=3,
+    containing_service=None,
+    input_type=_EMPTY,
+    output_type=_TABLECOLLECTION,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetAllTableNames',
+    full_name='boxes.Backend.GetAllTableNames',
+    index=4,
+    containing_service=None,
+    input_type=_EMPTY,
+    output_type=_TABLENAMES,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetTableSchemas',
+    full_name='boxes.Backend.GetTableSchemas',
+    index=5,
+    containing_service=None,
+    input_type=_TABLENAMES,
+    output_type=_TABLESCHEMAS,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetTable',
+    full_name='boxes.Backend.GetTable',
+    index=6,
+    containing_service=None,
+    input_type=_TABLENAME,
+    output_type=_TABLE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='AddChart',
+    full_name='boxes.Backend.AddChart',
+    index=7,
+    containing_service=None,
+    input_type=_CHARTINFO,
+    output_type=_EMPTY,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='RemoveChart',
+    full_name='boxes.Backend.RemoveChart',
+    index=8,
+    containing_service=None,
+    input_type=_CHARTNAME,
+    output_type=_EMPTY,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='LoadTable',
+    full_name='boxes.Backend.LoadTable',
+    index=9,
+    containing_service=None,
+    input_type=_TABLENAME,
+    output_type=_TABLECOLLECTION,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='UnloadTable',
+    full_name='boxes.Backend.UnloadTable',
+    index=10,
+    containing_service=None,
+    input_type=_TABLENAME,
+    output_type=_TABLECOLLECTION,
+    serialized_options=None,
+  ),
+])
+_sym_db.RegisterServiceDescriptor(_BACKEND)
+
+DESCRIPTOR.services_by_name['Backend'] = _BACKEND
 
 # @@protoc_insertion_point(module_scope)
