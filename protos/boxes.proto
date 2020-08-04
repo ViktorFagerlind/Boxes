@@ -109,12 +109,12 @@ service Backend {
   // Get x/y values for a certain plot
   rpc GetPlotValues (PlotName)      returns (PlotValues) {}
 
-  // Get information on the loaded plots
-  rpc GetLoadedTables (Empty)       returns (TableCollection) {}
-
   // -- Procedures used to display tables ------------------------------------------------------------------------------
 
-  // Get table schemas available in data engine
+  // Get information on the loaded tables
+  rpc GetLoadedTables (Empty)       returns (TableCollection) {}
+
+  // Get table names available in data engine
   rpc GetAllTableNames (Empty)      returns (TableNames) {}
 
   // Get table schemas from data engine

@@ -10,5 +10,5 @@ def setup_connection():
     return boxes_pb2_grpc.BackendStub(channel)
 
 connection = setup_connection()
-reply = connection.Initialise (boxes_pb2.ConfigFile(yamlPath='/test/what.yaml'))
+reply = connection.Initialise (boxes_pb2.ConfigFile(yamlPath='../../input/tables_and_charts.yaml'))
 print (reply)
