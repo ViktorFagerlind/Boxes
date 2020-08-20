@@ -38,11 +38,11 @@ class DataEngineProxy
     try? group.syncShutdownGracefully()
   }
 
-  func executeQuery(query: String, columnTypes: [Boxes_ColumnType]) -> Boxes_Table
+  func executeQuery(query: String, columnTypes: [Boxes_ColumnType]) -> Boxes_Table?
   {
     let query: Boxes_Query = .with {$0.q = query; $0.columnTypes=columnTypes}
     let call = client.executeQuery(query)
-    let table: Boxes_Table
+    let table: Boxes_Table?
     
     do
     {
@@ -52,7 +52,7 @@ class DataEngineProxy
     catch
     {
       print("RPC failed: \(error)")
-      table = Boxes_Table()
+      table = nil
     }
     
     return table

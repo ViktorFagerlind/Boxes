@@ -135,7 +135,7 @@ service Backend {
   rpc LoadTable (TableName)         returns (TableCollection) {}
 
   // Unload table from backend (and save this configuration in the yaml config)
-  rpc UnloadTable (TableName)         returns (TableCollection) {}
+  rpc UnloadTable (TableName)       returns (TableCollection) {}
 }
 
 

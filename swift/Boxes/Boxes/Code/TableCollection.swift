@@ -115,7 +115,7 @@ class Table: Identifiable //ObservableObject
     
     print("Loading: \(query)")
 
-    contents = DataEngineProxy.singleton.executeQuery(query: query, columnTypes: columnTypes)
+    contents = DataEngineProxy.singleton.executeQuery(query: query, columnTypes: columnTypes)!
     
     createRows()
   }
